@@ -1,6 +1,7 @@
 package edu.eci.pdsw.samples.entities;
 
 import java.sql.Date;
+ 
 
 /**
  *
@@ -14,7 +15,7 @@ public class Usuario {
     private int codigo;
     private String estado;
     private Rol rol;
-    private Area area;
+    Wpivate Area area;
 
     public Usuario() {
     }
