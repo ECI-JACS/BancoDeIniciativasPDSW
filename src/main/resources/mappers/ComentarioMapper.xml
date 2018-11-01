@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                     
+<mapper namespace="edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.ComentariosMapper">
+
+    
+    <select id='comentarios' parameterType='map' resultMap='ComentarioResult'>
+        select c.id,c.comentario,c.puntaje,c.fecha, s.anyo_nacimiento as sus_anyo_nacimiento, s.nombre as sus_nombre, s.total_suscripciones as sus_total_sucripciones from SUS_COMENTARIOS as c, SUS_SUSCRIPTORES as s where c.CLIENTES_id = s.id and puntaje &gt; #{a} and puntaje &lt;= #{b}
+    </select>
+    
+    
+    <resultMap type='Comentario' id='ComentarioResult'>
+        <id property='id' column='id'/>        
+        <result property='fecha' column='fecha'/>
+        <result property='puntaje' column='puntaje'/>
+        <result property='comentario' column='comentario'/>
+        <association property='suscriptor' resultMap='SuscriptorResult' columnPrefix='sus_'></association>
+    </resultMap>
+    
+    <resultMap type='Suscriptor' id='SuscriptorResult'>
+        <id property='id' column='id'/>
+        <result property='nombre' column='nombre'/>
+        <result property='anoNacimiento' column='anyo_nacimiento'/>        
+    </resultMap>
+  	
+    	
+
+  	
+</mapper>
