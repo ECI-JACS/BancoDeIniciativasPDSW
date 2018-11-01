@@ -8,6 +8,8 @@ import java.sql.Date;
  */
 public class Usuario {
 
+    
+
     private String nombres;
     private String apellidos;
     private String correo;
@@ -85,9 +87,8 @@ public class Usuario {
         this.area = area;
     }
 
-    @Override
+   @Override
     public String toString() {
-        return "Usuario{" + "nombres=" + nombres + ", apellidos=" + apellidos + ", correo=" + correo + ", codigo=" + codigo + ", estado=" + estado + ", rol=" + rol ", area=" + area + '}';
+        return "Usuario{" + "nombres=" + nombres + ", apellidos=" + apellidos + ", correo=" + correo + ", codigo=" + codigo + ", estado=" + estado + ", rol=" + rol + ", area=" + area + '}';
     }
-
 }
