@@ -1,137 +1,108 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-11-01 15:50:35.266
+-- Last modification date: 2018-11-02 17:52:37.328
 
 -- tables
 -- Table: Area
 CREATE TABLE Area (
     id int  NOT NULL,
-    nombre varchar(20)  NOT NULL,
-    CONSTRAINT Area_ak_nombre UNIQUE (nombre) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    name text  NOT NULL,
+    CONSTRAINT Area_uk_name UNIQUE (name),
     CONSTRAINT Area_pk PRIMARY KEY (id)
 );
 
--- Table: Estado
-CREATE TABLE Estado (
+-- Table: Comment
+CREATE TABLE Comment (
     id int  NOT NULL,
-    descripcion varchar(30)  NOT NULL,
-    CONSTRAINT Estado_ak_descripcion UNIQUE (descripcion) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT Estado_pk PRIMARY KEY (id)
+    description text  NOT NULL,
+    User_email text  NOT NULL,
+    Iniciative_id int  NOT NULL,
+    CONSTRAINT Comment_pk PRIMARY KEY (id,User_email,Iniciative_id)
 );
 
--- Table: Iniciativa
-CREATE TABLE Iniciativa (
+-- Table: Iniciative
+CREATE TABLE Iniciative (
     id int  NOT NULL,
-    Testado int  NOT NULL,
-    descripcion varchar(150)  NOT NULL,
-    detalle varchar(500)  NOT NULL,
-    fechaCreacion date  NOT NULL,
-    Usuario_correo varchar(50)  NOT NULL,
-    Estado_id int  NOT NULL,
-    CONSTRAINT Iniciativa_pk PRIMARY KEY (id)
+    description text  NOT NULL,
+    detail text  NOT NULL,
+    creationDate date  NOT NULL,
+    modificationDate date  NOT NULL,
+    keyWords text[]  NOT NULL,
+    User_email text  NOT NULL,
+    IniciativeStatus_id int  NOT NULL,
+    CONSTRAINT Iniciative_pk PRIMARY KEY (id)
 );
 
--- Table: Interes
-CREATE TABLE Interes (
-    Iniciativa_id int  NOT NULL,
-    Usuario_correo varchar(50)  NOT NULL,
-    comentario varchar(300)  NOT NULL,
-    fecha date  NOT NULL,
-    Tnivel int  NOT NULL,
-    CONSTRAINT Interes_pk PRIMARY KEY (Iniciativa_id,Usuario_correo)
-);
-
--- Table: Rol
-CREATE TABLE Rol (
+-- Table: IniciativeStatus
+CREATE TABLE IniciativeStatus (
     id int  NOT NULL,
-    rol varchar(20)  NOT NULL,
-    CONSTRAINT Rol_ak_rol UNIQUE (rol) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT Rol_pk PRIMARY KEY (id)
+    description text  NOT NULL,
+    CONSTRAINT Estado_uk_description UNIQUE (description),
+    CONSTRAINT IniciativeStatus_pk PRIMARY KEY (id)
 );
 
--- Table: Usuario
-CREATE TABLE Usuario (
-    nombres varchar(30)  NOT NULL,
-    apellidos varchar(30)  NOT NULL,
-    correo varchar(50)  NOT NULL,
-    codigo int  NOT NULL,
-    fechaNacimiento date  NOT NULL,
-    estado varchar(10)  NOT NULL,
-    Rol_id int  NOT NULL,
+-- Table: User
+CREATE TABLE "User" (
+    name text  NOT NULL,
+    lastname text  NOT NULL,
+    email text  NOT NULL,
+    code int  NOT NULL,
+    Trole text  NOT NULL,
+    Tstatus text  NOT NULL,
     Area_id int  NOT NULL,
-    CONSTRAINT Usuario_ak_codigo UNIQUE (codigo) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT Usuario_pk PRIMARY KEY (correo)
+    CONSTRAINT Usuario_uk_code UNIQUE (code),
+    CONSTRAINT User_pk PRIMARY KEY (email)
 );
 
--- Table: Voto
-CREATE TABLE Voto (
-    Usuario_correo varchar(50)  NOT NULL,
-    Iniciativa_id int  NOT NULL,
-    CONSTRAINT Voto_pk PRIMARY KEY (Usuario_correo,Iniciativa_id)
+-- Table: Vote
+CREATE TABLE Vote (
+    User_email text  NOT NULL,
+    Iniciative_id int  NOT NULL,
+    voteDate date  NOT NULL,
+    Tafinity int  NOT NULL,
+    CONSTRAINT Vote_pk PRIMARY KEY (User_email,Iniciative_id)
 );
 
 -- foreign keys
--- Reference: Comentario_Iniciativa (table: Interes)
-ALTER TABLE Interes ADD CONSTRAINT Comentario_Iniciativa
-    FOREIGN KEY (Iniciativa_id)
-    REFERENCES Iniciativa (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
+-- Reference: Comment_Iniciative (table: Comment)
+ALTER TABLE Comment ADD CONSTRAINT Comment_Iniciative
+    FOREIGN KEY (Iniciative_id)
+    REFERENCES Iniciative (id)
 ;
 
--- Reference: Comentario_Usuario (table: Interes)
-ALTER TABLE Interes ADD CONSTRAINT Comentario_Usuario
-    FOREIGN KEY (Usuario_correo)
-    REFERENCES Usuario (correo)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
+-- Reference: Comment_User (table: Comment)
+ALTER TABLE Comment ADD CONSTRAINT Comment_User
+    FOREIGN KEY (User_email)
+    REFERENCES "User" (email)
 ;
 
--- Reference: Iniciativa_Estado (table: Iniciativa)
-ALTER TABLE Iniciativa ADD CONSTRAINT Iniciativa_Estado
-    FOREIGN KEY (Estado_id)
-    REFERENCES Estado (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
+-- Reference: Iniciative_IniciativeStatus (table: Iniciative)
+ALTER TABLE Iniciative ADD CONSTRAINT Iniciative_IniciativeStatus
+    FOREIGN KEY (IniciativeStatus_id)
+    REFERENCES IniciativeStatus (id)
 ;
 
--- Reference: Iniciativa_Usuario (table: Iniciativa)
-ALTER TABLE Iniciativa ADD CONSTRAINT Iniciativa_Usuario
-    FOREIGN KEY (Usuario_correo)
-    REFERENCES Usuario (correo)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
+-- Reference: Iniciative_User (table: Iniciative)
+ALTER TABLE Iniciative ADD CONSTRAINT Iniciative_User
+    FOREIGN KEY (User_email)
+    REFERENCES "User" (email)
 ;
 
--- Reference: Usuario_Area (table: Usuario)
-ALTER TABLE Usuario ADD CONSTRAINT Usuario_Area
+-- Reference: User_Area (table: User)
+ALTER TABLE "User" ADD CONSTRAINT User_Area
     FOREIGN KEY (Area_id)
-    REFERENCES Area (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
+    REFERENCES Area (id)
 ;
 
--- Reference: Usuario_Rol (table: Usuario)
-ALTER TABLE Usuario ADD CONSTRAINT Usuario_Rol
-    FOREIGN KEY (Rol_id)
-    REFERENCES Rol (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
+-- Reference: Vote_Iniciative (table: Vote)
+ALTER TABLE Vote ADD CONSTRAINT Vote_Iniciative
+    FOREIGN KEY (Iniciative_id)
+    REFERENCES Iniciative (id)
 ;
 
--- Reference: Voto_Iniciativa (table: Voto)
-ALTER TABLE Voto ADD CONSTRAINT Voto_Iniciativa
-    FOREIGN KEY (Iniciativa_id)
-    REFERENCES Iniciativa (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
--- Reference: Voto_Usuario (table: Voto)
-ALTER TABLE Voto ADD CONSTRAINT Voto_Usuario
-    FOREIGN KEY (Usuario_correo)
-    REFERENCES Usuario (correo)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
+-- Reference: Vote_User (table: Vote)
+ALTER TABLE Vote ADD CONSTRAINT Vote_User
+    FOREIGN KEY (User_email)
+    REFERENCES "User" (email)
 ;
 
 -- End of file.

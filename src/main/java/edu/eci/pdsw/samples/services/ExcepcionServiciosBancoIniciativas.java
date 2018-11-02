@@ -3,20 +3,20 @@ package edu.eci.pdsw.samples.services;
 /**
  * @author 2106913
  */
-public class ExcepcionServiciosSuscripciones extends Exception {
+public class ExcepcionServiciosBancoIniciativas extends Exception {
 
-    public ExcepcionServiciosSuscripciones() {
+    public ExcepcionServiciosBancoIniciativas() {
     }
 
-    public ExcepcionServiciosSuscripciones(String message) {
+    public ExcepcionServiciosBancoIniciativas(String message) {
         super(message);
     }
 
-    public ExcepcionServiciosSuscripciones(String message, Throwable cause) {
+    public ExcepcionServiciosBancoIniciativas(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ExcepcionServiciosSuscripciones(Throwable cause) {
+    public ExcepcionServiciosBancoIniciativas(Throwable cause) {
         super(cause);
     }
     

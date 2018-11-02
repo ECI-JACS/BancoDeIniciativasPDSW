@@ -6,33 +6,32 @@
 package edu.eci.pdsw.samples.services.impl;
 
 import com.google.inject.Inject;
-import edu.eci.pdsw.samples.entities.Comentario;
-import edu.eci.pdsw.samples.persistence.DaoComentario;
-import edu.eci.pdsw.samples.persistence.PersistenceException;
-import edu.eci.pdsw.samples.services.ExcepcionServiciosSuscripciones;
-import edu.eci.pdsw.samples.services.ServiciosSuscripciones;
+import edu.eci.pdsw.samples.entities.Iniciative;
+
+import edu.eci.pdsw.samples.services.ExcepcionServiciosBancoIniciativas;
+import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
+import java.util.List;
+
 import java.util.Set;
 
 /**
  *
  * @author hcadavid
  */
-public class ServiciosSuscripcionesImpl implements ServiciosSuscripciones {
+public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas {
 
-    @Inject
-    private DaoComentario daoc;
-    
     @Override
-    public Set<Comentario> comenteriosMasBajosPorRangoEdad(int a, int b) throws ExcepcionServiciosSuscripciones {
-        try {
-            return daoc.loadByScoreAndAge(10, a, b);
-        } catch (PersistenceException ex) {
-            throw new ExcepcionServiciosSuscripciones("err pers", ex);
-        }
+    public void registrarIniciativa(Iniciative ini) throws ExcepcionServiciosBancoIniciativas {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Set<Comentario> comenteriosRegistrados() throws ExcepcionServiciosSuscripciones {
+    public Iniciative consultarIniciativa(int id) throws ExcepcionServiciosBancoIniciativas {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Iniciative> consultarIniciativas(int id) throws ExcepcionServiciosBancoIniciativas {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

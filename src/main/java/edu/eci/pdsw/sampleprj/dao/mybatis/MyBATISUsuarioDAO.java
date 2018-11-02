@@ -3,28 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.pdsw.samples.persistence.mybatisimpl;
+package edu.eci.pdsw.sampleprj.dao.mybatis;
 
 import com.google.inject.Inject;
-import edu.eci.pdsw.persistence.UsuarioDAO;
-import edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.UsuarioMapper;
+import edu.eci.pdsw.sampleprj.dao.UsuarioDAO;
+import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.UsuarioMapper;
+import edu.eci.pdsw.samples.entities.Usuario;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 /**
  *
  * @author 2137441
  */
-public class MyBatisUsuarioDAO implements UsuarioDAO{
+public class MyBATISUsuarioDAO implements UsuarioDAO{
     @Inject
     UsuarioMapper usuarioMapper;
 
     @Override
-    public void saveUsuario(Usuario usuario) throws PersistenceException {
-        usuarioMapper.insertUser(this);
+    public Usuario load(String correo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Usuario load(String correo) {
+    public void saveUsuario() throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

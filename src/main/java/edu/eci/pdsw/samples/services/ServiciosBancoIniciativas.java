@@ -3,7 +3,7 @@ package edu.eci.pdsw.samples.services;
 import java.sql.Date;
 import java.util.List;
 import java.util.Set;
-import edu.eci.pdsw.samples.entities.Comentario;
+import edu.eci.pdsw.samples.entities.Iniciative;
 
 /**
  *
@@ -11,10 +11,10 @@ import edu.eci.pdsw.samples.entities.Comentario;
  */
 public interface ServiciosBancoIniciativas {
 
-    public void registrarIniciativa(Iniciativa ini) throws ExcepcionServiciosBancoIniciativas;
+    public void registrarIniciativa(Iniciative ini) throws ExcepcionServiciosBancoIniciativas;
     
-    public Iniciativa consultarIniciativa(int id) throws ExcepcionServiciosBancoIniciativas;
+    public Iniciative consultarIniciativa(int id) throws ExcepcionServiciosBancoIniciativas;
     
-    public List<Iniciativa> consultarIniciativas(int id) throws ExcepcionServiciosBancoIniciativas;
+    public List<Iniciative> consultarIniciativas(int id) throws ExcepcionServiciosBancoIniciativas;
 
 }

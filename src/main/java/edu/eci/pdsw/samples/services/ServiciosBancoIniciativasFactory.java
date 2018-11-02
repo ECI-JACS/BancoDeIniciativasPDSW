@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.pdsw.samples.services;
 
 import org.mybatis.guice.XMLMyBatisModule;
@@ -10,66 +5,52 @@ import org.mybatis.guice.datasource.helper.JdbcHelper;
 
 import static com.google.inject.Guice.createInjector;
 import com.google.inject.Injector;
-import edu.eci.pdsw.samples.persistence.DaoComentario;
-import edu.eci.pdsw.samples.persistence.mybatisimpl.MyBatisDaoComentario;
-import edu.eci.pdsw.samples.services.impl.ServiciosSuscripcionesImpl;
+
+import edu.eci.pdsw.samples.services.impl.ServiciosBancoIniciativasImpl;
+
+import java.util.Optional;
 
 /**
  *
- * @author hcadavid
+ * @author ECI-JACS
  */
-public class ServiciosXFactory {
+public class ServiciosBancoIniciativasFactory {
+    
+    private static ServiciosBancoIniciativasFactory instance = new ServiciosBancoIniciativasFactory();
 
-    private static ServiciosXFactory instance = new ServiciosXFactory();
+    private static Optional<Injector> optInjector;
 
-    private static Injector injector;
-    private static Injector testingInjector;
-
-    private ServiciosXFactory() {
-        injector = createInjector(new XMLMyBatisModule() {
-
+    private Injector myBatisInjector(String pathResource) {
+        return createInjector(new XMLMyBatisModule() {
             @Override
             protected void initialize() {
-                install(JdbcHelper.MySQL);
-                setClassPathResource("mybatis-config.xml");
-                bind(ServiciosX.class).to(ServiciosSuscripcionesImpl.class);
-                bind(DaoComentario.class).to(MyBatisDaoComentario.class);
-
+                install(JdbcHelper.PostgreSQL);
+                setClassPathResource(pathResource);
+                bind(ServiciosBancoIniciativas.class).to(ServiciosBancoIniciativasImpl.class);
+                //Bind de los DAOs
             }
+        });
+    }
 
+    private ServiciosBancoIniciativasFactory() {
+        optInjector = Optional.empty();
+    }
+
+    public ServiciosBancoIniciativas getServiciosBancoIniciativas() {
+        if (!optInjector.isPresent()) {
+            optInjector = Optional.of(myBatisInjector("mybatis-config.xml"));
         }
-        );
+        return optInjector.get().getInstance(ServiciosBancoIniciativas.class);
+    }
 
-        testingInjector = createInjector(new XMLMyBatisModule() {
-
-            @Override
-            protected void initialize() {
-                install(JdbcHelper.MySQL);
-                setClassPathResource("h2-mybatis-config.xml");
-                bind(ServiciosX.class).to(ServiciosSuscripcionesImpl.class);
-                bind(DaoComentario.class).to(MyBatisDaoComentario.class);
-
-            }
-
+    public ServiciosBancoIniciativas getServiciosBancoIniciativasTesting() {
+        if (!optInjector.isPresent()) {
+            optInjector = Optional.of(myBatisInjector("mybatis-config-h2.xml"));
         }
-        );
-
+        return optInjector.get().getInstance(ServiciosBancoIniciativas.class);
     }
 
-    public ServiciosSuscripciones getSuscriptionServices() {
-        return injector.getInstance(ServiciosSuscripciones.class);
-    }
-
-    public ServiciosSuscripciones getSuscriptionServicesForTesting() {
-        return testingInjector.getInstance(ServiciosSuscripciones.class);
-    }
-
-    public static ServiciosXFactory getInstance() {
+    public static ServiciosBancoIniciativasFactory getInstance() {
         return instance;
     }
-
-    public static void main(String a[]) throws ExcepcionServiciosSuscripciones {
-        System.out.println(ServiciosXFactory.getInstance().getSuscriptionServices().comenteriosMasBajosPorRangoEdad(1, 10));
-    }
-
 }

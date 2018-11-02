@@ -1,4 +1,4 @@
-package edu.eci.pdsw.persistence;
+package edu.eci.pdsw.sampleprj.dao;
 
 import edu.eci.pdsw.samples.entities.Usuario;
 import org.apache.ibatis.exceptions.PersistenceException;
