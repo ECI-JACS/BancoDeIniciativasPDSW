@@ -8,14 +8,14 @@ import java.util.List;
  * Esta clase son las iniciativas o ideas propuestas en el Banco de Iniciativas.
  * @author ECI-FACS
  */
-public class Iniciative {
+public class Initiative {
 
     private int id;
     private String description;
     private String detail;
     private Date creationDate;
     private Date modificationDate;
-    private Usuario user;
+    private User user;
     private IniciativeStatus iniciativeStatus;
     private List<String> keyWords;
     private List<String> comments;
@@ -24,7 +24,7 @@ public class Iniciative {
     /**
      * Constructor vacío de Iniciative
      */
-    public Iniciative(){
+    public Initiative(){
     }
     
     /**
@@ -38,7 +38,7 @@ public class Iniciative {
      * @param user
      * @param iniciativeStatus 
      */
-    public Iniciative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, Usuario user, IniciativeStatus iniciativeStatus) {
+    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, User user, IniciativeStatus iniciativeStatus) {
         this.id = id;
         this.description = description;
         this.detail = detail;
@@ -64,7 +64,7 @@ public class Iniciative {
      * @param iniciativeStatus
      * @param votes 
      */
-    public Iniciative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, List<String> comments, Usuario user, IniciativeStatus iniciativeStatus, List<Vote> votes) {
+    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, List<String> comments, User user, IniciativeStatus iniciativeStatus, List<Vote> votes) {
         this.id = id;
         this.description = description;
         this.detail = detail;
@@ -117,11 +117,11 @@ public class Iniciative {
         this.modificationDate = modificationDate;
     }
 
-    public Usuario getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Usuario user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -6,7 +6,7 @@ import org.mybatis.guice.datasource.helper.JdbcHelper;
 import static com.google.inject.Guice.createInjector;
 import com.google.inject.Injector;
 
-import edu.eci.pdsw.samples.services.impl.ServiciosBancoIniciativasImpl;
+import edu.eci.pdsw.samples.services.impl.ServicesInitiativesBankImpl;
 
 import java.util.Optional;
 
@@ -14,9 +14,9 @@ import java.util.Optional;
  *
  * @author ECI-JACS
  */
-public class ServiciosBancoIniciativasFactory {
+public class ServicesInitiativesBankFactory {
     
-    private static ServiciosBancoIniciativasFactory instance = new ServiciosBancoIniciativasFactory();
+    private static ServicesInitiativesBankFactory instance = new ServicesInitiativesBankFactory();
 
     private static Optional<Injector> optInjector;
 
@@ -26,31 +26,31 @@ public class ServiciosBancoIniciativasFactory {
             protected void initialize() {
                 install(JdbcHelper.PostgreSQL);
                 setClassPathResource(pathResource);
-                bind(ServiciosBancoIniciativas.class).to(ServiciosBancoIniciativasImpl.class);
+                bind(ServicesInitiativesBank.class).to(ServicesInitiativesBankImpl.class);
                 //Bind de los DAOs
             }
         });
     }
 
-    private ServiciosBancoIniciativasFactory() {
+    private ServicesInitiativesBankFactory() {
         optInjector = Optional.empty();
     }
 
-    public ServiciosBancoIniciativas getServiciosBancoIniciativas() {
+    public ServicesInitiativesBank getServiciosBancoIniciativas() {
         if (!optInjector.isPresent()) {
             optInjector = Optional.of(myBatisInjector("mybatis-config.xml"));
         }
-        return optInjector.get().getInstance(ServiciosBancoIniciativas.class);
+        return optInjector.get().getInstance(ServicesInitiativesBank.class);
     }
 
-    public ServiciosBancoIniciativas getServiciosBancoIniciativasTesting() {
+    public ServicesInitiativesBank getServiciosBancoIniciativasTesting() {
         if (!optInjector.isPresent()) {
             optInjector = Optional.of(myBatisInjector("mybatis-config-h2.xml"));
         }
-        return optInjector.get().getInstance(ServiciosBancoIniciativas.class);
+        return optInjector.get().getInstance(ServicesInitiativesBank.class);
     }
 
-    public static ServiciosBancoIniciativasFactory getInstance() {
+    public static ServicesInitiativesBankFactory getInstance() {
         return instance;
     }
 }

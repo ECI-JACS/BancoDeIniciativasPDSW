@@ -6,10 +6,10 @@
 package edu.eci.pdsw.samples.services.impl;
 
 import com.google.inject.Inject;
-import edu.eci.pdsw.samples.entities.Iniciative;
+import edu.eci.pdsw.samples.entities.Initiative;
 
-import edu.eci.pdsw.samples.services.ExcepcionServiciosBancoIniciativas;
-import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
+import edu.eci.pdsw.samples.services.ExceptionServicesInitiativesBank;
+import edu.eci.pdsw.samples.services.ServicesInitiativesBank;
 import java.util.List;
 
 import java.util.Set;
@@ -18,20 +18,20 @@ import java.util.Set;
  *
  * @author hcadavid
  */
-public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas {
+public class ServicesInitiativesBankImpl implements ServicesInitiativesBank {
 
     @Override
-    public void registrarIniciativa(Iniciative ini) throws ExcepcionServiciosBancoIniciativas {
+    public void registrarIniciativa(Initiative ini) throws ExceptionServicesInitiativesBank {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Iniciative consultarIniciativa(int id) throws ExcepcionServiciosBancoIniciativas {
+    public Initiative consultarIniciativa(int id) throws ExceptionServicesInitiativesBank {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Iniciative> consultarIniciativas(int id) throws ExcepcionServiciosBancoIniciativas {
+    public List<Initiative> consultarIniciativas(int id) throws ExceptionServicesInitiativesBank {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

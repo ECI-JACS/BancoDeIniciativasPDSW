@@ -9,15 +9,15 @@ package edu.eci.pdsw.samples.entities;
  *
  * @author 2133541
  */
-public class Rol {
+public class Role {
     
     
     private int id;
-    private String rol;
+    private String role;
     
-    public Rol(int id, String rol){
+    public Role(int id, String role){
         this.id  = id;
-        this.rol = rol;
+        this.role = role;
     }
 
     public int getId() {
@@ -28,17 +28,17 @@ public class Rol {
         this.id = id;
     }
 
-    public String getRol() {
-        return rol;
+    public String getRole() {
+        return role;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
     public String toString() {
-        return "Rol{" + "id=" + id + ", rol=" + rol + '}';
+        return "Rol{" + "id=" + id + ", role=" + role + '}';
     }
     
     

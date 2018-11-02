@@ -9,11 +9,13 @@ package edu.eci.pdsw.samples.entities;
  *
  * @author 2133541
  */
-public class EstadoIniciativa {
-
-    public EstadoIniciativa(int id, String descripcion) {
+public class InitiativeStatus {
+	private int id;
+    private String description;
+    
+    public InitiativeStatus(int id, String description) {
         this.id = id;
-        this.descripcion = descripcion;
+        this.description = description;
     }
 
     public int getId() {
@@ -25,17 +27,15 @@ public class EstadoIniciativa {
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
-        return "EstadoIniciativa{" + "id=" + id + ", descripcion=" + descripcion + '}';
-    }
-    private int id;
-    private String descripcion;
+        return "InitiativeStatus{" + "id=" + id + ", description=" + description + '}';
+    }    
 }

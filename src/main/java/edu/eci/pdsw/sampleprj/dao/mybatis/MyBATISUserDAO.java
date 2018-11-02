@@ -6,26 +6,26 @@
 package edu.eci.pdsw.sampleprj.dao.mybatis;
 
 import com.google.inject.Inject;
-import edu.eci.pdsw.sampleprj.dao.UsuarioDAO;
-import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.UsuarioMapper;
-import edu.eci.pdsw.samples.entities.Usuario;
+import edu.eci.pdsw.sampleprj.dao.UserDAO;
+import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.UserMapper;
+import edu.eci.pdsw.samples.entities.User;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 /**
  *
  * @author 2137441
  */
-public class MyBATISUsuarioDAO implements UsuarioDAO{
+public class MyBATISUserDAO implements UserDAO{
     @Inject
-    UsuarioMapper usuarioMapper;
+    UserMapper usuarioMapper;
 
     @Override
-    public Usuario load(String correo) {
+    public User load(String email) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void saveUsuario() throws PersistenceException {
+    public void saveUser() throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -12,11 +12,11 @@ package edu.eci.pdsw.samples.entities;
 public class Area {
     
     private int id;
-    private String nombre;
+    private String name;
     
-    public Area(int id, String nombre){
+    public Area(int id, String name){
         this.id = id;
-        this.nombre = nombre;
+        this.name = name;
     }
     
     public int getId() {
@@ -27,17 +27,17 @@ public class Area {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return "Area{" + "id=" + id + ", nombre=" + nombre + '}';
+        return "Area{" + "id=" + id + ", name=" + name + '}';
     }
     
     
