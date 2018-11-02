@@ -1,6 +1,6 @@
 package edu.eci.pdsw.persistence;
 
-import edu.eci.pdsw.entities.Usuario;
+import edu.eci.pdsw.samples.entities.Usuario;
 import org.apache.ibatis.exceptions.PersistenceException;
 /**
  *

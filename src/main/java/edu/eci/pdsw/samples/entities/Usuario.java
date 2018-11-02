@@ -17,7 +17,7 @@ public class Usuario {
     private int codigo;
     private String estado;
     private Rol rol;
-    Wpivate Area area;
+    private Area area;
 
     public Usuario() {
     }

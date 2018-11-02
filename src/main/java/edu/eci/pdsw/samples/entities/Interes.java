@@ -14,13 +14,13 @@ import java.sql.Date;
 public class Interes {
 
 
-    private Iniciativa iniciativa;
+    private Iniciative iniciativa;
     private Usuario usuario;
     private String comentario;
     private Date fecha;
     private int nivelInteres;
 
-    public Interes(Iniciativa iniciativa, Usuario usuario, String comentario, Date fecha, int nivelInteres) {
+    public Interes(Iniciative iniciativa, Usuario usuario, String comentario, Date fecha, int nivelInteres) {
         this.iniciativa = iniciativa;
         this.usuario = usuario;
         this.comentario = comentario;
@@ -28,11 +28,11 @@ public class Interes {
         this.nivelInteres = nivelInteres;
     }
     
-        public Iniciativa getIniciativa() {
+        public Iniciative getIniciativa() {
         return iniciativa;
     }
 
-    public void setIniciativa(Iniciativa iniciativa) {
+    public void setIniciativa(Iniciative iniciativa) {
         this.iniciativa = iniciativa;
     }
 
