@@ -1,18 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.pdsw.samples.entities;
 
 /**
- *
- * @author 2133541
+ * Esta clase representa los estados de las iniciativas.
+ * @author ECI-FACS
  */
 public class InitiativeStatus {
-	private int id;
-    private String description;
     
+    private int id;
+    private String description;
+
+    /**
+     * Constructor vacío de IniciativeStatus
+     */
+    public InitiativeStatus() {
+    }
+    
+    /**
+     * Constructor de IniciativeStatus completo
+     * @param id
+     * @param description 
+     */
     public InitiativeStatus(int id, String description) {
         this.id = id;
         this.description = description;
@@ -26,16 +33,17 @@ public class InitiativeStatus {
         this.id = id;
     }
 
-    public String getDescripcion() {
+    public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
     @Override
     public String toString() {
-        return "InitiativeStatus{" + "id=" + id + ", description=" + description + '}';
-    }    
+        return "IniciativeStatus{" + "id=" + id + ", description=" + description + "}";
+    }
+    
 }

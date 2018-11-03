@@ -5,7 +5,7 @@
 -- Table: Area
 CREATE TABLE Area (
     id int  NOT NULL,
-    name text  NOT NULL,
+    name varchar(500)  NOT NULL,
     CONSTRAINT Area_uk_name UNIQUE (name),
     CONSTRAINT Area_pk PRIMARY KEY (id)
 );
@@ -13,9 +13,9 @@ CREATE TABLE Area (
 -- Table: Comment
 CREATE TABLE Comment (
     id int  NOT NULL,
-    description text  NOT NULL,
+    description varchar(500)  NOT NULL,
 	commentDate date NOT NULL,
-    User_email text  NOT NULL,
+    User_email varchar(500)  NOT NULL,
     Initiative_id int  NOT NULL,
     CONSTRAINT Comment_pk PRIMARY KEY (id,User_email,Initiative_id)
 );
@@ -23,12 +23,12 @@ CREATE TABLE Comment (
 -- Table: Initiative
 CREATE TABLE Initiative (
     id int  NOT NULL,
-    description text  NOT NULL,
-    detail text  NOT NULL,
+    description varchar(500)  NOT NULL,
+    detail varchar(500)  NOT NULL,
     creationDate date  NOT NULL,
     modificationDate date  NULL,
-    keyWords text[]  NOT NULL,
-    User_email text  NOT NULL,
+    keyWords varchar(500)  NOT NULL,
+    User_email varchar(500)  NOT NULL,
     InitiativeStatus_id int  NOT NULL,
     CONSTRAINT Initiative_pk PRIMARY KEY (id)
 );
@@ -36,19 +36,19 @@ CREATE TABLE Initiative (
 -- Table: InitiativeStatus
 CREATE TABLE InitiativeStatus (
     id int  NOT NULL,
-    description text  NOT NULL,
+    description varchar(500)  NOT NULL,
     CONSTRAINT Estado_uk_description UNIQUE (description),
     CONSTRAINT InitiativeStatus_pk PRIMARY KEY (id)
 );
 
 -- Table: User
 CREATE TABLE "User" (
-    names text  NOT NULL,
-    lastnames text  NOT NULL,
-    email text  NOT NULL,
+    names varchar(500)  NOT NULL,
+    lastnames varchar(500)  NOT NULL,
+    email varchar(500)  NOT NULL,
     code int  NOT NULL,
-    role text  NOT NULL,
-    status text  NOT NULL,
+    role varchar(500)  NOT NULL,
+    status varchar(500)  NOT NULL,
     Area_id int  NOT NULL,
     CONSTRAINT Usuario_uk_code UNIQUE (code),
     CONSTRAINT User_pk PRIMARY KEY (email)
@@ -57,7 +57,7 @@ CREATE TABLE "User" (
 -- Table: Vote
 CREATE TABLE Vote (
 	id int NOT NULL,
-    User_email text  NOT NULL,
+    User_email varchar(500)  NOT NULL,
     voteDate date  NOT NULL,
     affinity int  NOT NULL,
     Initiative_id int  NOT NULL,

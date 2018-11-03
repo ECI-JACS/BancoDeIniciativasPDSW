@@ -157,7 +157,7 @@
                         </goals>
                         <configuration>
                             <srcFiles>                                
-                                <srcFile>BDBancoIniciativas.sql</srcFile>                                
+                                <srcFile>BDBancoIniciativasTEST.sql</srcFile>                                
                             </srcFiles>
                         </configuration>
                     </execution>

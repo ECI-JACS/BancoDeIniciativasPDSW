@@ -1,19 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.pdsw.samples.entities;
 
 /**
- *
- * @author 2133541
+ * Esta clase representa las áreas o dependencias a las que pertenece un usuario.
+ * @author ECI-JACS
  */
 public class Area {
     
     private int id;
     private String name;
     
+    /**
+     * Constructor vacío de Area
+     */
+    public Area(){
+    }
+    
+    /**
+     * Constructor de Area completo
+     * @param id
+     * @param name 
+     */
     public Area(int id, String name){
         this.id = id;
         this.name = name;
@@ -37,8 +43,6 @@ public class Area {
 
     @Override
     public String toString() {
-        return "Area{" + "id=" + id + ", name=" + name + '}';
+        return "Area{" + "id=" + id + ", name=" + name + "}";
     }
-    
-    
 }

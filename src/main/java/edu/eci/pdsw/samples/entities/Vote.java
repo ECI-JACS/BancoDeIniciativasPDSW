@@ -9,6 +9,7 @@ import java.sql.Date;
  */
 public class Vote {
     
+    private int id;
     private Date voteDate;
     private int affinity;
     
@@ -20,12 +21,22 @@ public class Vote {
     
     /**
      * Constructor completo de Vote
+     * @param id
      * @param voteDate
      * @param affinity 
      */
-    public Vote(Date voteDate, int affinity) {
+    public Vote(int id, Date voteDate, int affinity) {
+        this.id = id;
         this.voteDate = voteDate;
         this.affinity = affinity;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getVoteDate() {
@@ -46,6 +57,6 @@ public class Vote {
     
     @Override
     public String toString() {
-        return "Affinity{" + "voteDate=" + voteDate + ", affinity=" + affinity + '}';
+        return "Affinity{" + "id=" + id + ", voteDate=" + voteDate + ", affinity=" + affinity + '}';
     }
 }

@@ -1,30 +1,28 @@
 package edu.eci.pdsw.samples.entities;
 
-import java.sql.Date;
- 
-
 /**
  *
  * @author ECI-JACS
  */
-public class User {  
+public class User {
+
     private String names;
     private String lastNames;
     private String email;
     private int code;
-    private String state;
+    private UserStatus status;
     private Role role;
     private Area area;
 
     public User() {
     }
 
-    public User(String names, String lastNames, String email, int code, String state, Role role, Area area) {
+    public User(String names, String lastNames, String email, int code, UserStatus status, Role role, Area area) {
         this.names = names;
         this.lastNames = lastNames;
         this.email = email;
         this.code = code;
-        this.state = state;
+        this.status = status;
         this.role = role;
         this.area = area;
     }
@@ -61,12 +59,12 @@ public class User {
         this.code = code;
     }
 
-    public String getState() {
-        return state;
+    public UserStatus getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
     public Role getRole() {
@@ -85,8 +83,8 @@ public class User {
         this.area = area;
     }
 
-   @Override
+    @Override
     public String toString() {
-        return "Usuario{" + "names=" + names + ", lastNames=" + lastNames + ", email=" + email + ", code=" + code + ", estado=" + state + ", role=" + role + ", area=" + area + '}';
+        return "Usuario{" + "names=" + names + ", lastNames=" + lastNames + ", email=" + email + ", code=" + code + ", status=" + status + ", role=" + role + ", area=" + area + "}";
     }
 }

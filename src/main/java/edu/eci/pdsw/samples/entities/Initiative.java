@@ -16,7 +16,7 @@ public class Initiative {
     private Date creationDate;
     private Date modificationDate;
     private User user;
-    private IniciativeStatus iniciativeStatus;
+    private InitiativeStatus initiativeStatus;
     private List<String> keyWords;
     private List<String> comments;
     private List<Vote> votes;
@@ -36,16 +36,16 @@ public class Initiative {
      * @param modificationDate
      * @param keyWords
      * @param user
-     * @param iniciativeStatus 
+     * @param initiativeStatus 
      */
-    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, User user, IniciativeStatus iniciativeStatus) {
+    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, User user, InitiativeStatus initiativeStatus) {
         this.id = id;
         this.description = description;
         this.detail = detail;
         this.creationDate = creationDate;
         this.modificationDate = modificationDate;
         this.user = user;
-        this.iniciativeStatus = iniciativeStatus;
+        this.initiativeStatus = initiativeStatus;
         this.keyWords = keyWords;
         this.comments = new ArrayList();
         this.votes = new ArrayList();
@@ -61,10 +61,10 @@ public class Initiative {
      * @param keyWords
      * @param comments
      * @param user
-     * @param iniciativeStatus
+     * @param initiativeStatus
      * @param votes 
      */
-    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, List<String> comments, User user, IniciativeStatus iniciativeStatus, List<Vote> votes) {
+    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, List<String> comments, User user, InitiativeStatus initiativeStatus, List<Vote> votes) {
         this.id = id;
         this.description = description;
         this.detail = detail;
@@ -73,7 +73,7 @@ public class Initiative {
         this.keyWords = keyWords;
         this.comments = comments;
         this.user = user;
-        this.iniciativeStatus = iniciativeStatus;
+        this.initiativeStatus = initiativeStatus;
         this.votes = votes;
     }
 
@@ -125,12 +125,12 @@ public class Initiative {
         this.user = user;
     }
 
-    public IniciativeStatus getIniciativeStatus() {
-        return iniciativeStatus;
+    public InitiativeStatus getIniciativeStatus() {
+        return initiativeStatus;
     }
 
-    public void setIniciativeStatus(IniciativeStatus iniciativeStatus) {
-        this.iniciativeStatus = iniciativeStatus;
+    public void setIniciativeStatus(InitiativeStatus iniciativeStatus) {
+        this.initiativeStatus = iniciativeStatus;
     }
 
     public List<String> getKeyWords() {
@@ -159,6 +159,6 @@ public class Initiative {
     
     @Override
     public String toString() {
-        return "Iniciative{" + "id=" + id + ", description=" + description + ", detail=" + detail + ", creationDate=" + creationDate + ", modificationDate=" + modificationDate + ", user=" + user + ", iniciativeStatus=" + iniciativeStatus + ", keyWords=" + keyWords + ", comments=" + comments + ", votes=" + votes + '}';
+        return "Iniciative{" + "id=" + id + ", description=" + description + ", detail=" + detail + ", creationDate=" + creationDate + ", modificationDate=" + modificationDate + ", user=" + user + ", initiativeStatus=" + initiativeStatus + ", keyWords=" + keyWords + ", comments=" + comments + ", votes=" + votes + '}';
     }
 }
