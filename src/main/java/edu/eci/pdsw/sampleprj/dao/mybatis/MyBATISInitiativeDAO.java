@@ -25,7 +25,11 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
 
     @Override
     public Initiative loadInitiative(int id) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return initiativeMapper.consultarIniciativa(id);
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al consultar la iniciativa " + id, e);
+        }
     }
 
     @Override

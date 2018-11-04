@@ -10,13 +10,12 @@
         <result property='description' column='initiativedescription'/>
         <result property='detail' column='initiativedetail'/>
         <result property='creationDate' column='initiativecreationdate'/>
-        <result property='modifitionDate' column='initiativemodifitiondate'/>
-        <collection property="keyWords" ofType="java.lang.String" javaType="list">
-            <result column="keyWords" />
-        </collection>
+        <result property='modificationDate' column='initiativemodificationdate'/>
+        <result property="keyWords" column="keywords"/>
+        <association property='initiativeStatus' resultMap='InitiativeStatusResult'></association>
         <collection property='user' ofType='User' resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.UserMapper.UserResult'></collection>
         <collection property='comments' ofType='Comment' resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.CommentMapper.CommentResult'></collection>
-        <collection property='vote' ofType='Vote' resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.VoteMapper.VoteResult'></collection>
+        <collection property='votes' ofType='Vote' resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.VoteMapper.VoteResult'></collection>        
     </resultMap>
     
     <resultMap type='InitiativeStatus' id='InitiativeStatusResult'>
@@ -24,8 +23,14 @@
         <result property='description' column='initiativestatusdescription'/>
     </resultMap>
     
-    <!--<select id='consultarIniciativa' parameterType='map' resultMap='UserResult'>
+    <select id='consultarIniciativa' parameterType='map' resultMap='InitiativeResult'>
         SELECT
+            i.id as initiativeid,
+            i.description as initiativedescription,
+            i.detail as initiativedetail,
+            i.creationdate as initiativecreationdate,
+            i.modificationdate as initiativemodificationdate,
+            array_to_string(i.keywords,',') as keywords,
             u.names as usernames,
             u.lastnames as userlastnames,
             u.email as useremail,
@@ -33,14 +38,27 @@
             u.role as userrole,
             u.status as userstatus,
             a.id as areaid,
-            a.name as areaname
-        FROM "User" AS u
+            a.name as areaname,
+            ie.id as initiativestatusid,
+            ie.description as initiativestatusdescription,
+            c.id as commentid,
+            c.description as commentdescription,
+            c.commentdate as commentdate,
+            v.id as voteid,
+            v.votedate as votedate,
+            v.affinity as voteaffinity
+        FROM Initiative AS i
+            LEFT JOIN "User" AS u ON (i.user_email = u.email)
             LEFT JOIN Area AS a ON (u.area_id = a.id)
-        WHERE u.email = #{email};
-    </select>-->
+            LEFT JOIN InitiativeStatus AS ie ON (i.initiativestatus_id = ie.id)
+            LEFT JOIN Comment AS c ON (i.id = c.initiative_id)
+            LEFT JOIN Vote AS v ON (i.id = v.initiative_id)
+        WHERE i.id = #{id};
+    </select>
     
     <insert id='insertarIniciativa' parameterType='map'>
-        INSERT INTO Initiative VALUES(#{ini.id}, #{ini.description}, #{ini.detail}, #{ini.creationDate}, #{ini.modificationDate}, #{ini.keyWords,javaType=list,typeHandler=org.apache.ibatis.type.ArrayTypeHandler}, #{ini.user.email}, #{ini.initiativeStatus.id});
+        INSERT INTO Initiative 
+        VALUES(#{ini.id}, #{ini.description}, #{ini.detail}, #{ini.creationDate}, #{ini.modificationDate}, string_to_array(#{ini.keyWords},','), #{ini.user.email}, #{ini.initiativeStatus.id});
     </insert>
     
     <select id='consultarEstadoIniciativas' parameterType='map' resultMap='InitiativeStatusResult'>
@@ -52,7 +70,8 @@
     </select>
     
     <insert id='insertarEstadoIniciativa' parameterType='map'>
-        INSERT INTO InitiativeStatus VALUES(#{iniSta.id}, #{iniSta.description});
+        INSERT INTO InitiativeStatus 
+        VALUES(#{iniSta.id}, #{iniSta.description});
     </insert>
 
 </mapper>

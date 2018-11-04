@@ -7,6 +7,13 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.session.SqlSession;
+import java.sql.Connection;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Initiative;
@@ -17,11 +24,8 @@ import edu.eci.pdsw.samples.entities.UserStatus;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativasFactory;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.DriverManager;
+
 
 /**
  *
@@ -69,15 +73,12 @@ public class MyBatisExample {
             System.out.println(serviciosBancoIniciativas.consultarArea(1));
             //serviciosBancoIniciativas.registrarUsuario(new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")));
             System.out.println(serviciosBancoIniciativas.consultarUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));
-            List<String> keyWords = new ArrayList();
-            keyWords.add("edificio");
-            keyWords.add("investigación");
-            keyWords.add("proyectos");
-            keyWords.add("sustentaciones");
-            keyWords.add("sistemas");
             //serviciosBancoIniciativas.registrarEstadoIniciativa(new InitiativeStatus(1, "En espera de revisión"));
             System.out.println(serviciosBancoIniciativas.consultarEstadoIniciativas(1));
+            //Para crear una iniciativa.
+            String keyWords = "edificio,investigación,proyectos,sustentaciones,sistemas";
             //serviciosBancoIniciativas.registrarIniciativa(new Initiative(1, "Nuevo edificio de sistemas", "Este nuevo edificio será para sustentaciones, investigaciones y realización de proyectos", new Date(2018-1900,10,2), null, keyWords, new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")), new InitiativeStatus(1, "En espera de revisión")));
+            System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }

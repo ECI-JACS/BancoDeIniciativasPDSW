@@ -8,7 +8,7 @@
     <resultMap type='Comment' id='CommentResult'>
         <id property='id' column='commentid'/>        
         <result property='description' column='commentdescription'/>
-        <result property='commentDate' column='commentDate'/>
+        <result property='commentDate' column='commentdate'/>
     </resultMap>
 
 </mapper>

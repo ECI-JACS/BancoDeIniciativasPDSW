@@ -17,8 +17,8 @@ public class Initiative {
     private Date modificationDate;
     private User user;
     private InitiativeStatus initiativeStatus;
-    private List<String> keyWords;
-    private List<String> comments;
+    private String keyWords;
+    private List<Comment> comments;
     private List<Vote> votes;
     
     /**
@@ -38,7 +38,7 @@ public class Initiative {
      * @param user
      * @param initiativeStatus 
      */
-    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, User user, InitiativeStatus initiativeStatus) {
+    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, String keyWords, User user, InitiativeStatus initiativeStatus) {
         this.id = id;
         this.description = description;
         this.detail = detail;
@@ -64,7 +64,7 @@ public class Initiative {
      * @param initiativeStatus
      * @param votes 
      */
-    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, List<String> keyWords, List<String> comments, User user, InitiativeStatus initiativeStatus, List<Vote> votes) {
+    public Initiative(int id, String description, String detail, Date creationDate, Date modificationDate, String keyWords, List<Comment> comments, User user, InitiativeStatus initiativeStatus, List<Vote> votes) {
         this.id = id;
         this.description = description;
         this.detail = detail;
@@ -133,19 +133,19 @@ public class Initiative {
         this.initiativeStatus = iniciativeStatus;
     }
 
-    public List<String> getKeyWords() {
+    public String getKeyWords() {
         return keyWords;
     }
 
-    public void setKeyWords(List<String> keyWords) {
+    public void setKeyWords(String keyWords) {
         this.keyWords = keyWords;
     }
 
-    public List<String> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<String> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 

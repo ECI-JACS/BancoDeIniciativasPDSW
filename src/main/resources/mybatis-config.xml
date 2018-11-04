@@ -38,6 +38,8 @@
         <mapper resource="mappers/AreaMapper.xml"></mapper>    
         <mapper resource="mappers/UserMapper.xml"></mapper>    
         <mapper resource="mappers/InitiativeMapper.xml"></mapper>    
+        <mapper resource="mappers/CommentMapper.xml"></mapper>    
+        <mapper resource="mappers/VoteMapper.xml"></mapper>    
     </mappers>        
         
 </configuration>

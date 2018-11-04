@@ -60,7 +60,11 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
 
     @Override
     public Initiative consultarIniciativa(int id) throws ExceptionServiciosBancoIniciativas {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return initiativeDAO.loadInitiative(id);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
     }
     
     @Override
