@@ -49,4 +49,16 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
             throw new PersistenceException("Error al consultar el estado " + id + " de las iniciativas", e);
         }
     }
+    
+    @Override
+    public void updateInitiativeStatus(int id,InitiativeStatus iniStat) throws PersistenceException {
+        try {
+            initiativeMapper.updateInitiativesStatus(id, iniStat);
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al modifciar el estado de la iniciativa "+ id , e);
+        }
+    }
+
+
+
 }

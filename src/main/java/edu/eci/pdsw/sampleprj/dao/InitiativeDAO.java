@@ -14,4 +14,6 @@ public interface InitiativeDAO {
     public void saveInitiativeStatus(InitiativeStatus iniSta) throws PersistenceException;
 
     public InitiativeStatus loadInitiativesStatus(int id) throws PersistenceException;
+    
+    public void updateInitiativeStatus(int id,InitiativeStatus iniStat) throws PersistenceException;
 }

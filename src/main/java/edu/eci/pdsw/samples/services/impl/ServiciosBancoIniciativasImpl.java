@@ -102,5 +102,15 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-
+    
+    @Override
+    public void updateInitiativeStatus(int id, InitiativeStatus iniStat) throws ExceptionServiciosBancoIniciativas{
+        try {
+            initiativeDAO.updateInitiativeStatus(id, iniStat);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+        
+        
+    }
 }

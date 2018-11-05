@@ -63,5 +63,21 @@ public interface ServiciosBancoIniciativas {
      */
     public void registrarEstadoIniciativa(InitiativeStatus iniSta) throws ExceptionServiciosBancoIniciativas;
     
+    
+    /**
+     * Permite conocer el estado de una iniciativa
+     * @param id
+     * @return InitiativeStatus
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
     public InitiativeStatus consultarEstadoIniciativas(int id) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Permite modificar eñ estado de una iniciativa
+     * @param id
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public void updateInitiativeStatus(int id, InitiativeStatus iniStat) throws ExceptionServiciosBancoIniciativas;
+    
+    
 }

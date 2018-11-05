@@ -73,5 +73,14 @@
         INSERT INTO InitiativeStatus 
         VALUES(#{iniSta.id}, #{iniSta.description});
     </insert>
+    
+    <update id='updateInitiativeStatus' parameterType = 'map'>
+        UPDATE Initiative
+        SET Initiative.initiativestatus_id = #{iniSta.id}
+        WHERE Initiative.id = #{id};        
+    </update>    
+    
+    
+    
 
 </mapper>
