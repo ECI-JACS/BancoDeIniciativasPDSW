@@ -104,7 +104,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
     }
     
     @Override
-    public void updateInitiativeStatus(int id, InitiativeStatus iniStat) throws ExceptionServiciosBancoIniciativas{
+    public void updateInitiativeStatus(int id,int iniStat) throws ExceptionServiciosBancoIniciativas{
         try {
             initiativeDAO.updateInitiativeStatus(id, iniStat);
         } catch (PersistenceException ex) {

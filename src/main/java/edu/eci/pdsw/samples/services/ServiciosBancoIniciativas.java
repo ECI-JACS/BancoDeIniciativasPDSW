@@ -77,7 +77,7 @@ public interface ServiciosBancoIniciativas {
      * @param id
      * @throws ExceptionServiciosBancoIniciativas 
      */
-    public void updateInitiativeStatus(int id, InitiativeStatus iniStat) throws ExceptionServiciosBancoIniciativas;
+    public void updateInitiativeStatus(int id,int iniStat) throws ExceptionServiciosBancoIniciativas;
     
     
 }

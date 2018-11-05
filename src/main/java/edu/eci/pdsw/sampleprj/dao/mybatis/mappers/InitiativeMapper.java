@@ -17,7 +17,7 @@ public interface InitiativeMapper {
     
     public void insertarEstadoIniciativa(@Param("iniSta") InitiativeStatus iniSta);
     
-    public void updateInitiativesStatus(@Param("id")int id,@Param("iniSta") InitiativeStatus iniStat);
+    public void updateInitiativeStatus(@Param("id")int id,@Param("iniStat") int iniStat);
     
     public InitiativeStatus consultarEstadoIniciativas(@Param("id") int id);
 

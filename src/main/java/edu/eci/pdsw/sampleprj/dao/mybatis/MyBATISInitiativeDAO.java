@@ -51,9 +51,9 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
     }
     
     @Override
-    public void updateInitiativeStatus(int id,InitiativeStatus iniStat) throws PersistenceException {
+    public void updateInitiativeStatus(int id,int iniStat) throws PersistenceException {
         try {
-            initiativeMapper.updateInitiativesStatus(id, iniStat);
+            initiativeMapper.updateInitiativeStatus(id, iniStat);
         } catch (PersistenceException e) {
             throw new PersistenceException("Error al modifciar el estado de la iniciativa "+ id , e);
         }
