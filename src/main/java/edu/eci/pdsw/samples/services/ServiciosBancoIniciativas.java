@@ -1,5 +1,9 @@
 package edu.eci.pdsw.samples.services;
 
+import java.util.List;
+
+import org.apache.ibatis.exceptions.PersistenceException;
+
 import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
@@ -63,5 +67,29 @@ public interface ServiciosBancoIniciativas {
      */
     public void registrarEstadoIniciativa(InitiativeStatus iniSta) throws ExceptionServiciosBancoIniciativas;
     
+    
+    /**
+     * Permite conocer el estado de una iniciativa
+     * @param id
+     * @return InitiativeStatus
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
     public InitiativeStatus consultarEstadoIniciativas(int id) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Permite modificar el estado de una iniciativa
+     * @param id
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public void updateInitiativeStatus(int id,int iniStat) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Consulta todas las iniciativas asociadas a una palabra clave insertada por el usuario.
+     * @param keyWord
+     * @return List<Initiative> 
+     * @throws ExceptionServiciosBancoIniciativas
+     */
+    public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws ExceptionServiciosBancoIniciativas;
+    
+    
 }

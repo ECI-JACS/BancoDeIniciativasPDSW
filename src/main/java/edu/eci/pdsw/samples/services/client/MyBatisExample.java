@@ -74,11 +74,30 @@ public class MyBatisExample {
             //serviciosBancoIniciativas.registrarUsuario(new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")));
             System.out.println(serviciosBancoIniciativas.consultarUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));
             //serviciosBancoIniciativas.registrarEstadoIniciativa(new InitiativeStatus(1, "En espera de revisión"));
+            //------ creación de un nuevo estado de iniciativa---------
             System.out.println(serviciosBancoIniciativas.consultarEstadoIniciativas(1));
-            //Para crear una iniciativa.
+            //serviciosBancoIniciativas.registrarEstadoIniciativa(new InitiativeStatus(2, "En revisión"));
+            //-----para poder poder hacer la prueba debí crear otro estado.-----
+            System.out.println(serviciosBancoIniciativas.consultarEstadoIniciativas(2));
+            System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
+            //-----Para crear una iniciativa-------
+            //serviciosBancoIniciativas.updateInitiativeStatus(1, 1);
+            // ------- Para actualizar el eatdo de una iniciativa-------
+            //System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
+            //serviciosBancoIniciativas.updateInitiativeStatus(1, 2);
+            //------- modifiqué el estado de la iniciativa 1 de 1 a 2, es decir de "En espera de revisión" a "En revisión"
+            //System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
+            
             String keyWords = "edificio,investigación,proyectos,sustentaciones,sistemas";
             //serviciosBancoIniciativas.registrarIniciativa(new Initiative(1, "Nuevo edificio de sistemas", "Este nuevo edificio será para sustentaciones, investigaciones y realización de proyectos", new Date(2018-1900,10,2), null, keyWords, new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")), new InitiativeStatus(1, "En espera de revisión")));
-            System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
+            List<Initiative> iniciativas = serviciosBancoIniciativas.consultInitiativeForKeyWord("edificio");
+            if( iniciativas.size() > 0) {
+	            for(int indice = 0;indice<iniciativas.size();indice++){
+	                System.out.println(iniciativas.get(indice).toString());
+	            }
+            }else {
+            	System.out.println("No se encontraron reslutados");
+            }
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }

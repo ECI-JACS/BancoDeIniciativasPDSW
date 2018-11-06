@@ -7,6 +7,8 @@ import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.InitiativeMapper;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 
+import java.util.List;
+
 import org.apache.ibatis.exceptions.PersistenceException;
 
 public class MyBATISInitiativeDAO implements InitiativeDAO {
@@ -49,4 +51,25 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
             throw new PersistenceException("Error al consultar el estado " + id + " de las iniciativas", e);
         }
     }
+    
+    @Override
+    public void updateInitiativeStatus(int id,int iniStat) throws PersistenceException {
+        try {
+            initiativeMapper.updateInitiativeStatus(id, iniStat);
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al modifciar el estado de la iniciativa "+ id , e);
+        }
+    }
+
+	@Override
+	public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws PersistenceException {
+		try {
+            return initiativeMapper.consultInitiativeForKeyWord(keyWord);
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al consultar iniciativa por palabra clave" + keyWord);
+        }
+	}
+
+
+
 }
