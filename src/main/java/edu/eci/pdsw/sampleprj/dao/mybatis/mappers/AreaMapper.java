@@ -1,6 +1,7 @@
 package edu.eci.pdsw.sampleprj.dao.mybatis.mappers;
 
 import edu.eci.pdsw.samples.entities.Area;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -13,4 +14,7 @@ public interface AreaMapper {
     public void insertarArea(@Param("area") Area area);
     
     public Area consultarArea(@Param("id") int id);
+    
+    public List<Area> consultarAreas();
+
 }

@@ -18,6 +18,13 @@
         WHERE a.id = #{id};
     </select>
     
+    <select id='consultarAreas' parameterType='map' resultMap='AreaResult'>
+        SELECT
+            a.id as areaid,
+            a.name as areaname
+        FROM Area AS a;
+    </select>
+    
     <insert id='insertarArea' parameterType='map'>
         INSERT INTO Area VALUES(#{area.id}, #{area.name});
     </insert>

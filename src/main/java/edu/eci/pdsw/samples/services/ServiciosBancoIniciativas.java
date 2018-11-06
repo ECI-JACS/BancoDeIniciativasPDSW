@@ -51,6 +51,13 @@ public interface ServiciosBancoIniciativas {
     public Area consultarArea(int id) throws ExceptionServiciosBancoIniciativas;
     
     /**
+     * Permite consultar las áreas o dependencias
+     * @return Lista de areas
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public List<Area> consultarAreas() throws ExceptionServiciosBancoIniciativas;
+    
+    /**
      * Permite registrar una área o dependencia
      * @param area
      * @throws ExceptionServiciosBancoIniciativas 

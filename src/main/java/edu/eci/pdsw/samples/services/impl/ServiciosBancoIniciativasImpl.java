@@ -41,7 +41,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public User consultarUsuario(String email) throws ExceptionServiciosBancoIniciativas {
         try {
@@ -68,11 +68,20 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public Area consultarArea(int id) throws ExceptionServiciosBancoIniciativas {
         try {
             return areaDAO.loadArea(id);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public List<Area> consultarAreas() throws ExceptionServiciosBancoIniciativas {
+        try {
+            return areaDAO.loadAreas();
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
@@ -104,24 +113,23 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
-    public void updateInitiativeStatus(int id,int iniStat) throws ExceptionServiciosBancoIniciativas{
+    public void updateInitiativeStatus(int id, int iniStat) throws ExceptionServiciosBancoIniciativas {
         try {
             initiativeDAO.updateInitiativeStatus(id, iniStat);
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
-        
-        
     }
 
-	@Override
-	public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws ExceptionServiciosBancoIniciativas{
-		try {
-			return initiativeDAO.consultInitiativeForKeyWord(keyWord);
-		} catch(PersistenceException ex) {
-			throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
-		}
-	}
+    @Override
+    public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws ExceptionServiciosBancoIniciativas {
+        try {
+            return initiativeDAO.consultInitiativeForKeyWord(keyWord);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+
 }

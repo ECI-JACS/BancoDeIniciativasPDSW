@@ -70,6 +70,7 @@ public class MyBatisExample {
 
         try {
             //serviciosBancoIniciativas.registrarArea(new Area(1, "Sistemas"));
+            System.out.println(serviciosBancoIniciativas.consultarAreas());
             System.out.println(serviciosBancoIniciativas.consultarArea(1));
             //serviciosBancoIniciativas.registrarUsuario(new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")));
             System.out.println(serviciosBancoIniciativas.consultarUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));

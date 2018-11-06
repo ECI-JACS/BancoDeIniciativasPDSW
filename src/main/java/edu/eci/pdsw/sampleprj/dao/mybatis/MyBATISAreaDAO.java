@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import edu.eci.pdsw.sampleprj.dao.AreaDAO;
 import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.AreaMapper;
 import edu.eci.pdsw.samples.entities.Area;
+import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 
@@ -32,6 +33,15 @@ public class MyBATISAreaDAO implements AreaDAO {
             return areaMapper.consultarArea(id);
         } catch (PersistenceException e) {
             throw new PersistenceException("Error al consultar el area " + id, e);
+        }
+    }
+
+    @Override
+    public List<Area> loadAreas() throws PersistenceException {
+        try {
+            return areaMapper.consultarAreas();
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al consultar las areas.",e);
         }
     }
     
