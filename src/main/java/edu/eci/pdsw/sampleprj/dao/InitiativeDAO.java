@@ -1,5 +1,8 @@
 package edu.eci.pdsw.sampleprj.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 import edu.eci.pdsw.samples.entities.Initiative;
@@ -16,4 +19,6 @@ public interface InitiativeDAO {
     public InitiativeStatus loadInitiativesStatus(int id) throws PersistenceException;
     
     public void updateInitiativeStatus(int id,int iniStat) throws PersistenceException;
+    
+    public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws PersistenceException;
 }

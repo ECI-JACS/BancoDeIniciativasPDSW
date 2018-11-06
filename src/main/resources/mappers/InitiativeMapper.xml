@@ -80,6 +80,38 @@
         WHERE id = #{id};        
     </update>    
     
+    <select id='consultInitiativeForKeyWord' parameterType='map' resultMap='InitiativeResult'>
+        SELECT
+            i.id as initiativeid,
+            i.description as initiativedescription,
+            i.detail as initiativedetail,
+            i.creationdate as initiativecreationdate,
+            i.modificationdate as initiativemodificationdate,
+            array_to_string(i.keywords,',') as keywords,
+            u.names as usernames,
+            u.lastnames as userlastnames,
+            u.email as useremail,
+            u.code as usercode,
+            u.role as userrole,
+            u.status as userstatus,
+            a.id as areaid,
+            a.name as areaname,
+            ie.id as initiativestatusid,
+            ie.description as initiativestatusdescription,
+            c.id as commentid,
+            c.description as commentdescription,
+            c.commentdate as commentdate,
+            v.id as voteid,
+            v.votedate as votedate,
+            v.affinity as voteaffinity
+        FROM Initiative AS i
+            LEFT JOIN "User" AS u ON (i.user_email = u.email)
+            LEFT JOIN Area AS a ON (u.area_id = a.id)
+            LEFT JOIN InitiativeStatus AS ie ON (i.initiativestatus_id = ie.id)
+            LEFT JOIN Comment AS c ON (i.id = c.initiative_id)
+            LEFT JOIN Vote AS v ON (i.id = v.initiative_id)
+        WHERE #{keyWord} = ANY (i.keywords);
+    </select>
     
     
 

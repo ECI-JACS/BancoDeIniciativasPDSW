@@ -13,6 +13,8 @@ import edu.eci.pdsw.samples.entities.User;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
 
+import java.util.List;
+
 import org.apache.ibatis.exceptions.PersistenceException;
 
 /**
@@ -113,4 +115,13 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
         
         
     }
+
+	@Override
+	public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws ExceptionServiciosBancoIniciativas{
+		try {
+			return initiativeDAO.consultInitiativeForKeyWord(keyWord);
+		} catch(PersistenceException ex) {
+			throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+		}
+	}
 }

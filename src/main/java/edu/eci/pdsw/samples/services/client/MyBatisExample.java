@@ -90,7 +90,14 @@ public class MyBatisExample {
             
             String keyWords = "edificio,investigación,proyectos,sustentaciones,sistemas";
             //serviciosBancoIniciativas.registrarIniciativa(new Initiative(1, "Nuevo edificio de sistemas", "Este nuevo edificio será para sustentaciones, investigaciones y realización de proyectos", new Date(2018-1900,10,2), null, keyWords, new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")), new InitiativeStatus(1, "En espera de revisión")));
-            
+            List<Initiative> iniciativas = serviciosBancoIniciativas.consultInitiativeForKeyWord("edificio");
+            if( iniciativas.size() > 0) {
+	            for(int indice = 0;indice<iniciativas.size();indice++){
+	                System.out.println(iniciativas.get(indice).toString());
+	            }
+            }else {
+            	System.out.println("No se encontraron reslutados");
+            }
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }

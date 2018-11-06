@@ -3,6 +3,8 @@ package edu.eci.pdsw.sampleprj.dao.mybatis.mappers;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -21,4 +23,5 @@ public interface InitiativeMapper {
     
     public InitiativeStatus consultarEstadoIniciativas(@Param("id") int id);
 
+    public List<Initiative> consultInitiativeForKeyWord(@Param("keyWord") String keyWord);
 }
