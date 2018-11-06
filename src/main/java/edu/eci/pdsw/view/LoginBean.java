@@ -5,51 +5,39 @@ import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-
-import javax.faces.bean.SessionScoped;
+//import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import edu.eci.pdsw.samples.entities.User;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
+import edu.eci.pdsw.samples.services.ServiciosBancoIniciativasFactory;
 
 @SuppressWarnings("deprecation")
 @ManagedBean(name = "loginBean")
-@SessionScoped
+@ApplicationScoped
 public class LoginBean implements Serializable{
-
-	private static final long serialVersionUID = 1L;
-
-	@Inject
-	private ServiciosBancoIniciativas serviciosBancoIniciativas;
+    
+	//@Inject
+	//private ServiciosBancoIniciativas serviciosBancoIniciativas;
 	
-	//@ManagedProperty(value = "#{param.documento}")
-	//private long documento;	
+        ServiciosBancoIniciativasFactory servicesInitiativesBankFactory = ServiciosBancoIniciativasFactory.getInstance();
+        ServiciosBancoIniciativas serviciosBancoIniciativas = servicesInitiativesBankFactory.getServiciosBancoIniciativas();
 	
-	public void authentication(String email, String contraseña) throws Exception{
-        try {
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Validación Correcta"));
-        	
+	public void authentication(String email, String contrasena) throws IOException{
+        try {        	
             User usuario = serviciosBancoIniciativas.consultarUsuario(email);             
-            if (Integer.parseInt(contraseña) == usuario.getCode()) {
+            if (Integer.parseInt(contrasena) == usuario.getCode()) {
             	FacesContext.getCurrentInstance().getExternalContext().redirect("menu.xhtml"); 
             }else{
-            	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Contraseña o usuario incorrecto","Ingrese el usuario y contraseña correcta"));            	
+            	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Contraseña o usuario incorrecto.","Ingrese el usuario y contraseña correcta"));            	
             }
-        } catch (ExceptionServiciosBancoIniciativas ex) {            
-        	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Contraseña o usuario incorrecto","Ingrese el usuario y contraseña correcta"));
-        }        
+        }catch (ExceptionServiciosBancoIniciativas ex) {            
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"El usuario no existe.","Cree un usuario."));  
+        } catch (NumberFormatException ex){
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Contraseña incorrecta.","Verifique la contraseña."));
+        }       
         
-    } 
-	
-	public void action() throws IOException {
-	    FacesContext.getCurrentInstance().getExternalContext().dispatch("another.xhtml");
-	}
-	
-	public String mensaje() throws IOException{
-		return "menu.xhtml";
-		//FacesContext.getCurrentInstance().getExternalContext().redirect("menu.xhtml");		
-        //FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Contraseña o usuario incorrecto","Ingrese el usuario y contraseña correcta"));  
     } 
 }

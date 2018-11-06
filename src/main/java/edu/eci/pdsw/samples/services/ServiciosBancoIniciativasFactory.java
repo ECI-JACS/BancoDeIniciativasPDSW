@@ -1,8 +1,6 @@
 package edu.eci.pdsw.samples.services;
 
 import org.mybatis.guice.XMLMyBatisModule;
-import org.mybatis.guice.datasource.helper.JdbcHelper;
-
 import static com.google.inject.Guice.createInjector;
 import com.google.inject.Injector;
 import edu.eci.pdsw.sampleprj.dao.AreaDAO;
@@ -29,8 +27,7 @@ public class ServiciosBancoIniciativasFactory {
     private Injector myBatisInjector(String env, String pathResource) {
         return createInjector(new XMLMyBatisModule() {
             @Override
-            protected void initialize() {
-                install(JdbcHelper.PostgreSQL);
+            protected void initialize() {                
                 setEnvironmentId(env);
                 setClassPathResource(pathResource);
                 bind(ServiciosBancoIniciativas.class).to(ServiciosBancoIniciativasImpl.class);

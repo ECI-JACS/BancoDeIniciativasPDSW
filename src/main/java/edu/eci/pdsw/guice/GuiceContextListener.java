@@ -4,7 +4,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import org.mybatis.guice.XMLMyBatisModule;
-import org.mybatis.guice.datasource.helper.JdbcHelper;
+//import org.mybatis.guice.datasource.helper.JdbcHelper;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import edu.eci.pdsw.sampleprj.dao.UserDAO;
@@ -33,7 +33,7 @@ public class GuiceContextListener implements ServletContextListener {
         Injector injector = Guice.createInjector(new XMLMyBatisModule() {
             @Override
             protected void initialize() {
-                install(JdbcHelper.PostgreSQL);
+                //install(JdbcHelper.PostgreSQL);
                 setClassPathResource("mybatis-config.xml");
                 // TODO Add service class associated to Stub implementation
                 bind(ServiciosBancoIniciativas.class).to(ServiciosBancoIniciativasImpl.class);

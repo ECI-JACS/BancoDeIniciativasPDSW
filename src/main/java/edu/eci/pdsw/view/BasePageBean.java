@@ -7,18 +7,17 @@ import javax.servlet.ServletContext;
 import com.google.inject.Injector;
 
 /**
- * Esta clase con su contenido es para que se puedan inyectar los 
- * componentes necesarios en todas las clases “hijas” que serán 
- * los beans de la capa de presentación:
+ * Esta clase con su contenido es para que se puedan inyectar los componentes
+ * necesarios en todas las clases “hijas” que serán los beans de la capa de
+ * presentación.
+ *
  * @author amalia
  *
  */
 public abstract class BasePageBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Injector injector;
-    
+    private Injector injector;
+
     public Injector getInjector() {
         if (injector == null) {
             ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
@@ -30,6 +29,7 @@ public abstract class BasePageBean implements Serializable {
     public void setInjector(Injector injector) {
         this.injector = injector;
     }
+
     @PostConstruct
     public void init() {
         getInjector().injectMembers(this);

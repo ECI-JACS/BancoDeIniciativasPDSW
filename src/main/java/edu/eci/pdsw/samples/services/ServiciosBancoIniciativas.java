@@ -1,9 +1,6 @@
 package edu.eci.pdsw.samples.services;
 
 import java.util.List;
-
-import org.apache.ibatis.exceptions.PersistenceException;
-
 import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
