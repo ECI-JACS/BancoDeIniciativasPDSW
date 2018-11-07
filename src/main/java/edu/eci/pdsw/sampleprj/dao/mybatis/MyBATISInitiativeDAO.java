@@ -12,10 +12,10 @@ import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 public class MyBATISInitiativeDAO implements InitiativeDAO {
-    
+
     @Inject
     private InitiativeMapper initiativeMapper;
-    
+
     @Override
     public void saveInitiative(Initiative ini) throws PersistenceException {
         try {
@@ -51,25 +51,32 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
             throw new PersistenceException("Error al consultar el estado " + id + " de las iniciativas", e);
         }
     }
-    
+
     @Override
-    public void updateInitiativeStatus(int id,int iniStat) throws PersistenceException {
+    public void updateInitiativeStatus(int id, int iniStat) throws PersistenceException {
         try {
             initiativeMapper.updateInitiativeStatus(id, iniStat);
         } catch (PersistenceException e) {
-            throw new PersistenceException("Error al modifciar el estado de la iniciativa "+ id , e);
+            throw new PersistenceException("Error al modifciar el estado de la iniciativa " + id, e);
         }
     }
 
-	@Override
-	public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws PersistenceException {
-		try {
+    @Override
+    public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws PersistenceException {
+        try {
             return initiativeMapper.consultInitiativeForKeyWord(keyWord);
         } catch (PersistenceException e) {
-            throw new PersistenceException("Error al consultar iniciativa por palabra clave" + keyWord);
+            throw new PersistenceException("Error al consultar iniciativa por palabra clave" + keyWord, e);
         }
-	}
+    }
 
-
+    @Override
+    public int loadInitiativeId() throws PersistenceException {
+        try {
+            return initiativeMapper.consultarIdIniciativa();
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al consultar el máximo id que tomará una iniciativa", e);
+        }
+    }
 
 }

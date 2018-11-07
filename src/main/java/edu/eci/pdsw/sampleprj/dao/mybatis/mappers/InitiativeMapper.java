@@ -24,4 +24,6 @@ public interface InitiativeMapper {
     public InitiativeStatus consultarEstadoIniciativas(@Param("id") int id);
 
     public List<Initiative> consultInitiativeForKeyWord(@Param("keyWord") String keyWord);
+
+    public int consultarIdIniciativa();
 }

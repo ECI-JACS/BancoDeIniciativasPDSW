@@ -6,16 +6,13 @@ import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
-import edu.eci.pdsw.samples.entities.UserStatus;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
+
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 /**

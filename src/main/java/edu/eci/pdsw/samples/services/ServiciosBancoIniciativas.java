@@ -38,10 +38,18 @@ public interface ServiciosBancoIniciativas {
     
     /**
      * Permite actualizar el rol de un usuario, dado el rol.
+     * @param email
      * @param role
      * @throws ExceptionServiciosBancoIniciativas 
      */
     public void actualizarRolUsuario(String email, Role role) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Permite consulta el siguiente Id que tendrá una iniciativa
+     * @return
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public int consultarIdIniciativa() throws ExceptionServiciosBancoIniciativas;
     
     /**
      * Permite registrar una iniciativa

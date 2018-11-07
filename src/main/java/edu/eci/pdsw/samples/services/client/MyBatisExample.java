@@ -100,6 +100,7 @@ public class MyBatisExample {
             }
             System.out.println(serviciosBancoIniciativas.consultarUsuariosRol(Role.PUBLICO));
             //serviciosBancoIniciativas.actualizarRolUsuario("amalia.alfonso@mail.escuelaing.edu.co", Role.PUBLICO);
+            System.out.println(serviciosBancoIniciativas.consultarIdIniciativa());
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }

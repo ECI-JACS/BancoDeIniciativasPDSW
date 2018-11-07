@@ -23,6 +23,9 @@
         <result property='description' column='initiativestatusdescription'/>
     </resultMap>
     
+    <resultMap type='java.lang.Integer' id='InitiativeIdResult'>     
+    </resultMap>
+    
     <select id='consultarIniciativa' parameterType='map' resultMap='InitiativeResult'>
         SELECT
             i.id as initiativeid,
@@ -113,6 +116,8 @@
         WHERE #{keyWord} = ANY (i.keywords);
     </select>
     
+    <select id='consultarIdIniciativa' parameterType='map' resultMap="InitiativeIdResult">
+        SELECT MAX(id)+1 AS id FROM Initiative;
+    </select>
     
-
 </mapper>

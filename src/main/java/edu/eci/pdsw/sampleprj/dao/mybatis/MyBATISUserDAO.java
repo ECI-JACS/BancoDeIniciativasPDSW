@@ -12,10 +12,10 @@ import org.apache.ibatis.exceptions.PersistenceException;
  *
  * @author ECI-FACS
  */
-public class MyBATISUserDAO implements UserDAO{
+public class MyBATISUserDAO implements UserDAO {
     
     @Inject
-    UserMapper userMapper;
+    private UserMapper userMapper;
     
     @Override
     public void saveUser(User user) throws PersistenceException {
