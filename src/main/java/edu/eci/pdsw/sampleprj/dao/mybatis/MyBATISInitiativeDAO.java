@@ -79,4 +79,22 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
         }
     }
 
+    @Override
+    public List<Initiative> loadInitiatives() throws PersistenceException {
+        try {
+            return initiativeMapper.consultarIniciativas();
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al consultar todas las iniciativas", e);
+        }
+    }
+
+    @Override
+    public List<InitiativeStatus> loadAllInitiativesStatus() throws PersistenceException {
+        try {
+            return initiativeMapper.consultarEstadosIniciativas();
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al consultar todos los estados de las iniciativas", e);
+        }
+    }
+
 }

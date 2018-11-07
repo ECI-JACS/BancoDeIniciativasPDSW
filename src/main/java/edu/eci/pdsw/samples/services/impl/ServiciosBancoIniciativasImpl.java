@@ -96,6 +96,15 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
+    
+    @Override
+    public List<Initiative> consultarIniciativas() throws ExceptionServiciosBancoIniciativas {
+        try {
+            return initiativeDAO.loadInitiatives();
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
 
     @Override
     public Area consultarArea(int id) throws ExceptionServiciosBancoIniciativas {
@@ -137,6 +146,15 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
     public InitiativeStatus consultarEstadoIniciativas(int id) throws ExceptionServiciosBancoIniciativas {
         try {
             return initiativeDAO.loadInitiativesStatus(id);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+    
+    @Override
+    public List<InitiativeStatus> consultarEstadosIniciativas() throws ExceptionServiciosBancoIniciativas {
+        try {
+            return initiativeDAO.loadAllInitiativesStatus();
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }

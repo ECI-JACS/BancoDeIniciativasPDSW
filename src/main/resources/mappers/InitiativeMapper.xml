@@ -59,6 +59,38 @@
         WHERE i.id = #{id};
     </select>
     
+    <select id='consultarIniciativas' parameterType='map' resultMap='InitiativeResult'>
+        SELECT
+            i.id as initiativeid,
+            i.description as initiativedescription,
+            i.detail as initiativedetail,
+            i.creationdate as initiativecreationdate,
+            i.modificationdate as initiativemodificationdate,
+            array_to_string(i.keywords,',') as keywords,
+            u.names as usernames,
+            u.lastnames as userlastnames,
+            u.email as useremail,
+            u.code as usercode,
+            u.role as userrole,
+            u.status as userstatus,
+            a.id as areaid,
+            a.name as areaname,
+            ie.id as initiativestatusid,
+            ie.description as initiativestatusdescription,
+            c.id as commentid,
+            c.description as commentdescription,
+            c.commentdate as commentdate,
+            v.id as voteid,
+            v.votedate as votedate,
+            v.affinity as voteaffinity
+        FROM Initiative AS i
+            LEFT JOIN "User" AS u ON (i.user_email = u.email)
+            LEFT JOIN Area AS a ON (u.area_id = a.id)
+            LEFT JOIN InitiativeStatus AS ie ON (i.initiativestatus_id = ie.id)
+            LEFT JOIN Comment AS c ON (i.id = c.initiative_id)
+            LEFT JOIN Vote AS v ON (i.id = v.initiative_id);
+    </select>
+    
     <insert id='insertarIniciativa' parameterType='map'>
         INSERT INTO Initiative 
         VALUES(#{ini.id}, #{ini.description}, #{ini.detail}, #{ini.creationDate}, #{ini.modificationDate}, string_to_array(#{ini.keyWords},','), #{ini.user.email}, #{ini.initiativeStatus.id});
@@ -72,6 +104,13 @@
         WHERE ei.id = #{id};
     </select>
     
+    <select id='consultarEstadosIniciativas' parameterType='map' resultMap='InitiativeStatusResult'>
+        SELECT
+            ei.id as initiativestatusid,
+            ei.description as initiativestatusdescription
+        FROM InitiativeStatus AS ei;
+    </select>
+    
     <insert id='insertarEstadoIniciativa' parameterType='map'>
         INSERT INTO InitiativeStatus 
         VALUES(#{iniSta.id}, #{iniSta.description});
@@ -79,7 +118,7 @@
     
     <update id='updateInitiativeStatus' parameterType = 'map'>
         UPDATE Initiative
-        	SET initiativestatus_id = #{iniStat}
+        SET initiativestatus_id = #{iniStat}, modificationdate = current_date
         WHERE id = #{id};        
     </update>    
     

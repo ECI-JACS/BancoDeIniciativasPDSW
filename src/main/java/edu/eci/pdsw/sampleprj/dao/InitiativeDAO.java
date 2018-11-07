@@ -22,4 +22,8 @@ public interface InitiativeDAO {
     public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws PersistenceException;
 
     public int loadInitiativeId() throws PersistenceException;
+
+    public List<Initiative> loadInitiatives() throws PersistenceException;
+
+    public List<InitiativeStatus> loadAllInitiativesStatus() throws PersistenceException;
 }

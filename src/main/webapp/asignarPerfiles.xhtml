@@ -19,7 +19,9 @@
                     <f:selectItems value="#{asignarPerfilesBean.roles}"/>
                     <p:ajax rendered="usuarios_table"></p:ajax>
                 </p:selectOneMenu>
+                <h:outputText value=" " />
                 <p:commandButton update="usuariosFormulario" value="Consultar usuarios"/>
+                <br/>
                 <br/>
                 <p:selectOneMenu id="roles_update_select" value="#{asignarPerfilesBean.rolUpdate}">
                     <f:selectItem itemLabel="---- Seleccionar Rol ----" itemValue=""/>

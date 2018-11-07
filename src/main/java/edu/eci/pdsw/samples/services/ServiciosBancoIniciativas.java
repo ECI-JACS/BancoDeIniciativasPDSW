@@ -67,6 +67,13 @@ public interface ServiciosBancoIniciativas {
     public Initiative consultarIniciativa(int id) throws ExceptionServiciosBancoIniciativas;
     
     /**
+     * Permite consultar todas las iniciativas existentes
+     * @return
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public List<Initiative> consultarIniciativas() throws ExceptionServiciosBancoIniciativas;
+    
+    /**
      * Permite consultar un área o dependencia en específico
      * @param id
      * @return area
@@ -95,7 +102,6 @@ public interface ServiciosBancoIniciativas {
      */
     public void registrarEstadoIniciativa(InitiativeStatus iniSta) throws ExceptionServiciosBancoIniciativas;
     
-    
     /**
      * Permite conocer el estado de una iniciativa
      * @param id
@@ -105,8 +111,16 @@ public interface ServiciosBancoIniciativas {
     public InitiativeStatus consultarEstadoIniciativas(int id) throws ExceptionServiciosBancoIniciativas;
     
     /**
+     * Permite consultar todos los estados de las iniciativas
+     * @return
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public List<InitiativeStatus> consultarEstadosIniciativas() throws ExceptionServiciosBancoIniciativas;
+    
+    /**
      * Permite modificar el estado de una iniciativa
      * @param id
+     * @param iniStat
      * @throws ExceptionServiciosBancoIniciativas 
      */
     public void updateInitiativeStatus(int id,int iniStat) throws ExceptionServiciosBancoIniciativas;

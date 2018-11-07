@@ -28,8 +28,7 @@ public class AsignarPerfilesBean extends BasePageBean {
     private ServiciosBancoIniciativas serviciosBancoIniciativas;
 
     private String rol;
-    private String rolUpdate;
-    
+    private String rolUpdate;    
     private List<SelectItem> roles;
     private List<User> selectedUsuarios;    
     
@@ -49,6 +48,7 @@ public class AsignarPerfilesBean extends BasePageBean {
         try {   
             System.out.println("################# Rol cambio: "+rolUpdate);            
             for(User u : selectedUsuarios){
+                System.out.println("################# Usuario: "+u);
                 serviciosBancoIniciativas.actualizarRolUsuario(u.getEmail(), rolUpdate);
             }            
         } catch (ExceptionServiciosBancoIniciativas ex) {
