@@ -31,11 +31,14 @@ public class AsignarPerfilesBean extends BasePageBean {
     private ServiciosBancoIniciativas serviciosBancoIniciativas;
 
     private String rol;
+    private String rolUpdate;
+    
     private List<SelectItem> roles;
+    private List<User> selectedUsuarios;    
     
     public List<User> getUsuarios() {
         List<User> users = new ArrayList<>();
-        try {
+        try {            
             users = serviciosBancoIniciativas.consultarUsuariosRol(Role.valueOf(rol));
         } catch (ExceptionServiciosBancoIniciativas ex) {
             System.out.println(ex.getMessage());
@@ -43,6 +46,19 @@ public class AsignarPerfilesBean extends BasePageBean {
             System.out.println("Mientras se selecciona un rol");
         }
         return users;
+    }
+    
+    public void updateUsuarios() {
+        try {   
+            System.out.println("################# Rol cambio: "+rolUpdate);            
+            for(User u : selectedUsuarios){
+                serviciosBancoIniciativas.actualizarRolUsuario(u.getEmail(), rolUpdate);
+            }            
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            System.out.println(ex.getMessage());
+        } catch (NullPointerException ex) {
+            System.out.println("Error al seleccionar un rol");
+        }
     }
     
     public List<SelectItem> getRoles() throws IOException {
@@ -63,6 +79,22 @@ public class AsignarPerfilesBean extends BasePageBean {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+    
+    public String getRolUpdate() {
+        return rolUpdate;
+    }
+
+    public void setRolUpdate(String rolUpdate) {
+        this.rolUpdate = rolUpdate;
+    }
+    
+     public List<User> getSelectedUsuarios() {
+        return selectedUsuarios;
+    }
+
+    public void setSelectedUsuarios(List<User> selectedUsuarios) {
+        this.selectedUsuarios = selectedUsuarios;
     }
 
 }

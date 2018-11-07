@@ -18,5 +18,5 @@ public interface UserDAO {
 
     public List<User> loadUsersRole(Role role) throws PersistenceException;
     
-    public void updateRoleUser(String email, Role role) throws PersistenceException;
+    public void updateRoleUser(String email, String role) throws PersistenceException;
 }

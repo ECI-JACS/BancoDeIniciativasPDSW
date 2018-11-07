@@ -19,8 +19,19 @@
                     <f:selectItems value="#{asignarPerfilesBean.roles}"/>
                     <p:ajax rendered="usuarios_table"></p:ajax>
                 </p:selectOneMenu>
-                <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}">
-                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>					
+                <p:commandButton update="usuariosFormulario" value="Consultar usuarios"/>
+                <br/>
+                <p:selectOneMenu id="roles_update_select" value="#{asignarPerfilesBean.rolUpdate}">
+                    <f:selectItem itemLabel="---- Seleccionar Rol ----" itemValue=""/>
+                    <f:selectItems value="#{asignarPerfilesBean.roles}"/>
+                    <p:ajax rendered="usuarios_table"></p:ajax>
+                </p:selectOneMenu>
+                
+                <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}" rowKey="#{usuario.email}">                    			
+                    <f:facet name="header">
+                        Checkbox
+                    </f:facet>
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     <p:column headerText="Nombres">
                         <h:outputText value="#{usuario.names}" />
                     </p:column>
@@ -40,10 +51,10 @@
                         <h:outputText value="#{usuario.role}" />
                     </p:column>
                     <p:column headerText="Área">
-                        <h:outputText value="#{usuario.area}" />
-                    </p:column>	
+                        <h:outputText value="#{usuario.area.name}" />
+                    </p:column>	                    
                 </p:dataTable>
-                <p:commandButton update="usuariosFormulario" value="Consultar usuarios"/>
+                <p:commandButton update="usuariosFormulario" value="Actualizar Estado" action="#{asignarPerfilesBean.updateUsuarios()}"/>
             </h:form>
         </div>
     </h:body>

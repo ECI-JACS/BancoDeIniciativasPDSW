@@ -41,7 +41,7 @@ public interface ServiciosBancoIniciativas {
      * @param role
      * @throws ExceptionServiciosBancoIniciativas 
      */
-    public void actualizarRolUsuario(String email, Role role) throws ExceptionServiciosBancoIniciativas;
+    public void actualizarRolUsuario(String email, String role) throws ExceptionServiciosBancoIniciativas;
     
     /**
      * Permite registrar una iniciativa

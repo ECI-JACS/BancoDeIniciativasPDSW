@@ -18,5 +18,5 @@ public interface UserMapper {
 
     public List<User> consultarUsuariosRol(@Param("role") Role role);
 
-    public void actualizarUsuariosRol(@Param("email") String email, @Param("role") Role role);
+    public void actualizarUsuariosRol(@Param("email") String email, @Param("role") String role);
 }
