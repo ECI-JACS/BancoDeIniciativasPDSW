@@ -62,7 +62,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
     }
     
     @Override
-    public void actualizarRolUsuario(String email, Role role) throws ExceptionServiciosBancoIniciativas {
+    public void actualizarRolUsuario(String email, String role) throws ExceptionServiciosBancoIniciativas {
         try {
             userDAO.updateRoleUser(email, role);
         } catch (PersistenceException ex) {

@@ -45,7 +45,7 @@ public class MyBATISUserDAO implements UserDAO {
     }
 
     @Override
-    public void updateRoleUser(String email, Role role) throws PersistenceException {
+    public void updateRoleUser(String email, String role) throws PersistenceException {
         try {
             userMapper.actualizarUsuariosRol(email, role);
         } catch (PersistenceException e) {
