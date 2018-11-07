@@ -9,6 +9,7 @@ import edu.eci.pdsw.sampleprj.dao.UserDAO;
 import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
+import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
@@ -46,6 +47,24 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
     public User consultarUsuario(String email) throws ExceptionServiciosBancoIniciativas {
         try {
             return userDAO.loadUser(email);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+    
+    @Override
+    public List<User> consultarUsuariosRol(Role role) throws ExceptionServiciosBancoIniciativas {
+        try {
+            return userDAO.loadUsersRole(role);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+    
+    @Override
+    public void actualizarRolUsuario(String email, Role role) throws ExceptionServiciosBancoIniciativas {
+        try {
+            userDAO.updateRoleUser(email, role);
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }

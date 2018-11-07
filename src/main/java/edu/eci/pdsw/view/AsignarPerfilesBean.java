@@ -32,7 +32,19 @@ public class AsignarPerfilesBean extends BasePageBean {
 
     private String rol;
     private List<SelectItem> roles;
-
+    
+    public List<User> getUsuarios() {
+        List<User> users = new ArrayList<>();
+        try {
+            users = serviciosBancoIniciativas.consultarUsuariosRol(Role.valueOf(rol));
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            System.out.println(ex.getMessage());
+        } catch (NullPointerException ex) {
+            System.out.println("Mientras se selecciona un rol");
+        }
+        return users;
+    }
+    
     public List<SelectItem> getRoles() throws IOException {
         Role[] rolesBD = Role.values();
         roles = new ArrayList<>();

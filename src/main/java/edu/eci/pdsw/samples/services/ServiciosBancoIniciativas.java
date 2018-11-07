@@ -4,6 +4,7 @@ import java.util.List;
 import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
+import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
 
 /**
@@ -26,6 +27,21 @@ public interface ServiciosBancoIniciativas {
      * @throws ExceptionServiciosBancoIniciativas 
      */
     public User consultarUsuario(String email) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Permite consultar a varios usuarios, dado el rol o pefil
+     * @param role
+     * @return
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public List<User> consultarUsuariosRol(Role role) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Permite actualizar el rol de un usuario, dado el rol.
+     * @param role
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public void actualizarRolUsuario(String email, Role role) throws ExceptionServiciosBancoIniciativas;
     
     /**
      * Permite registrar una iniciativa

@@ -15,12 +15,35 @@
             <h1>Asignar Perfiles</h1>
             <h:form id="usuariosFormulario">
                 <p:selectOneMenu id="roles_select" value="#{asignarPerfilesBean.rol}">
-                    <f:selectItem itemLabel="----Roles----" itemValue=""/>
-                    <f:selectItems value="#{asignarPerfilesBean.roles}"/>                        
+                    <f:selectItem itemLabel="---- Seleccionar Rol ----" itemValue=""/>
+                    <f:selectItems value="#{asignarPerfilesBean.roles}"/>
+                    <p:ajax rendered="usuarios_table"></p:ajax>
                 </p:selectOneMenu>
-                
-                <h:outputText value="#{asignarPerfilesBean.rol}"/>
-                
+                <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}">
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>					
+                    <p:column headerText="Nombres">
+                        <h:outputText value="#{usuario.names}" />
+                    </p:column>
+                    <p:column headerText="Apellidos">
+                        <h:outputText value="#{usuario.lastNames}" />
+                    </p:column>
+                    <p:column headerText="Correo">
+                        <h:outputText value="#{usuario.email}" />
+                    </p:column>
+                    <p:column headerText="Carnet">
+                        <h:outputText value="#{usuario.code}" />
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <h:outputText value="#{usuario.status}" />
+                    </p:column>
+                    <p:column headerText="Rol">
+                        <h:outputText value="#{usuario.role}" />
+                    </p:column>
+                    <p:column headerText="Área">
+                        <h:outputText value="#{usuario.area}" />
+                    </p:column>	
+                </p:dataTable>
+                <p:commandButton update="usuariosFormulario" value="Consultar usuarios"/>
             </h:form>
         </div>
     </h:body>
