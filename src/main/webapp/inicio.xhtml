@@ -38,7 +38,7 @@
                                 <p:messages />
                                 <p:tab title="Iniciar Sesión" >
                                     <h:form id="incForm">
-                                        <h:panelGrid columns="3">
+                                        <h:panelGrid columns="3" style="align-items: baseline;">
                                             <p:outputLabel for="username" value="Usuario" />
                                             <p:inputText id="username" binding="#{user}" required="true" label="Firstname">
                                                 <f:validateLength minimum="2" />
@@ -49,7 +49,7 @@
                                             <p:inputText id="contrasena" binding="#{contrasena}" required="true" label="Surname"/> 
                                             <p:message for="contrasena" />			            
                                         </h:panelGrid>
-                                        <h:panelGrid columns="1" cellpadding="5">						
+                                        <h:panelGrid columns="1" cellpadding="5" style="align-items: baseline;">						
                                             <h:commandButton id="ingresarB" value="Ingresar" action="#{loginBean.authentication(user.value, contrasena.value)}"/>				    
                                         </h:panelGrid>
                                         <p:dialog header="Error" widgetVar="dlg1" minHeight="100">
