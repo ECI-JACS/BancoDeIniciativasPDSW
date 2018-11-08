@@ -24,7 +24,6 @@ html {
 
 .tableLogin{  
     sepia: 100%
-
     display: table;    
     height: 40%;
     width: 28%;
@@ -45,6 +44,14 @@ html {
 
 .ui-tabs{
     border-radius: 8px;    
+    border-style: groove;
+    posición :  relativa ;
+    overflow: hidden;
+    padding: 0;
+}
+
+#panelIniciativa{
+    border-radius: 11px;    
     border-style: groove;
     posición :  relativa ;
     overflow: hidden;

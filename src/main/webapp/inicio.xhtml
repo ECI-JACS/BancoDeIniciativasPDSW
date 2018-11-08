@@ -5,16 +5,12 @@
       xmlns:f = "http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"> 
     <h:head>
-
-
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
         <link rel="stylesheet" media="screen" href="resources/css/bootstrap.css"/>
-
         <meta charset="UTF-8" />
         <title>Banco de Iniciativas</title>        
     </h:head>
@@ -41,24 +37,25 @@
                                 <p:focus context="login"/> 
                                 <p:messages />
                                 <p:tab title="Iniciar Sesión" >
-                                    <h:panelGrid columns="3">
-                                        <p:outputLabel for="username" value="Usuario" />
-                                        <p:inputText id="username" binding="#{user}" required="true" label="Firstname">
-                                            <f:validateLength minimum="2" />
-                                        </p:inputText>
-                                        <p:message for="username" />
+                                    <h:form id="incForm">
+                                        <h:panelGrid columns="3">
+                                            <p:outputLabel for="username" value="Usuario" />
+                                            <p:inputText id="username" binding="#{user}" required="true" label="Firstname">
+                                                <f:validateLength minimum="2" />
+                                            </p:inputText>
+                                            <p:message for="username" />
 
-                                        <p:outputLabel for="contrasena" value="Contraseña" />
-                                        <p:inputText id="contrasena" binding="#{contrasena}" required="true" label="Surname"/> 
-                                        <p:message for="contrasena" />			            
-                                    </h:panelGrid>
-                                    <h:panelGrid columns="1" cellpadding="5">						
-                                        <h:commandButton id="ingresarB" value="Ingresar" action="#{loginBean.authentication(user.value, contrasena.value)}"/>				    
-                                    </h:panelGrid>
-                                    <p:dialog header="Error" widgetVar="dlg1" minHeight="100">
-                                        <h:outputText value="El usuario no existe." />
-                                    </p:dialog>
-
+                                            <p:outputLabel for="contrasena" value="Contraseña" />
+                                            <p:inputText id="contrasena" binding="#{contrasena}" required="true" label="Surname"/> 
+                                            <p:message for="contrasena" />			            
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="1" cellpadding="5">						
+                                            <h:commandButton id="ingresarB" value="Ingresar" action="#{loginBean.authentication(user.value, contrasena.value)}"/>				    
+                                        </h:panelGrid>
+                                        <p:dialog header="Error" widgetVar="dlg1" minHeight="100">
+                                            <h:outputText value="El usuario no existe." />
+                                        </p:dialog>
+                                    </h:form>
                                 </p:tab>
                                 <p:tab title="Registrarse">
                                     <h:form id="registroForm">

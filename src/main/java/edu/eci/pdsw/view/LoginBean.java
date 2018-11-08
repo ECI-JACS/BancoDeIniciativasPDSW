@@ -33,7 +33,10 @@ public class LoginBean extends BasePageBean {
     public void authentication(String email, String contrasena) throws IOException {
         try {
             User usuario = serviciosBancoIniciativas.consultarUsuario(email);
-            if (Integer.parseInt(contrasena) == usuario.getCode()) {
+            if (usuario.getRole() == Role.SIN_ASIGNAR){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario no tiene rol asignado.", "Comunìquese con el administrador."));
+            }
+            else if (Integer.parseInt(contrasena) == usuario.getCode()) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("menu.xhtml");
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña o usuario incorrecto.", "Ingrese el usuario y contraseña correcta"));
@@ -42,7 +45,7 @@ public class LoginBean extends BasePageBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario no existe.", "Cree un usuario."));
         } catch (NumberFormatException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña incorrecta.", "Verifique la contraseña."));
-        }
+        } 
     }
 
     private String idArea;
