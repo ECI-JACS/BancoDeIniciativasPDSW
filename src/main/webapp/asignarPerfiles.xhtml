@@ -29,7 +29,7 @@
                     <p:ajax rendered="usuarios_table"></p:ajax>
                 </p:selectOneMenu>
                 
-                <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}" rowKey="#{usuario.email}">                    			
+                <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}" selection="#{asignarPerfilesBean.selectedUsuarios}" rowKey="#{usuario.email}">                    			
                     <f:facet name="header">
                         Checkbox
                     </f:facet>
