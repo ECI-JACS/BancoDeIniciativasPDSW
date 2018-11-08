@@ -48,7 +48,7 @@
                                         <p:ajax rendered="usuarios_table"></p:ajax>
                                     </p:selectOneMenu>
                                     <h:outputText value=" " />
-                                    <p:commandButton update="usuariosFormulario" value="Consultar usuarios"/>
+                                    <h:commandButton value="Consultar usuarios"/>
                                     <br/>
                                     <br/>
                                     <p:selectOneMenu id="roles_update_select" value="#{asignarPerfilesBean.rolUpdate}">
@@ -84,7 +84,7 @@
                                             <h:outputText value="#{usuario.area.name}" />
                                         </p:column>	                    
                                     </p:dataTable>
-                                    <p:commandButton update="usuariosFormulario" value="Actualizar Estado" action="#{asignarPerfilesBean.updateUsuarios()}"/>
+                                    <h:commandButton value="Actualizar Estado" action="#{asignarPerfilesBean.updateUsuarios()}"/>
                                 </h:form>
                             </p:panel>
                         </h:form>
