@@ -64,7 +64,10 @@ public class MyBatisExample {
         ServiciosBancoIniciativas serviciosBancoIniciativas = servicesInitiativesBankFactory.getServiciosBancoIniciativas();
 
         try {
-            //serviciosBancoIniciativas.registrarArea(new Area(1, "Sistemas"));
+            //serviciosBancoIniciativas.registrarArea(new Area(1, "Decanatura de Ingenería de Sistemas"));
+            //serviciosBancoIniciativas.registrarArea(new Area(2, "Unidad de Proyectos"));
+            //serviciosBancoIniciativas.registrarArea(new Area(3, "Vicerrectoría"));
+            //serviciosBancoIniciativas.registrarArea(new Area(4, "Compras"));
             System.out.println(serviciosBancoIniciativas.consultarAreas());
             System.out.println(serviciosBancoIniciativas.consultarArea(1));
             //serviciosBancoIniciativas.registrarUsuario(new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")));
