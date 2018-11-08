@@ -58,8 +58,6 @@
                                             <p:inputText id="email" binding="#{email}" required="true">
                                                 <f:validateLength minimum="2" />
                                             </p:inputText>            
-
-<<<<<<< HEAD
                                             <p:outputLabel for="kewWords" value="Palabras Clave"/>
                                             <p:inputText id="kewWords" binding="#{kewWords}" required="true">
                                                 <f:validateLength minimum="2" />
@@ -75,21 +73,6 @@
                     </div> 
                 </h:form>
             </div> 
-=======
-                                    <p:outputLabel for="kewWords" value="Palabras Clave"/>
-                                    <p:inputText id="kewWords" binding="#{kewWords}" required="true">
-                                        <f:validateLength minimum="2" />
-                                    </p:inputText>
-                                    <p:outputLabel value="Separe las palabras clave por comas ',' "/>
-                                </h:panelGrid>
-                                <h:commandButton id="registrarIniciativa" value="Registrar Iniciativa" action="#{registroIniciativaBean.registrarIniciativa(description.value, detail.value, email.value, kewWords.value)}"/>	
-                            </p:panel>
-                        </h:form>
-                    </div>
-                    <div class="col-md-4 col-xs-4 col-sm-4 "></div>
-                </div>
-            </div>
->>>>>>> 973b591a1a1ccf3bd758eebbe0bc3f790645a00b
         </div>
     </h:body>
 </html>
