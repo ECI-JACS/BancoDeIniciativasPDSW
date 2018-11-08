@@ -45,10 +45,8 @@ public class AsignarPerfilesBean extends BasePageBean {
     }
     
     public void updateUsuarios() {
-        try {   
-            System.out.println("################# Rol cambio: "+rolUpdate);            
+        try {          
             for(User u : selectedUsuarios){
-                System.out.println("################# Usuario: "+u);
                 serviciosBancoIniciativas.actualizarRolUsuario(u.getEmail(), rolUpdate);
             }            
         } catch (ExceptionServiciosBancoIniciativas ex) {

@@ -52,4 +52,13 @@ public class MyBATISUserDAO implements UserDAO {
             throw new PersistenceException("Error al actualizar el role del usuario " + email, e);
         }
     }
+
+	@Override
+	public void deleteUser(String email) throws PersistenceException {
+		try {
+			userMapper.deleteUser(email);
+		}catch (PersistenceException e){
+			throw new PersistenceException("Error al intentar borrar al usuario");
+		}
+	}
 }
