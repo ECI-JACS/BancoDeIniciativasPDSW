@@ -25,78 +25,76 @@
             }                
         </style>  
         <div class="row">
-        <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">      
-            <h:form id="loginForm">
-                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="padding: 0">
-                    <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
-                </div>  
-                <br></br>
-                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
-                     <div class="row">
-                        <div class="col-md-4 col-xs-4 col-sm-4 "></div>
-                        <div class="col-md-4 col-xs-4 col-sm-4 ">
-                            <p:tabView dynamic="true" effect="clip" >
-                                <p:focus context="login"/> 
-                                <p:messages />
-                                <p:tab title="Iniciar Sesión" >
-                                    <h:form id="incForm" style="padding: 0; align-items: center; ">
-                                        <h:panelGrid columns="3" style="align-items: center;">
-                                            <p:outputLabel for="username" value="Usuario" />
-                                            <p:inputText id="username" binding="#{user}" required="true" label="Firstname">
-                                                <f:validateLength minimum="2" />
-                                            </p:inputText>
-                                            <p:message for="username" />
+            <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">      
+                <h:form id="loginForm">
+                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="padding: 0;">
+                        <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
+                    </div>  
+                    <br></br>
+                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-md-4 col-xs-4 col-sm-4 "></div>
+                            <div class="col-md-4 col-xs-4 col-sm-4 ">
+                                <p:tabView dynamic="true" effect="clip" >
+                                    <p:focus context="login"/> 
+                                    <p:messages />
+                                    <p:tab title="Iniciar Sesión" >
+                                        <h:form id="datosLoginForm" style="padding: 0; align-items: center; ">
+                                            <h:panelGrid columns="3" style="align-items: center;">
+                                                <p:outputLabel for="username" value="Usuario" />
+                                                <p:inputText id="username" binding="#{user}" required="true" label="Firstname">
+                                                    <f:validateLength minimum="2" />
+                                                </p:inputText>
+                                                <p:message for="username" />
 
-                                            <p:outputLabel for="contrasena" value="Contraseña" />
-                                            <p:inputText id="contrasena" binding="#{contrasena}" required="true" label="Surname"/> 
-                                            <p:message for="contrasena" />			            
-                                        </h:panelGrid>
-                                        <h:panelGrid columns="1" cellpadding="5" style="align-items: center;">						
-                                            <h:commandButton id="ingresarB" value="Ingresar" action="#{loginBean.authentication(user.value, contrasena.value)}"/>				    
-                                        </h:panelGrid>
-                                        <p:dialog header="Error" widgetVar="dlg1" minHeight="100">
-                                            <h:outputText value="El usuario no existe." />
-                                        </p:dialog>
-                                    </h:form>
-                                </p:tab>
-                                <p:tab title="Registrarse">
-                                    <h:form id="registroForm">
-                                        <h:panelGrid columns="1">                                    
-                                            <p:outputLabel for="names" value="Nombres" />
-                                            <p:inputText id="names" binding="#{names}" required="true">
-                                                <f:validateLength minimum="3" />
-                                            </p:inputText>                    
-                                            <p:outputLabel for="lastNames" value="Apellidos" />
-                                            <p:inputText id="lastNames" binding="#{lastNames}" required="true">
-                                                <f:validateLength minimum="3" />
-                                            </p:inputText>
-                                            <p:outputLabel for="email" value="Correo" />
-                                            <p:inputText id="email" binding="#{email}" required="true">
-                                                <f:validateLength minimum="2" />
-                                            </p:inputText>
-                                            <p:outputLabel for="code" value="Carnet" />
-                                            <p:inputText id="code" binding="#{code}" required="true">
-                                                <f:validateLength minimum="2" />
-                                            </p:inputText>             
-                                            <p:outputLabel id="area" value="Area" />
-                                            <p:selectOneMenu id="areas" value="#{loginBean.idArea}">
-                                                <f:selectItem itemLabel="----- Seleccionar Área -----" itemValue=""/>
-                                                <f:selectItems value="#{loginBean.listaAreas}"/>                        
-                                            </p:selectOneMenu>                                        
-                                        </h:panelGrid>
-                                        <h:commandButton id="registrarU" value="Registrar" action="#{loginBean.registrarUsuario(names.value, lastNames.value, email.value, code.value)}"/>	
-                                    </h:form>
-                                </p:tab>                
-                            </p:tabView>   
-                        </div>
-                        <div class="col-md-4 col-xs-4 col-sm-4"></div> 
-                   
- </div> 
-                </div> 
-            </h:form>	
-
-        </div> 
-            </div>
+                                                <p:outputLabel for="contrasena" value="Contraseña" />
+                                                <p:inputText id="contrasena" binding="#{contrasena}" required="true" label="Surname"/> 
+                                                <p:message for="contrasena" />			            
+                                            </h:panelGrid>
+                                            <h:panelGrid columns="1" cellpadding="5" style="align-items: center;">						
+                                                <h:commandButton id="ingresarB" value="Ingresar" action="#{loginBean.authentication(user.value, contrasena.value)}"/>				    
+                                            </h:panelGrid>
+                                            <p:dialog header="Error" widgetVar="dlg1" minHeight="100">
+                                                <h:outputText value="El usuario no existe." />
+                                            </p:dialog>
+                                        </h:form>
+                                    </p:tab>
+                                    <p:tab title="Registrarse">
+                                        <h:form id="registroForm">
+                                            <h:panelGrid columns="1">                                    
+                                                <p:outputLabel for="names" value="Nombres" />
+                                                <p:inputText id="names" binding="#{names}" required="true">
+                                                    <f:validateLength minimum="3" />
+                                                </p:inputText>                    
+                                                <p:outputLabel for="lastNames" value="Apellidos" />
+                                                <p:inputText id="lastNames" binding="#{lastNames}" required="true">
+                                                    <f:validateLength minimum="3" />
+                                                </p:inputText>
+                                                <p:outputLabel for="email" value="Correo" />
+                                                <p:inputText id="email" binding="#{email}" required="true">
+                                                    <f:validateLength minimum="2" />
+                                                </p:inputText>
+                                                <p:outputLabel for="code" value="Carnet" />
+                                                <p:inputText id="code" binding="#{code}" required="true">
+                                                    <f:validateLength minimum="2" />
+                                                </p:inputText>             
+                                                <p:outputLabel id="area" value="Area" />
+                                                <p:selectOneMenu id="areas" value="#{loginBean.idArea}">
+                                                    <f:selectItem itemLabel="----- Seleccionar Área -----" itemValue=""/>
+                                                    <f:selectItems value="#{loginBean.listaAreas}"/>                        
+                                                </p:selectOneMenu>                                        
+                                            </h:panelGrid>
+                                            <h:commandButton id="registrarU" value="Registrar" action="#{loginBean.registrarUsuario(names.value, lastNames.value, email.value, code.value)}"/>	
+                                        </h:form>
+                                    </p:tab>                
+                                </p:tabView>   
+                            </div>
+                            <div class="col-md-4 col-xs-4 col-sm-4"></div> 
+                        </div> 
+                    </div> 
+                </h:form>
+            </div> 
+        </div>
     </h:body>
 </html>
 

@@ -10,11 +10,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
         <link rel="stylesheet" media="screen" href="resources/css/estiloBasico.css"/>
-
         <meta charset="UTF-8" />
-        <title>Menu</title>        
+        <title>Menu</title>   
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
 
     <h:body>        
@@ -24,20 +23,46 @@
                 background-repeat: no-repeat;
                 display: block
             }                
-        </style>    
-        <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">      
-            <h:form id="loginForm">
-                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 ">
-                    <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
-                </div> 
-                <div class="col-md-4 col-xs-4 col-sm-4 tableLogin" style="margin-top:200px">
-                    <h:button style="margin-right: 20px;" value="Perfil" outcome="perfil"></h:button>
-                    <h:button style="margin-right: 20px;" value="Iniciativas" outcome="registroIniciativa"></h:button>
-                    <h:button style="margin-right: 20px;" value="Consultar Iniciativas" outcome="iniciativaPalabrasClave"></h:button>
-                    <h:button style="margin-right: 20px; margin-top: 20px;" value="Asignar Perfiles" outcome="asignarPerfiles"></h:button>
-                    <h:button style="margin-right: 20px; margin-top: 20px;" value="Cerrar Sesión" outcome="inicio"></h:button>
-                </div>
-            </h:form>
+        </style>  
+        <div class="row">
+            <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">      
+                <h:form id="menuForm">
+                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="padding: 0;">
+                        <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
+                    </div> 
+                    <br></br>
+                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="position: absolute; ">
+                        <div class="row">
+                            <div class="col-md-2 col-xs-2 col-sm-2 "></div>
+                            <div class="col-md-8 col-xs-8 col-sm-8 ">                                
+                                <div class="col-md-12 col-xs-12 col-sm-12 " style="margin-top:0px">
+                                    <div class="row">
+                                    <div class="col-md-1 col-xs-1 col-sm-1 "></div>
+                                    <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px">
+                                        <h:button class="botonP" style="width: 100%; background-image: url('resources/img/u.png'); background-size: 70%; background-position: 50% 50%; background-repeat: no-repeat;" id="Perfil" outcome="perfil" ></h:button>
+                                    </div> 
+                                    <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px">
+                                        <h:button class="botonP"  style="width: 100%; background-image: url('resources/img/b.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;"  id="Iniciativas" outcome="registroIniciativa"></h:button>
+                                    </div> 
+                                    <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px">
+                                        <h:button class="botonP"  style="width: 100%; background-image: url('resources/img/b2.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" id="ConsultarIniciativas" outcome="iniciativaPalabrasClave"></h:button>
+                                    </div> 
+                                    <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px">
+                                        <h:button class="botonP"  style="width: 100%; background-image: url('resources/img/a.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" id="AsignarPerfiles" outcome="asignarPerfiles"></h:button>
+                                    </div>                                     
+                                    <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px">
+                                        <h:button class="botonP"  style="width: 100%; background-image: url('resources/img/s.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" id="CerrarSesión" outcome="inicio"></h:button>
+                                    </div> 
+                                    <div class="col-md-1 col-xs-1 col-sm-1 "></div>
+                                    </div> 
+                                </div>                               
+                            </div>
+                            <div class="col-md-2 col-xs-2 col-sm-2"></div> 
+
+                        </div> 
+                    </div> 
+                </h:form>
+            </div> 
         </div>
     </h:body>
 </html>

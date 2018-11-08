@@ -12,7 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" media="screen" href="resources/css/estiloBasico.css"/>
         <meta charset="UTF-8" />
-        <title>Iniciativas</title>        
+        <title>Banco de Iniciativas</title>   
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
 
     <h:body>        
@@ -20,25 +21,23 @@
             body{
                 background-image: url("resources/img/fondo.jpg");                
                 background-repeat: no-repeat;
-                display: block       
+                display: block
             }                
-        </style>         
-        <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12" style="padding: 0">       
-            <h:form id="iniciativasForm">
-                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 ">
-                    <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
-                </div> 
-                <div class="col-md-4 col-xs-4 col-sm-4 tableLogin" style="margin-top:20px">
+        </style>  
+        <div class="row">
+            <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">      
+                <h:form id="asignarPerfilForm">
+                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="padding: 0;">
+                        <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
+                    </div>  
+                    <br></br>
                     <div class="col-md-12 col-xs-12 col-sm-12" >                        
-                        <h:button style="margin-right: 20px; margin-left: 20px;" value="Menú" outcome="menu"></h:button>
+                        <p:button style="margin-right: 20px; margin-left: 20px;" value="Menú" outcome="menu"></p:button>
                     </div>
-                </div>
-            </h:form>
-            <div class="titulo_div col-md-12 col-xs-12 col-sm-12 ">
-                <div class="row">
-                    <div class="col-md-4 col-xs-4 col-sm-4"></div>
-                    <div class="col-md-4 col-xs-4 col-sm-4">
-                        <h1>Registro Iniciativa</h1>
+                    <br></br>
+                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
+
+                        <h3 style="color: white">Asignar Perfil a Usuarios</h3>
                         <h:form id="incForm">
                             <p:panel id="panelIniciativa">  
                                 <h:form id="usuariosFormulario">
@@ -88,10 +87,9 @@
                                 </h:form>
                             </p:panel>
                         </h:form>
-                    </div>
-                    <div class="col-md-4 col-xs-4 col-sm-4 "></div>
-                </div>
-            </div>
+                    </div>                            
+                </h:form>
+            </div> 
         </div>
     </h:body>
 </html>

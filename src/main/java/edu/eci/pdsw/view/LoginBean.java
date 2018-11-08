@@ -38,10 +38,10 @@ public class LoginBean extends BasePageBean {
             usuarioTemp = serviciosBancoIniciativas.consultarUsuario(email);
             if (usuarioTemp.getRole() == Role.SIN_ASIGNAR) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario no tiene rol asignado.", "Comunìquese con el administrador."));
-            } else if (Integer.parseInt(contrasena) == usuarioTemp.getCode()) {
+            }if (Integer.parseInt(contrasena) == usuarioTemp.getCode()) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("menu.xhtml");
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña o usuario incorrecto.", "Ingrese el usuario y contraseña correcta"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña o usuario incorrecto.", "Ingrese el usuario y contraseña de nuevo."));
             }
         } catch (ExceptionServiciosBancoIniciativas ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), "Cree un usuario."));
