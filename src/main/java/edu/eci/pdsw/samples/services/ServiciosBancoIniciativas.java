@@ -133,5 +133,10 @@ public interface ServiciosBancoIniciativas {
      */
     public List<Initiative> consultInitiativeForKeyWord(String keyWords) throws ExceptionServiciosBancoIniciativas;
     
-    
+    /**
+     * Elimina un usuario recibiendo como parámetro su email.
+     * @param email
+     * @throws ExceptionServiciosBancoIniciativas
+     */
+    public void deleteUser(String email) throws ExceptionServiciosBancoIniciativas;
 }

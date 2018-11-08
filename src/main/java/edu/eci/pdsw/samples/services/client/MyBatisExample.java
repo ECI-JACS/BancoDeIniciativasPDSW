@@ -101,10 +101,15 @@ public class MyBatisExample {
             System.out.println(serviciosBancoIniciativas.consultarIdIniciativa());
             System.out.println(serviciosBancoIniciativas.consultarIniciativas());
             System.out.println(serviciosBancoIniciativas.consultarEstadosIniciativas());
+            //User userr = new User("Eliminado", "Eliminado", "eliminado.eliminado@mail.escuelaing.edu.co", 2222222, UserStatus.ACTIVO, Role.PROPONENTE, new Area(1, "Sistemas"));
+            //serviciosBancoIniciativas.registrarUsuario(userr);
+            System.out.println(serviciosBancoIniciativas.consultarUsuario("eliminado.eliminado@mail.escuelaing.edu.co"));
+            //serviciosBancoIniciativas.deleteUser("eliminado.eliminado@mail.escuelaing.edu.co");
+            
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        	
         sqlss.commit();
         sqlss.close();
     }

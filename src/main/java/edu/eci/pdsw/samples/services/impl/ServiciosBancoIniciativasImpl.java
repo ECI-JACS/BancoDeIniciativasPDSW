@@ -178,4 +178,13 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
         }
     }
 
+	@Override
+	public void deleteUser(String email) throws ExceptionServiciosBancoIniciativas {
+		try {
+			userDAO.deleteUser(email);
+		}catch (PersistenceException ex) {
+			throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+		}
+	}
+
 }
