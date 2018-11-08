@@ -30,13 +30,15 @@ public class LoginBean extends BasePageBean {
     @Inject
     private ServiciosBancoIniciativas serviciosBancoIniciativas;
 
+    private User usuario;
+
     public void authentication(String email, String contrasena) throws IOException {
+        User usuarioTemp = new User();
         try {
-            User usuario = serviciosBancoIniciativas.consultarUsuario(email);
-            if (usuario.getRole() == Role.SIN_ASIGNAR){
+            usuarioTemp = serviciosBancoIniciativas.consultarUsuario(email);
+            if (usuarioTemp.getRole() == Role.SIN_ASIGNAR) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario no tiene rol asignado.", "Comunìquese con el administrador."));
-            }
-            else if (Integer.parseInt(contrasena) == usuario.getCode()) {
+            } else if (Integer.parseInt(contrasena) == usuarioTemp.getCode()) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("menu.xhtml");
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña o usuario incorrecto.", "Ingrese el usuario y contraseña correcta"));
@@ -45,9 +47,10 @@ public class LoginBean extends BasePageBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), "Cree un usuario."));
         } catch (NumberFormatException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña incorrecta.", "Verifique la contraseña."));
-        } catch(NullPointerException ex){
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario no existe.", "Cree un usuario."));
+        } catch (NullPointerException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario no existe.", "Cree un usuario."));
         }
+        this.usuario = usuarioTemp;
     }
 
     private String idArea;
@@ -87,4 +90,13 @@ public class LoginBean extends BasePageBean {
     public void setIdArea(String idArea) {
         this.idArea = idArea;
     }
+
+    public User getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
+
 }
