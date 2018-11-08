@@ -65,42 +65,44 @@ public class MyBatisExample {
 
         try {
             //serviciosBancoIniciativas.registrarArea(new Area(1, "Sistemas"));
-            System.out.println(serviciosBancoIniciativas.consultarAreas());
-            System.out.println(serviciosBancoIniciativas.consultarArea(1));
+            //System.out.println(serviciosBancoIniciativas.consultarAreas());
+            //System.out.println(serviciosBancoIniciativas.consultarArea(1));
             //serviciosBancoIniciativas.registrarUsuario(new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")));
             System.out.println(serviciosBancoIniciativas.consultarUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));
             //serviciosBancoIniciativas.registrarEstadoIniciativa(new InitiativeStatus(1, "En espera de revisión"));
             //-----Creación de un nuevo estado de iniciativa---------
-            System.out.println(serviciosBancoIniciativas.consultarEstadoIniciativas(1));
+            //System.out.println(serviciosBancoIniciativas.consultarEstadoIniciativas(1));
             //serviciosBancoIniciativas.registrarEstadoIniciativa(new InitiativeStatus(2, "En revisión"));
             //serviciosBancoIniciativas.registrarEstadoIniciativa(new InitiativeStatus(3, "Proyecto"));
             //serviciosBancoIniciativas.registrarEstadoIniciativa(new InitiativeStatus(4, "Solucionado"));
             //-----Para poder poder hacer la prueba debí crear otro estado.-----
-            System.out.println(serviciosBancoIniciativas.consultarEstadoIniciativas(2));
-            System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
+            //System.out.println(serviciosBancoIniciativas.consultarEstadoIniciativas(2));
+            //System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
             //-----Para crear una iniciativa-------
             //serviciosBancoIniciativas.updateInitiativeStatus(1, 1);
             // ----Para actualizar el estdo de una iniciativa-------
-            System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
+            //System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
             //serviciosBancoIniciativas.updateInitiativeStatus(1, 2);
             //------- modifiqué el estado de la iniciativa 1 de 1 a 2, es decir de "En espera de revisión" a "En revisión"
-            System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
-            String keyWords = "edificio,investigación,proyectos,sustentaciones,sistemas";
-            //serviciosBancoIniciativas.registrarIniciativa(new Initiative(1, "Nuevo edificio de sistemas", "Este nuevo edificio será para sustentaciones, investigaciones y realización de proyectos", new Date(2018-1900,10,2), null, keyWords, new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")), new InitiativeStatus(1, "En espera de revisión")));
-            List<Initiative> iniciativas = serviciosBancoIniciativas.consultInitiativeForKeyWord("edificio,iniciativa");
-            System.out.println("############### Iniciativas consultadas por palabras clave: ");
-            if (iniciativas.size() > 0) {
+            //System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
+            //String keyWords = "edificio,investigación,proyectos,sustentaciones,sistemas";
+            ///serviciosBancoIniciativas.registrarIniciativa(new Initiative(1, "Nuevo edificio de sistemas", "Este nuevo edificio será para sustentaciones, investigaciones y realización de proyectos", new Date(2018-1900,10,2), null, keyWords, new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")), new InitiativeStatus(1, "En espera de revisión")));
+            //List<Initiative> iniciativas = serviciosBancoIniciativas.consultInitiativeForKeyWord("edificio,iniciativa");
+            //System.out.println("############### Iniciativas consultadas por palabras clave: ");
+            /*if (iniciativas.size() > 0) {
                 for (int indice = 0; indice < iniciativas.size(); indice++) {
                     System.out.println(iniciativas.get(indice).toString());
                 }
             } else {
                 System.out.println("No se encontraron reslutados");
-            }
-            System.out.println(serviciosBancoIniciativas.consultarUsuariosRol(Role.PUBLICO));
+            }*/
+            //System.out.println(serviciosBancoIniciativas.consultarUsuariosRol(Role.PUBLICO));
             //serviciosBancoIniciativas.actualizarRolUsuario("amalia.alfonso@mail.escuelaing.edu.co", Role.PUBLICO.toString());
-            System.out.println(serviciosBancoIniciativas.consultarIdIniciativa());
-            System.out.println(serviciosBancoIniciativas.consultarIniciativas());
-            System.out.println(serviciosBancoIniciativas.consultarEstadosIniciativas());
+            ////System.out.println(serviciosBancoIniciativas.consultarIdIniciativa());
+            //System.out.println(serviciosBancoIniciativas.consultarIniciativas());
+            //System.out.println(serviciosBancoIniciativas.consultarEstadosIniciativas());
+            System.out.println(serviciosBancoIniciativas.consultarUsuario("amalia.alfonso@mail.escuelaing.edu.co"));
+            
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }
