@@ -122,7 +122,7 @@ public class MyBatisExample {
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }
-        	
+        
         sqlss.commit();
         sqlss.close();
     }
