@@ -19,11 +19,11 @@ public interface InitiativeMapper {
     
     public void insertarEstadoIniciativa(@Param("iniSta") InitiativeStatus iniSta);
     
-    public void updateInitiativeStatus(@Param("id")int id,@Param("iniStat") int iniStat);
+    public void updateInitiativeStatus(@Param("id")int id, @Param("iniStat") int iniStat);
     
     public InitiativeStatus consultarEstadoIniciativas(@Param("id") int id);
 
-    public List<Initiative> consultInitiativeForKeyWord(@Param("keyWord") String keyWord);
+    public List<Initiative> consultInitiativeForKeyWord(@Param("keyWords") String keyWord);
 
     public int consultarIdIniciativa();
 

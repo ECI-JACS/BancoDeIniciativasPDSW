@@ -19,7 +19,7 @@ public interface InitiativeDAO {
     
     public void updateInitiativeStatus(int id,int iniStat) throws PersistenceException;
     
-    public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws PersistenceException;
+    public List<Initiative> consultInitiativeForKeyWord(String keyWords) throws PersistenceException;
 
     public int loadInitiativeId() throws PersistenceException;
 

@@ -170,9 +170,9 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
     }
 
     @Override
-    public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws ExceptionServiciosBancoIniciativas {
+    public List<Initiative> consultInitiativeForKeyWord(String keyWords) throws ExceptionServiciosBancoIniciativas {
         try {
-            return initiativeDAO.consultInitiativeForKeyWord(keyWord);
+            return initiativeDAO.consultInitiativeForKeyWord(keyWords);
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }

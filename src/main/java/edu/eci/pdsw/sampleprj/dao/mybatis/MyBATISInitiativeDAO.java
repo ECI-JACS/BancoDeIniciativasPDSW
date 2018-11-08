@@ -62,11 +62,11 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
     }
 
     @Override
-    public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws PersistenceException {
+    public List<Initiative> consultInitiativeForKeyWord(String keyWords) throws PersistenceException {
         try {
-            return initiativeMapper.consultInitiativeForKeyWord(keyWord);
+            return initiativeMapper.consultInitiativeForKeyWord(keyWords);
         } catch (PersistenceException e) {
-            throw new PersistenceException("Error al consultar iniciativa por palabra clave" + keyWord, e);
+            throw new PersistenceException("Error al consultar iniciativa por las palabras claves" + keyWords, e);
         }
     }
 

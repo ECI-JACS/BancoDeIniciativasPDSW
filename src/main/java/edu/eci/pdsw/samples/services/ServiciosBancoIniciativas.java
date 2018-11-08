@@ -127,11 +127,11 @@ public interface ServiciosBancoIniciativas {
     
     /**
      * Consulta todas las iniciativas asociadas a una palabra clave insertada por el usuario.
-     * @param keyWord
+     * @param keyWords
      * @return List<Initiative> 
      * @throws ExceptionServiciosBancoIniciativas
      */
-    public List<Initiative> consultInitiativeForKeyWord(String keyWord) throws ExceptionServiciosBancoIniciativas;
+    public List<Initiative> consultInitiativeForKeyWord(String keyWords) throws ExceptionServiciosBancoIniciativas;
     
     
 }

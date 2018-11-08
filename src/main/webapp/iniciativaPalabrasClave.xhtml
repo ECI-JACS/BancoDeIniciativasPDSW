@@ -8,23 +8,24 @@
         <p:button outcome="index" value="Pruebas Diseño" icon="ui-icon-star">		    
         </p:button>
         <meta charset="UTF-8" />
-        <title>Iniciativas</title>
+        <title>Iniciativas Palabras Clave</title>
     </h:head>
     <h:body>
         <div>
-            <h1>Iniciativas</h1>
-            <h:form id="iniciativasForm">
-                <p:selectOneMenu id="estadosIniciativa_select" value="#{iniciativasBean.idEstado}">
-                    <f:selectItem itemLabel="---- Seleccionar Estado ----" itemValue=""/>
-                    <f:selectItems value="#{iniciativasBean.estados}"/>
-                </p:selectOneMenu>
+            <h1>Iniciativas por Palabras Clave</h1>
+            <h:form id="iniciativas_clave_Form">
+                <h:panelGrid columns="1">
+                    <p:outputLabel for="palabras_clave" value="Palabras Clave"/>
+                    <p:inputText id="palabras_clave" value="#{iniciativasBean.palabrasClave}">
+                        <p:ajax event="keyup" update="iniciativas_p_table"/>
+                    </p:inputText>
+                </h:panelGrid>
                 <br/>
                 <br/>
-                <p:dataTable id="iniciativas_table" var="iniciativa" value="#{iniciativasBean.iniciativas}" selection="#{iniciativasBean.selectedIniciativa}" rowKey="#{iniciativa.id}">                    			
+                <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.iniciativasPalabrasClave}" rowKey="#{iniciativa.id}">                    			
                     <f:facet name="header">
-                        Listado de Iniciativas
+                        Iniciativas
                     </f:facet>
-                    <p:column selectionMode="single" style="width:16px;text-align:center"/>
                     <p:column headerText="Id">
                         <h:outputText value="#{iniciativa.id}" />
                     </p:column>
@@ -40,7 +41,7 @@
                     <p:column headerText="Fecha Modificación Estado">
                         <h:outputText value="#{iniciativa.modificationDate}" />
                     </p:column>
-                    <p:column headerText="Usuario">
+                    <p:column headerText="Usuario">                        
                         <h:outputText value="Nombre: " style="font-weight:bold"/>
                         <h:outputText value="#{iniciativa.user.names}"/>
                         <h:outputText value=" "/>
@@ -58,9 +59,6 @@
                     <p:column headerText="Palabras Clave">
                         <h:outputText value="#{iniciativa.keyWords}" />
                     </p:column>
-                    <f:facet name="footer">
-                        <p:commandButton id="cambiarEstadoIniciativa" value="Cambiar estado" update="iniciativasForm" actionListener="#{iniciativasBean.updateEstadoIniciativa()}"/>
-                    </f:facet>
                 </p:dataTable>
             </h:form>
         </div>

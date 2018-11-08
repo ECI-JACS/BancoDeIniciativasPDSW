@@ -152,7 +152,7 @@
             LEFT JOIN InitiativeStatus AS ie ON (i.initiativestatus_id = ie.id)
             LEFT JOIN Comment AS c ON (i.id = c.initiative_id)
             LEFT JOIN Vote AS v ON (i.id = v.initiative_id)
-        WHERE #{keyWord} = ANY (i.keywords);
+        WHERE i.keywords &amp;&amp; string_to_array(#{keyWords},',');
     </select>
     
     <select id='consultarIdIniciativa' parameterType='map' resultMap="InitiativeIdResult">

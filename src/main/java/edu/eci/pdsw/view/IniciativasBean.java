@@ -28,6 +28,7 @@ public class IniciativasBean extends BasePageBean {
     
     private Initiative selectedIniciativa;
     private String idEstado;
+    private String palabrasClave;
     private List<SelectItem> estados;
     
     public void updateEstadoIniciativa() {
@@ -36,7 +37,7 @@ public class IniciativasBean extends BasePageBean {
         } catch (ExceptionServiciosBancoIniciativas ex) {
             System.out.println(ex.getMessage());
         } catch (NumberFormatException ex) {
-            System.out.println("Eso no es un id del estado de la iniciativa");
+            System.out.println("Lo ingresado no es un id del estado de la iniciativa");
         }
     }
 
@@ -46,6 +47,18 @@ public class IniciativasBean extends BasePageBean {
             iniciativas = serviciosBancoIniciativas.consultarIniciativas();
         } catch (ExceptionServiciosBancoIniciativas ex) {
             System.out.println(ex.getMessage());
+        }
+        return iniciativas;
+    }
+    
+    public List<Initiative> getIniciativasPalabrasClave() {
+        List<Initiative> iniciativas = new ArrayList<>();
+        try {
+            iniciativas = serviciosBancoIniciativas.consultInitiativeForKeyWord(palabrasClave);
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            System.out.println(ex.getMessage());
+        } catch (NullPointerException e) {
+            System.out.println("Se deben ingresar palabras clave");
         }
         return iniciativas;
     }
@@ -73,7 +86,7 @@ public class IniciativasBean extends BasePageBean {
         try{
             this.selectedIniciativa = selectedIniciativa;
         } catch (NullPointerException e) {
-            System.out.println("Mientras se selecciona una iniciativa");
+            System.out.println("Se debe seleccionar una iniciativa");
         }        
     }
     
@@ -83,6 +96,14 @@ public class IniciativasBean extends BasePageBean {
     
     public void setIdEstado(String idEstado) {
         this.idEstado = idEstado;
+    }
+    
+    public String getPalabrasClave() {
+        return palabrasClave;
+    }
+    
+    public void setPalabrasClave(String palabrasClave) {
+        this.palabrasClave = palabrasClave;
     }
 
 }
