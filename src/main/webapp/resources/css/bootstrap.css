@@ -15,17 +15,67 @@ html {
     height: auto;
 }
 .fondo{
+    background-img: url(#{resource['resources/img/fondo.jpg']});
     display: block;
     max-width: 100%;
     height: 100%;
-    background-image: url("resources/img/fondo.jpg");
+    
 }
+
+.ui-tabs-panels{   
+    opacity: 0.8;
+    aling-items: center;
+}
+
+.tableLogin{  
+    sepia: 100%
+    display: table;    
+    height: 40%;
+    width: 28%;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.ui-tabs{
+    border-radius: 8px;    
+    border-style: groove;
+    posición :  relativa ;
+    overflow: hidden;
+    padding: 0;
+}
+
+#panelIniciativa{
+    border-radius: 11px;    
+    border-style: groove;
+    posición :  relativa ;
+    overflow: hidden;
+    padding: 0;
+}
+
+.ui-tabs .ui-tabs-nav {
+    sepia: 100%
+    text-align: center;    
+}
+.ui-tabs .ui-tabs-nav li {
+    color: #99caff;
+    background: #cce5ff;
+    text-align: center;
+    float: none !important;
+    display: inline-block;   
+}
+
+
+
+
 
 #inicio{
     background-color:rgb(24, 36, 110);
 }
 /*
 <style type="text/css">
-        body {background:url("resources/img/fondo.jpg");}
+    body {background:url("resources/img/fondo.jpg");}
 </style>
 */

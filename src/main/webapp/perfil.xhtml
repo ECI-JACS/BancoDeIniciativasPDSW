@@ -39,33 +39,36 @@
                 <div class="row">
                     <div class="col-md-4 col-xs-4 col-sm-4 "></div>
                     <div class="col-md-4 col-xs-4 col-sm-4 tableLogin">
-                        <h1>Registro Iniciativa</h1>
-                        <h:form id="incForm">
-                            <p:panel id="panelIniciativa">                            
-                                <h:panelGrid id="registroIniciativa_panel" columns="1">                                    
-                                    <p:outputLabel for="id" value="Id Iniciativa" />
-                                    <p:outputLabel id="id" value="#{registroIniciativaBean.iniciativaId}"/>
-
-                                    <p:outputLabel for="description" value="Descripción" />
-                                    <p:inputTextarea binding="#{description}" rows="5" cols="30" counter="description" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" required="true"/>
-                                    <h:outputText id="description"/>
-
-                                    <p:outputLabel for="detail" value="Detalle" />
-                                    <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true"/>
-
-                                    <p:outputLabel for="email" value="Correo Proponente" />
-                                    <p:inputText id="email" binding="#{email}" required="true">
-                                        <f:validateLength minimum="2" />
-                                    </p:inputText>            
-
-                                    <p:outputLabel for="kewWords" value="Palabras Clave"/>
-                                    <p:inputText id="kewWords" binding="#{kewWords}" required="true">
-                                        <f:validateLength minimum="2" />
-                                    </p:inputText>
-                                    <p:outputLabel value="Separe las palabras clave por comas ',' "/>
-                                </h:panelGrid>
-                                <h:commandButton id="registrarIniciativa" value="Registrar Iniciativa" action="#{registroIniciativaBean.registrarIniciativa(description.value, detail.value, email.value, kewWords.value)}"/>	
-                            </p:panel>
+                        <h1>Perfil de Usuario</h1>
+                        <h:form id="perfilForm">
+                            <p:dataTable id="perfil_table" var="perfil" value="#{loginBean.usuario}" rowKey="#{perfil.email}">                    			
+                                <f:facet name="header">
+                                    Perfil
+                                </f:facet>
+                                <p:column>
+                                    <p:fieldset legend="Nombres" style="margin-bottom:20px">
+                                        <h:outputText value="#{perfil.names}"/>
+                                    </p:fieldset>
+                                    <p:fieldset legend="Apellidos" style="margin-bottom:20px">
+                                        <h:outputText value="#{perfil.lastNames}"/>
+                                    </p:fieldset>
+                                    <p:fieldset legend="Correo" style="margin-bottom:20px">
+                                        <h:outputText value="#{perfil.email}"/>
+                                    </p:fieldset>
+                                    <p:fieldset legend="Carnet" style="margin-bottom:20px">
+                                        <h:outputText value="#{perfil.code}"/>
+                                    </p:fieldset>
+                                    <p:fieldset legend="Rol" style="margin-bottom:20px">
+                                        <h:outputText value="#{perfil.role}"/>
+                                    </p:fieldset>
+                                    <p:fieldset legend="Dependencia" style="margin-bottom:20px">
+                                        <h:outputText value="#{perfil.area.name}"/>
+                                    </p:fieldset>
+                                    <p:fieldset legend="Estado" style="margin-bottom:20px">
+                                        <h:outputText value="#{perfil.status}"/>
+                                    </p:fieldset>
+                                </p:column>
+                            </p:dataTable>
                         </h:form>
                     </div>
                     <div class="col-md-4 col-xs-4 col-sm-4 "></div>

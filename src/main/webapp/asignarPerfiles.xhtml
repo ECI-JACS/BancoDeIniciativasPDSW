@@ -5,59 +5,93 @@
       xmlns:f = "http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"> 
     <h:head>
-        <p:button outcome="index" value="Pruebas Diseño" icon="ui-icon-star">		    
-        </p:button>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" media="screen" href="resources/css/bootstrap.css"/>
         <meta charset="UTF-8" />
-        <title>Asignar Perfil</title>
+        <title>Iniciativas</title>        
     </h:head>
-    <h:body>
-        <div>
-            <h1>Asignar Perfiles</h1>
-            <h:form id="usuariosFormulario">
-                <p:selectOneMenu id="roles_select" value="#{asignarPerfilesBean.rol}">
-                    <f:selectItem itemLabel="---- Seleccionar Rol ----" itemValue=""/>
-                    <f:selectItems value="#{asignarPerfilesBean.roles}"/>
-                    <p:ajax rendered="usuarios_table"></p:ajax>
-                </p:selectOneMenu>
-                <h:outputText value=" " />
-                <p:commandButton update="usuariosFormulario" value="Consultar usuarios"/>
-                <br/>
-                <br/>
-                <p:selectOneMenu id="roles_update_select" value="#{asignarPerfilesBean.rolUpdate}">
-                    <f:selectItem itemLabel="---- Seleccionar Rol ----" itemValue=""/>
-                    <f:selectItems value="#{asignarPerfilesBean.roles}"/>
-                    <p:ajax rendered="usuarios_table"></p:ajax>
-                </p:selectOneMenu>
-                
-                <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}" rowKey="#{usuario.email}">                    			
-                    <f:facet name="header">
-                        Checkbox
-                    </f:facet>
-                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                    <p:column headerText="Nombres">
-                        <h:outputText value="#{usuario.names}" />
-                    </p:column>
-                    <p:column headerText="Apellidos">
-                        <h:outputText value="#{usuario.lastNames}" />
-                    </p:column>
-                    <p:column headerText="Correo">
-                        <h:outputText value="#{usuario.email}" />
-                    </p:column>
-                    <p:column headerText="Carnet">
-                        <h:outputText value="#{usuario.code}" />
-                    </p:column>
-                    <p:column headerText="Estado">
-                        <h:outputText value="#{usuario.status}" />
-                    </p:column>
-                    <p:column headerText="Rol">
-                        <h:outputText value="#{usuario.role}" />
-                    </p:column>
-                    <p:column headerText="Área">
-                        <h:outputText value="#{usuario.area.name}" />
-                    </p:column>	                    
-                </p:dataTable>
-                <p:commandButton update="usuariosFormulario" value="Actualizar Estado" action="#{asignarPerfilesBean.updateUsuarios()}"/>
+
+    <h:body>        
+        <style type="text/css">
+            body{
+                background-image: url("resources/img/fondo.jpg");                
+                background-repeat: no-repeat;
+                display: block       
+            }                
+        </style>         
+        <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12" style="padding: 0">       
+            <h:form id="iniciativasForm">
+                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 ">
+                    <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
+                </div> 
+                <div class="col-md-4 col-xs-4 col-sm-4 tableLogin" style="margin-top:20px">
+                    <div class="col-md-12 col-xs-12 col-sm-12" >                        
+                        <h:button style="margin-right: 20px; margin-left: 20px;" value="Menú" outcome="menu"></h:button>
+                    </div>
+                </div>
             </h:form>
+            <div class="titulo_div col-md-12 col-xs-12 col-sm-12 ">
+                <div class="row">
+                    <div class="col-md-4 col-xs-4 col-sm-4"></div>
+                    <div class="col-md-4 col-xs-4 col-sm-4">
+                        <h1>Registro Iniciativa</h1>
+                        <h:form id="incForm">
+                            <p:panel id="panelIniciativa">  
+                                <h:form id="usuariosFormulario">
+                                    <p:selectOneMenu id="roles_select" value="#{asignarPerfilesBean.rol}">
+                                        <f:selectItem itemLabel="---- Seleccionar Rol ----" itemValue=""/>
+                                        <f:selectItems value="#{asignarPerfilesBean.roles}"/>
+                                        <p:ajax rendered="usuarios_table"></p:ajax>
+                                    </p:selectOneMenu>
+                                    <h:outputText value=" " />
+                                    <h:commandButton value="Consultar usuarios"/>
+                                    <br/>
+                                    <br/>
+                                    <p:selectOneMenu id="roles_update_select" value="#{asignarPerfilesBean.rolUpdate}">
+                                        <f:selectItem itemLabel="---- Seleccionar Rol ----" itemValue=""/>
+                                        <f:selectItems value="#{asignarPerfilesBean.roles}"/>
+                                        <p:ajax rendered="usuarios_table"></p:ajax>
+                                    </p:selectOneMenu>
+
+                                    <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}" selection="#{asignarPerfilesBean.selectedUsuarios}" rowKey="#{usuario.email}">                    			
+                                        <f:facet name="header">
+                                            Checkbox
+                                        </f:facet>
+                                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                        <p:column headerText="Nombres">
+                                            <h:outputText value="#{usuario.names}" />
+                                        </p:column>
+                                        <p:column headerText="Apellidos">
+                                            <h:outputText value="#{usuario.lastNames}" />
+                                        </p:column>
+                                        <p:column headerText="Correo">
+                                            <h:outputText value="#{usuario.email}" />
+                                        </p:column>
+                                        <p:column headerText="Carnet">
+                                            <h:outputText value="#{usuario.code}" />
+                                        </p:column>
+                                        <p:column headerText="Estado">
+                                            <h:outputText value="#{usuario.status}" />
+                                        </p:column>
+                                        <p:column headerText="Rol">
+                                            <h:outputText value="#{usuario.role}" />
+                                        </p:column>
+                                        <p:column headerText="Área">
+                                            <h:outputText value="#{usuario.area.name}" />
+                                        </p:column>	                    
+                                    </p:dataTable>
+                                    <h:commandButton value="Actualizar Estado" action="#{asignarPerfilesBean.updateUsuarios()}"/>
+                                </h:form>
+                            </p:panel>
+                        </h:form>
+                    </div>
+                    <div class="col-md-4 col-xs-4 col-sm-4 "></div>
+                </div>
+            </div>
         </div>
     </h:body>
 </html>
