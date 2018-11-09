@@ -61,7 +61,6 @@ public class AsignarPerfilesBean extends BasePageBean {
         roles = new ArrayList<>();
         roles.clear();
         for (Role r : rolesBD) {
-            System.out.println(r);
             SelectItem selecItem = new SelectItem(r);
             roles.add(selecItem);
         }

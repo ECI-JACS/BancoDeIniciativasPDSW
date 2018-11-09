@@ -14,9 +14,11 @@ import edu.eci.pdsw.samples.entities.User;
 import edu.eci.pdsw.samples.entities.UserStatus;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
+import edu.eci.pdsw.samples.services.utilities.LoginSession;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,66 +31,33 @@ public class LoginBean extends BasePageBean {
 
     @Inject
     private ServiciosBancoIniciativas serviciosBancoIniciativas;
-
+    
     private User usuario;
 
     public void authentication(String email, String contrasena) throws IOException {
         User usuarioTemp = new User();
+        HttpSession hs;
         try {
             usuarioTemp = serviciosBancoIniciativas.consultarUsuario(email);
-            if (usuarioTemp.getRole() == Role.SIN_ASIGNAR) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario no tiene rol asignado.", "Comunìquese con el administrador."));
-            }if (Integer.parseInt(contrasena) == usuarioTemp.getCode()) {
+            if (Integer.toString(usuarioTemp.getCode()).equals(contrasena)) {
+                hs = LoginSession.getSession();
+                hs.setAttribute("usuario", usuarioTemp);
                 FacesContext.getCurrentInstance().getExternalContext().redirect("menu.xhtml");
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña o usuario incorrecto.", "Ingrese el usuario y contraseña de nuevo."));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Verifique", "--Usuario o contraseña incorrectos--"));
             }
         } catch (ExceptionServiciosBancoIniciativas ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), "Cree un usuario."));
-        } catch (NumberFormatException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña incorrecta.", "Verifique la contraseña."));
+            System.out.println(ex.getMessage());
         } catch (NullPointerException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario no existe.", "Cree un usuario."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Verifique", "--Usuario o contraseña incorrectos--"));
         }
         this.usuario = usuarioTemp;
     }
-
-    private String idArea;
-    private List<SelectItem> listaAreas;
-
-    public void registrarUsuario(String names, String lastNames, String email, String code) {
-        try {
-            Area area = serviciosBancoIniciativas.consultarArea(Integer.parseInt(idArea));
-            User user = new User(names, lastNames, email, Integer.parseInt(code), UserStatus.ACTIVO, Role.SIN_ASIGNAR, area);
-            serviciosBancoIniciativas.registrarUsuario(user);
-        } catch (ExceptionServiciosBancoIniciativas ex) {
-            System.out.println(ex.getMessage());
-        } catch (NumberFormatException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Código incorrecto. Sólo puede contener números.", "Verifique el código."));
-        }
-    }
-
-    public List<SelectItem> getListaAreas() throws IOException {
-        listaAreas = new ArrayList<>();
-        listaAreas.clear();
-        try {
-            List<Area> areasBD = serviciosBancoIniciativas.consultarAreas();
-            for (Area a : areasBD) {
-                SelectItem selecItem = new SelectItem(a.getId(), a.getName());
-                listaAreas.add(selecItem);
-            }
-        } catch (ExceptionServiciosBancoIniciativas ex) {
-            System.out.println(ex.getMessage());
-        }
-        return listaAreas;
-    }
-
-    public String getIdArea() {
-        return idArea;
-    }
-
-    public void setIdArea(String idArea) {
-        this.idArea = idArea;
+    
+    public void logOut() throws IOException {
+        HttpSession hs = LoginSession.getSession();
+        hs.invalidate();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");
     }
 
     public User getUsuario() {

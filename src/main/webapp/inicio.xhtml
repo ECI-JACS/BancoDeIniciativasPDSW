@@ -36,58 +36,48 @@
                             <div class="col-md-4 col-xs-4 col-sm-4 "></div>
                             <div class="col-md-4 col-xs-4 col-sm-4 ">
                                 <p:tabView dynamic="true" effect="clip" >
-                                    <p:focus context="login"/> 
-                                    <p:messages />
-                                    <p:tab title="Iniciar Sesión" >
+                                    <p:tab id="iniciarSesion_tab" title="Iniciar Sesión" >
+                                        <p:focus context="iniciarSesion_tab"/> 
                                         <h:form id="datosLoginForm" style="padding: 0; align-items: center; ">
-                                            <h:panelGrid columns="3" style="align-items: center;">
-                                                <p:outputLabel for="username" value="Usuario" />
-                                                <p:inputText id="username" binding="#{user}" required="true" label="Firstname">
-                                                    <f:validateLength minimum="2" />
-                                                </p:inputText>
-                                                <p:message for="username" />
-
-                                                <p:outputLabel for="contrasena" value="Contraseña" />
-                                                <p:inputText id="contrasena" binding="#{contrasena}" required="true" label="Surname"/> 
-                                                <p:message for="contrasena" />			            
+                                            <h:panelGrid id="grid" columns="3" cellpadding="5">
+                                                <p:outputLabel for="username" value="Usuario: " />
+                                                <p:inputText id="username" binding="#{user}" label="Firstname" required="true"/>
+                                                <p:message for="username" showDetail="false" showSummary="false"/>
+                                                <p:outputLabel for="contrasena" value="Contraseña: " />
+                                                <p:password id="contrasena" binding="#{contrasena}" label="Surname" required="true"/>
+                                                <p:message for="contrasena" showDetail="false" showSummary="false"/>
                                             </h:panelGrid>
                                             <h:panelGrid columns="1" cellpadding="5" style="align-items: center;">						
-                                                <h:commandButton id="ingresarB" value="Ingresar" action="#{loginBean.authentication(user.value, contrasena.value)}"/>				    
+                                                <p:commandButton id="ingresarB" value="Ingresar" action="#{loginBean.authentication(user.value, contrasena.value)}"/>				    
                                             </h:panelGrid>
-                                            <p:dialog header="Error" widgetVar="dlg1" minHeight="100">
-                                                <h:outputText value="El usuario no existe." />
-                                            </p:dialog>
                                         </h:form>
                                     </p:tab>
-                                    <p:tab title="Registrarse">
-                                        <h:form id="registroForm">
-                                            <h:panelGrid columns="1">                                    
-                                                <p:outputLabel for="names" value="Nombres" />
-                                                <p:inputText id="names" binding="#{names}" required="true">
-                                                    <f:validateLength minimum="3" />
-                                                </p:inputText>                    
-                                                <p:outputLabel for="lastNames" value="Apellidos" />
-                                                <p:inputText id="lastNames" binding="#{lastNames}" required="true">
-                                                    <f:validateLength minimum="3" />
-                                                </p:inputText>
-                                                <p:outputLabel for="email" value="Correo" />
-                                                <p:inputText id="email" binding="#{email}" required="true">
-                                                    <f:validateLength minimum="2" />
-                                                </p:inputText>
-                                                <p:outputLabel for="code" value="Carnet" />
-                                                <p:inputText id="code" binding="#{code}" required="true">
-                                                    <f:validateLength minimum="2" />
-                                                </p:inputText>             
-                                                <p:outputLabel id="area" value="Area" />
-                                                <p:selectOneMenu id="areas" value="#{loginBean.idArea}">
-                                                    <f:selectItem itemLabel="----- Seleccionar Área -----" itemValue=""/>
-                                                    <f:selectItems value="#{loginBean.listaAreas}"/>                        
-                                                </p:selectOneMenu>                                        
-                                            </h:panelGrid>
-                                            <h:commandButton id="registrarU" value="Registrar" action="#{loginBean.registrarUsuario(names.value, lastNames.value, email.value, code.value)}"/>	
-                                        </h:form>
+                                    <p:tab id="registrar_tab" title="Registrarse">
+                                        <p:focus context="registrar_tab"/> 
+                                        <h:panelGrid columns="1">                                    
+                                            <p:outputLabel for="names" value="Nombres" />
+                                            <p:inputText id="names" binding="#{names}" required="true"></p:inputText>
+                                            <p:outputLabel for="lastNames" value="Apellidos" />
+                                            <p:inputText id="lastNames" binding="#{lastNames}" required="true"></p:inputText>
+                                            <p:outputLabel for="email" value="Correo" />
+                                            <p:inputText id="email" binding="#{email}" required="true"></p:inputText>
+                                            <p:outputLabel for="code" value="Carnet" />
+                                            <p:inputNumber id="code" binding="#{code}" decimalSeparator="" thousandSeparator="" required="true"></p:inputNumber>
+                                            <p:outputLabel id="area" value="Area" />
+                                            <p:selectOneMenu id="areas" value="#{registroBean.idArea}">
+                                                <f:selectItem itemLabel="----- Seleccionar Área -----" itemValue=""/>
+                                                <f:selectItems value="#{registroBean.listaAreas}"/>                        
+                                            </p:selectOneMenu>                                        
+                                        </h:panelGrid>
+                                        <br></br>
+                                        <h:panelGrid columns="1" cellpadding="5" style="align-items: center;">						
+                                            <p:commandButton id="registrarU" value="Registrar" action="#{registroBean.registrarUsuario(names.value, lastNames.value, email.value, code.value)}"/>	
+                                        </h:panelGrid>
                                     </p:tab>                
-                                </p:tabView>   
+                                </p:tabView>
+                                <p:messages id="messages" showDetail="true" closable="true">
+                                    <p:autoUpdate />
+                                </p:messages>
                             </div>
                             <div class="col-md-4 col-xs-4 col-sm-4"></div> 
                         </div> 

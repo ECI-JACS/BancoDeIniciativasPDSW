@@ -51,14 +51,13 @@
                                         <h:button class="botonP"  style="width: 100%; background-image: url('resources/img/a.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" id="AsignarPerfiles" outcome="asignarPerfiles"></h:button>
                                     </div>                                     
                                     <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px">
-                                        <h:button class="botonP"  style="width: 100%; background-image: url('resources/img/s.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" id="CerrarSesión" outcome="inicio"></h:button>
+                                        <h:commandButton class="botonP"  style="width: 100%; background-image: url('resources/img/s.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" id="CerrarSesión" actionListener="#{loginBean.logOut()}"></h:commandButton>
                                     </div> 
                                     <div class="col-md-1 col-xs-1 col-sm-1 "></div>
                                     </div> 
                                 </div>                               
                             </div>
-                            <div class="col-md-2 col-xs-2 col-sm-2"></div> 
-
+                            <div class="col-md-2 col-xs-2 col-sm-2"></div>
                         </div> 
                     </div> 
                 </h:form>
