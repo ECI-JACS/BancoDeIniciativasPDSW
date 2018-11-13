@@ -54,6 +54,7 @@ public class AsignarPerfilesBean extends BasePageBean {
         } catch (NullPointerException ex) {
             System.out.println("Error al seleccionar un rol");
         }
+        selectedUsuarios.clear();
     }
     
     public List<SelectItem> getRoles() throws IOException {

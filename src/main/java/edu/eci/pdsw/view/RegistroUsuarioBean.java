@@ -14,6 +14,7 @@ import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -24,7 +25,7 @@ import javax.faces.model.SelectItem;
 @SuppressWarnings("deprecation")
 @ManagedBean(name = "registroBean")
 @SessionScoped
-public class RegistroBean extends BasePageBean{
+public class RegistroUsuarioBean extends BasePageBean{
 
     @Inject
     private ServiciosBancoIniciativas serviciosBancoIniciativas;
@@ -35,12 +36,13 @@ public class RegistroBean extends BasePageBean{
     public void registrarUsuario(String names, String lastNames, String email, int code) throws IOException{
         try {
             Area area = serviciosBancoIniciativas.consultarArea(Integer.parseInt(idArea));
-            User user = new User(names, lastNames, email, code, UserStatus.ACTIVO, Role.SIN_ASIGNAR, area);
+            User user = new User(names, lastNames, email, code, UserStatus.ACTIVO, Role.PUBLICO, area);
             serviciosBancoIniciativas.registrarUsuario(user);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");
         } catch (ExceptionServiciosBancoIniciativas ex) {
             System.out.println(ex.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Verifique", "--Usuario ya existente--"));
         }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso", "--Usuario creado correctamente--"));
     }
 
     public List<SelectItem> getListaAreas() throws IOException {

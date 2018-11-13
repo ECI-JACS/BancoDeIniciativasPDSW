@@ -59,7 +59,7 @@
                         <h:outputText value="#{iniciativa.keyWords}" />
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="cambiarEstadoIniciativa" value="Cambiar estado" update="iniciativasForm" actionListener="#{iniciativasBean.updateEstadoIniciativa()}"/>
+                        <p:commandButton id="cambiarEstadoIniciativa" value="Cambiar estado" ajax="false" update="iniciativasForm" actionListener="#{iniciativasBean.updateEstadoIniciativa()}"/>
                     </f:facet>
                 </p:dataTable>
             </h:form>

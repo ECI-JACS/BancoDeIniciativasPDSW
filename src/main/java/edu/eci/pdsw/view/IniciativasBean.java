@@ -3,16 +3,23 @@ package edu.eci.pdsw.view;
 import com.google.inject.Inject;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
+import edu.eci.pdsw.samples.entities.User;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
+import edu.eci.pdsw.samples.services.utilities.LoginSession;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,6 +37,29 @@ public class IniciativasBean extends BasePageBean {
     private String idEstado;
     private String palabrasClave;
     private List<SelectItem> estados;
+    
+    public int getIniciativaId() {
+        int idIniciativa = 0;
+        try {
+            idIniciativa = serviciosBancoIniciativas.consultarIdIniciativa();
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            System.out.println(ex.getMessage());
+        }
+        return idIniciativa;
+    }
+
+    public void registrarIniciativa(String description, String detail, String kewWords) {
+        HttpSession hs;
+        try {
+            hs = LoginSession.getSession();
+            User usuario = (User) hs.getAttribute("usuario");
+            int id = serviciosBancoIniciativas.consultarIdIniciativa();
+            serviciosBancoIniciativas.registrarIniciativa(new Initiative(id, description, detail, new Date(Calendar.getInstance().getTime().getTime()), null, kewWords, usuario, new InitiativeStatus(1, "En espera de revisión")));
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            System.out.println(ex.getMessage());
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso", "--Iniciativa creada correctamente--"));        
+    }
     
     public void updateEstadoIniciativa() {
         try {

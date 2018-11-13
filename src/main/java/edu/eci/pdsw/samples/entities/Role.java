@@ -8,6 +8,5 @@ public enum Role {
     ADMINISTRADOR,
     PMO,
     PROPONENTE,
-    PUBLICO,
-    SIN_ASIGNAR;
+    PUBLICO;
 }

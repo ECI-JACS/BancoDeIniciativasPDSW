@@ -25,74 +25,69 @@
             }                
         </style>  
         <div class="row">
-            <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">      
-                <h:form id="loginForm">
-                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="padding: 0;">
-                        <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
-                    </div>  
-                    <br></br>
-                    <div class="col-md-4 col-xs-4 col-sm-4 " style="margin-top:20px">
-                        <p:button style="margin-right: 20px;" value="Menú" outcome="menu"></p:button>
-                        <p:button style="margin-right: 20px;" value="Iniciativas" outcome="registroIniciativa"></p:button>                    
-                    </div>       
-                    <br></br>  
-                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
-
-
-                        <h3 style="color: white">Iniciativas por Palabras Clave</h3>
-                        <h:form id="iniciativas_clave_Form">
-                            <p:panel id="panelIniciativa">
-                                <h:panelGrid columns="1">
-                                    <p:outputLabel for="palabras_clave" value="Palabras Clave"/>
-                                    <p:inputText id="palabras_clave" value="#{iniciativasBean.palabrasClave}">
-                                        <p:ajax event="keyup" update="iniciativas_p_table"/>
-                                    </p:inputText>
-                                </h:panelGrid>
-                                <br/>
-                                <br/>
-                                <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.iniciativasPalabrasClave}" rowKey="#{iniciativa.id}">                    			
-                                    <f:facet name="header">
-                                        Iniciativas
-                                    </f:facet>
-                                    <p:column headerText="Id">
-                                        <h:outputText value="#{iniciativa.id}" />
-                                    </p:column>
-                                    <p:column headerText="Descripción">
-                                        <h:outputText value="#{iniciativa.description}" />
-                                    </p:column>
-                                    <p:column headerText="Detalle">
-                                        <h:outputText value="#{iniciativa.detail}" />
-                                    </p:column>
-                                    <p:column headerText="Fecha Creación">
-                                        <h:outputText value="#{iniciativa.creationDate}" />
-                                    </p:column>
-                                    <p:column headerText="Fecha Modificación Estado">
-                                        <h:outputText value="#{iniciativa.modificationDate}" />
-                                    </p:column>
-                                    <p:column headerText="Usuario">                        
-                                        <h:outputText value="Nombre: " style="font-weight:bold"/>
-                                        <h:outputText value="#{iniciativa.user.names}"/>
-                                        <h:outputText value=" "/>
-                                        <h:outputText value="#{iniciativa.user.lastNames}"/><br/>
-                                        <h:outputText value="Carnet: " style="font-weight:bold"/>
-                                        <h:outputText value="#{iniciativa.user.code}" /><br/>
-                                        <h:outputText value="Email: " style="font-weight:bold"/>
-                                        <h:outputText value="#{iniciativa.user.email}" /><br/>
-                                        <h:outputText value="Dependencia: " style="font-weight:bold"/>
-                                        <h:outputText value="#{iniciativa.user.area.name}"/>
-                                    </p:column>
-                                    <p:column headerText="Estado Actual">
-                                        <h:outputText value="#{iniciativa.iniciativeStatus.description}" />
-                                    </p:column>
-                                    <p:column headerText="Palabras Clave">
-                                        <h:outputText value="#{iniciativa.keyWords}" />
-                                    </p:column>
-                                </p:dataTable>
-                            </p:panel>
-                        </h:form>
-                    </div>
-
-                </h:form>
+            <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">
+                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="padding: 0;">
+                    <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
+                </div>  
+                <br></br>
+                <div class="col-md-4 col-xs-4 col-sm-4 " style="margin-top:20px">
+                    <p:button style="margin-right: 20px;" value="Menú" outcome="menu"></p:button>
+                    <p:button style="margin-right: 20px;" value="Iniciativas" outcome="registroIniciativa"></p:button>                    
+                </div>       
+                <br></br>  
+                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
+                    <h3 style="color: white">Iniciativas por Palabras Clave</h3>
+                    <h:form id="iniciativas_clave_Form">
+                        <p:panel id="panelIniciativa">
+                            <h:panelGrid columns="1">
+                                <p:outputLabel for="palabras_clave" value="Palabras Clave"/>
+                                <p:inputText id="palabras_clave" value="#{iniciativasBean.palabrasClave}">
+                                    <p:ajax event="keyup" update="iniciativas_p_table"/>
+                                </p:inputText>
+                            </h:panelGrid>
+                            <br/>
+                            <br/>
+                            <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.iniciativasPalabrasClave}" rowKey="#{iniciativa.id}">                    			
+                                <f:facet name="header">
+                                    Iniciativas
+                                </f:facet>
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{iniciativa.id}" />
+                                </p:column>
+                                <p:column headerText="Descripción">
+                                    <h:outputText value="#{iniciativa.description}" />
+                                </p:column>
+                                <p:column headerText="Detalle">
+                                    <h:outputText value="#{iniciativa.detail}" />
+                                </p:column>
+                                <p:column headerText="Fecha Creación">
+                                    <h:outputText value="#{iniciativa.creationDate}" />
+                                </p:column>
+                                <p:column headerText="Fecha Modificación Estado">
+                                    <h:outputText value="#{iniciativa.modificationDate}" />
+                                </p:column>
+                                <p:column headerText="Usuario">                        
+                                    <h:outputText value="Nombre: " style="font-weight:bold"/>
+                                    <h:outputText value="#{iniciativa.user.names}"/>
+                                    <h:outputText value=" "/>
+                                    <h:outputText value="#{iniciativa.user.lastNames}"/><br/>
+                                    <h:outputText value="Carnet: " style="font-weight:bold"/>
+                                    <h:outputText value="#{iniciativa.user.code}" /><br/>
+                                    <h:outputText value="Email: " style="font-weight:bold"/>
+                                    <h:outputText value="#{iniciativa.user.email}" /><br/>
+                                    <h:outputText value="Dependencia: " style="font-weight:bold"/>
+                                    <h:outputText value="#{iniciativa.user.area.name}"/>
+                                </p:column>
+                                <p:column headerText="Estado Actual">
+                                    <h:outputText value="#{iniciativa.iniciativeStatus.description}" />
+                                </p:column>
+                                <p:column headerText="Palabras Clave">
+                                    <h:outputText value="#{iniciativa.keyWords}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </div>
             </div> 
         </div>
     </h:body>

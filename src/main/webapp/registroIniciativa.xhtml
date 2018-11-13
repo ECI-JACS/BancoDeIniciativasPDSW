@@ -15,7 +15,6 @@
         <title>Iniciativas</title>   
         <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
-
     <h:body>        
         <style type="text/css">
             body{
@@ -25,53 +24,44 @@
             }                
         </style>  
         <div class="row">
-            <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">      
-                <h:form id="loginForm">
-                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="padding: 0;">
-                        <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
-                    </div>  
-                    <br></br>
-                    <div class="col-md-12 col-xs-12 col-sm-12" >
-                        <p:button  style="text-align: center; margin-left: 20px;" value="Consultar Iniciativas" outcome="iniciativaPalabrasClave"></p:button>  
-                        <p:button style="margin-right: 20px; margin-left: 20px;" value="Menú" outcome="menu"></p:button>
-                    </div>
-                    <br></br>  
-                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
-                        <div class="row">
-                            <div class="col-md-4 col-xs-4 col-sm-4 "></div>
-                            <div class="col-md-4 col-xs-4 col-sm-4 ">
-                                <h3 style="color: white">Registro Iniciativa</h3>
-                                <h:form id="incForm">
-                                    <p:panel id="panelIniciativa">                            
-                                        <h:panelGrid id="registroIniciativa_panel" columns="1">                                    
-                                            <p:outputLabel for="id" value="Id Iniciativa" />
-                                            <p:outputLabel id="id" value="#{registroIniciativaBean.iniciativaId}"/>
-
-                                            <p:outputLabel for="description" value="Descripción" />
-                                            <p:inputTextarea binding="#{description}" rows="5" cols="30" counter="description" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" required="true"/>
-                                            <h:outputText id="description"/>
-
-                                            <p:outputLabel for="detail" value="Detalle" />
-                                            <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true"/>
-
-                                            <p:outputLabel for="email" value="Correo Proponente" />
-                                            <p:inputText id="email" binding="#{email}" required="true">
-                                                <f:validateLength minimum="2" />
-                                            </p:inputText>            
-                                            <p:outputLabel for="kewWords" value="Palabras Clave"/>
-                                            <p:inputText id="kewWords" binding="#{kewWords}" required="true">
-                                                <f:validateLength minimum="2" />
-                                            </p:inputText>
-                                            <p:outputLabel value="Separe las palabras clave por comas ',' "/>
-                                        </h:panelGrid>
-                                        <p:commandButton id="registrarIniciativa" value="Registrar Iniciativa" action="#{registroIniciativaBean.registrarIniciativa(description.value, detail.value, email.value, kewWords.value)}"/>	
-                                    </p:panel>
-                                </h:form>
-                            </div>
-                            <div class="col-md-4 col-xs-4 col-sm-4"></div> 
-                        </div> 
+            <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">
+                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="padding: 0;">
+                    <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
+                </div>  
+                <br></br>
+                <div class="col-md-12 col-xs-12 col-sm-12" >
+                    <p:button  style="text-align: center; margin-left: 20px;" value="Consultar Iniciativas" outcome="iniciativaPalabrasClave"></p:button>  
+                    <p:button style="margin-right: 20px; margin-left: 20px;" value="Menú" outcome="menu"></p:button>
+                </div>
+                <br></br>  
+                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-4 col-sm-4 "></div>
+                        <div class="col-md-4 col-xs-4 col-sm-4 ">
+                            <h3 style="color: white">Registro Iniciativa</h3>
+                            <h:form id="incForm">
+                                <p:panel id="panelIniciativa">                            
+                                    <h:panelGrid id="registroIniciativa_panel" columns="1">                                    
+                                        <p:outputLabel for="id" value="Id Iniciativa" />
+                                        <p:outputLabel id="id" value="#{iniciativasBean.iniciativaId}"/>
+                                        <p:outputLabel for="description" value="Descripción" />
+                                        <p:inputTextarea binding="#{description}" rows="5" cols="30" counter="description" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" required="true"/>
+                                        <h:outputText id="description"/>
+                                        <p:outputLabel for="detail" value="Detalle" />
+                                        <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true"/>         
+                                        <p:outputLabel for="kewWords" value="Palabras Clave"/>
+                                        <p:inputText id="kewWords" binding="#{kewWords}" required="true">
+                                            <f:validateLength minimum="2" />
+                                        </p:inputText>
+                                        <p:outputLabel value="Separe las palabras clave por comas ',' "/>
+                                    </h:panelGrid>
+                                    <p:commandButton id="registrarIniciativa" value="Registrar Iniciativa" ajax="false" action="#{iniciativasBean.registrarIniciativa(description.value, detail.value, kewWords.value)}"/>	
+                                </p:panel>
+                            </h:form>
+                        </div>
+                        <div class="col-md-4 col-xs-4 col-sm-4"></div> 
                     </div> 
-                </h:form>
+                </div>
             </div> 
         </div>
     </h:body>
