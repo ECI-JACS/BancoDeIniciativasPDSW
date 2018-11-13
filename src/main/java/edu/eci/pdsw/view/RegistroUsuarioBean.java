@@ -23,7 +23,7 @@ import javax.faces.model.SelectItem;
  * @author ECI-JACS
  */
 @SuppressWarnings("deprecation")
-@ManagedBean(name = "registroBean")
+@ManagedBean(name = "registroUsuarioBean")
 @SessionScoped
 public class RegistroUsuarioBean extends BasePageBean{
 
