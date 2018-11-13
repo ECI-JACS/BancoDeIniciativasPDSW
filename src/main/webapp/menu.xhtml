@@ -11,25 +11,29 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" media="screen" href="resources/css/estiloBasico.css"/>
+        <link rel="icon" type="image/png" href="resources/img/bombillo_icono.png"/>
         <meta charset="UTF-8" />
         <title>Menu</title>   
         <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
 
     <h:body>        
-        <style type="text/css">
-            body{
-                background-image: url("resources/img/fondo.jpg");                
-                background-repeat: no-repeat;
-                display: block
-            }                
-        </style>  
+        <div id="encabezado_div" class="encabezado_div col-md-12 col-xs-12 col-sm-12 " >      
+            <img src="resources/img/bombillo.png" border="1" alt="Bombillo" width="auto" height="90%"/>
+            Banco de Iniciativas
+        </div> 
+        <div class="fondo col-md-12 col-xs-12 col-sm-12 " id="fondo" >
+            <style type="text/css">
+                body{
+                    display: block;
+                    background-image: url("resources/img/fondo7.jpg");   
+                    background-size:   100%;
+                    background-repeat: no-repeat;   
+                }                
+            </style>  
         <div class="row">
-            <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">      
-                <h:form id="menuForm">
-                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="padding: 0;">
-                        <img src="resources/img/Titulo.jpg" id="img_titulo" class="img-responsive"/>
-                    </div> 
+            <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">      
+                <h:form id="menuForm">                    
                     <br></br>
                     <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="position: absolute; ">
                         <div class="row">
@@ -63,5 +67,6 @@
                 </h:form>
             </div> 
         </div>
+            </div>
     </h:body>
 </html>
