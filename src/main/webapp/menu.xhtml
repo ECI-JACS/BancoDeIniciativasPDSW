@@ -18,19 +18,20 @@
     </h:head>
 
     <h:body>        
-        <div id="encabezado_div" class="encabezado_div col-md-12 col-xs-12 col-sm-12 " >      
+        <div id="encabezado_div_menu" class="encabezado_div_menu col-md-12 col-xs-12 col-sm-12 " display="block">      
             <img src="resources/img/bombillo.png" border="1" alt="Bombillo" width="auto" height="90%"/>
             Banco de Iniciativas
-        </div> 
-        <div class="fondo col-md-12 col-xs-12 col-sm-12 " id="fondo" >
+            <p:outputLabel value="#{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="margin-left: 60%; font-size: 17px;" />           
+        </div>          
+        <div id="fondo" style="display: block">           
             <style type="text/css">
-                body{
-                    display: block;
-                    background-image: url("resources/img/fondo7.jpg");   
-                    background-size:   100%;
+                body{                       
+                    background-size:  100%;
+                    display: block;                    
+                    background-image: url("resources/img/fondo7.jpg");                    
                     background-repeat: no-repeat;   
                 }                
-            </style>  
+            </style>
         <div class="row">
             <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">      
                 <h:form id="menuForm">                    

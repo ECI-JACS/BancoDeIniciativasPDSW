@@ -12,12 +12,15 @@ html {
 .img-responsive {
     display: block;
     max-width: 100%;
-    height: auto;
-    
+    height: auto;    
 }
 
 #encabezado_div{
     padding: 0; height: 150px; color: snow; background-color: #1d3192; text-align: center; font-size: 70px;  font-style: oblique;
+}
+
+#encabezado_div_menu{
+    padding: 0; padding-left: 2%; height: 50px; color: snow; background-color: #1d3192; text-align: left; font-size: 30px;  font-style: oblique;
 }
 
 .botonP {
@@ -31,7 +34,7 @@ html {
 }
 
   
-#fondo{
+#fondo2{
     body{
         background-image: url(#{resource['resources/img/fondo5.jpg']});
         display: block;
@@ -40,18 +43,18 @@ html {
         }
 }
 
-.ui-tabs-panels{   
-    opacity: 0.8;
-    aling-items: center;
-}
+#fondo{}
+   background-image: url("resources/img/fondo7.jpg");
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+   height: 100%;
+   width: 100% ;
+   text-align: center;
+   }
 
-.ui-tabs{
-    border-radius: 8px;    
-    border-style: groove;
-    posición :  relativa ;
-    overflow: hidden;
-    padding: 0;
-}
+
 
 #panelIniciativa{
     border-radius: 11px;    
@@ -61,25 +64,81 @@ html {
     padding: 0;
 }
 
-.ui-tabs .ui-tabs-nav {
-    sepia: 100%
-    text-align: center;    
+.ui-tabs { 
+    position: relative;
+    padding: .2em;
+    zoom: 1;
+    border-radius: 10px;
 }
-.ui-tabs .ui-tabs-nav li {
-    color: #99caff;
+
+.ui-widget-content {
+    background: #92c5f1b3;
+    background-color: rgba(255, 255, 255, 0.48);
+}
+
+.ui-tabs .ui-tabs-nav {
+    border-radius: 8px;
+    text-align: center !important;
     background: #cce5ff;
     text-align: center;
     float: none !important;
-    display: inline-block;   
-    }
+    top: 0px;
+    margin: 0em;
+    padding-bottom: 0px;
+}
+
+.ui-tabs-nav {
+    border-radius: 12px;
+    border-color: aliceblue;
+    text-align: center !important;
+    background: #cce5ff8f;
+    text-align: center;
+    float: none !important;
+    top: 0px;
+    margin: 0em;
+    padding-bottom: 0px;
+}
+
+.ui-tabs .ui-tabs-nav li .ui-tabs-selected{
+    border-style: inherit;
+    background-color: #cce5ff8f;
+    border-width: 0px;
+}
+
+.ui-tabs .ui-tabs-nav li a{
+    cursor: pointer;
+    border-style: inherit;
+    background-color: #cce5ff8f;
+    border-width: 0px;
+}
+
+
+.ui-tabs-panels{  
+    text-align: -webkit-center;
+}
+
+.ui-inputfield{
+    width: -webkit-fill-available;
+}
+
+.ui-tabs-nav li{
+    border: 1px solid #3c4898d4;
+}
+label {
+    display: inline-block;
+    margin-bottom: 0;
+}
+.ui-button:hover:before {
+    height: 42px;
+    background: rgba(91, 140, 212, 0.79);
+    border-radius: 5px;
+    transition: all 2s ease;
+}
+  
+ 
+
+
 
 #inicio{
     background-color:rgb(24, 36, 110);
 }
-#fondoG{
-    body{
-        background-image: url("resources/img/fondo3.jpg");                
-        background-repeat: no-repeat;
-        display: block
-    }               
- }
