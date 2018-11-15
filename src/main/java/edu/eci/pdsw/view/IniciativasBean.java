@@ -15,11 +15,16 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import org.primefaces.event.ItemSelectEvent;
+import org.primefaces.model.chart.PieChartModel;
 
 /**
  *
@@ -37,6 +42,8 @@ public class IniciativasBean extends BasePageBean {
     private String idEstado;
     private String palabrasClave;
     private List<SelectItem> estados;
+    
+    private PieChartModel pieModel;
     
     public int getIniciativaId() {
         int idIniciativa = 0;
@@ -70,7 +77,7 @@ public class IniciativasBean extends BasePageBean {
             System.out.println("Lo ingresado no es un id del estado de la iniciativa");
         }
     }
-
+    
     public List<Initiative> getIniciativas() {
         List<Initiative> iniciativas = new ArrayList<>();
         try {
@@ -135,5 +142,51 @@ public class IniciativasBean extends BasePageBean {
     public void setPalabrasClave(String palabrasClave) {
         this.palabrasClave = palabrasClave;
     }
+    /*#################################### ESTADISTICAS ####################################*/
+    @PostConstruct
+    public void init() {
+        super.init();
+        createPieModel();        
+    }
+    
+    private void createPieModel() {
+        pieModel = new PieChartModel();
+        HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();
+        for (Map.Entry<String, Integer> dependencia : estadisticaXDependencias.entrySet()) {
+            pieModel.set(dependencia.getKey(), dependencia.getValue());            
+        }
 
+        pieModel.setTitle("Simple Pie");
+        pieModel.setLegendPosition("w");
+        pieModel.setShadow(false);
+    }    
+    
+    public void itemSelect(ItemSelectEvent event) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item selected",
+                "Item Index: " + event.getItemIndex() + ", Series Index:" + event.getSeriesIndex()); 
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public HashMap<String, Integer> calcularEstadisticasDependencias() {
+        List<Initiative> iniciativas = this.getIniciativas();
+        System.out.println(iniciativas);
+        HashMap<String, Integer> estadisticaXDependencias = new HashMap<String, Integer>();
+        String dependencia = "";
+        int cantidad = 0;
+        for (Initiative i : iniciativas){
+            dependencia = i.getUser().getArea().getName();
+            if(estadisticaXDependencias.containsKey(dependencia)){
+                cantidad = estadisticaXDependencias.get(dependencia)+1;
+                estadisticaXDependencias.replace(dependencia, cantidad);
+            }
+            else{
+                estadisticaXDependencias.put(dependencia, 1);
+            }
+        }  
+        return estadisticaXDependencias;
+    }
+    
+    public PieChartModel getPieModel() {
+        return pieModel;
+    }
 }
