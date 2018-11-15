@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" media="screen" href="resources/css/estiloBasico.css"/>
         <meta charset="UTF-8" />
-        <title>niciativas por palabras Clave</title>   
+        <title>Consultar Iniciativas</title>   
         <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
 
@@ -32,14 +32,33 @@
                 }                
             </style>  
             <div class="row">
-                <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12">                      
-                    <br></br>
-                    <div class="col-md-4 col-xs-4 col-sm-4 " style="margin-top:20px">
-                        <p:button style="margin-right: 20px;" value="Menú" outcome="menu"></p:button>
-                        <p:button style="margin-right: 20px;" value="Iniciativas" outcome="registroIniciativa"></p:button>                    
-                    </div>       
-                    <br></br>  
-                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
+                <div id="login" class="fondo col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 20px;">                      
+                    <br></br>                      
+                    
+                        <div id="menu1" class="row">
+                            <div class="col-md-3 col-xs-3 col-sm-3 "></div>
+                            <div class="col-md-6 col-xs-6 col-sm-6 "> 
+                                <p:menubar style="text-align: center;">
+                                    <p:menuitem value="Home" outcome="menu" icon="pi pi-times" />
+                                    <p:submenu label="Perfil" icon="pi pi-pencil">
+                                        <p:menuitem value="Cuenta" outcome="perfil" icon="pi pi-angle-double-left" />
+                                        <p:menuitem value="Tus Iniciativas" url="#" icon="pi pi-angle-double-right" />
+                                    </p:submenu>
+
+                                    <p:submenu label="Iniciativas" icon="pi pi-pencil">
+                                        <p:menuitem value="Crear" outcome="registroIniciativa" icon="pi pi-angle-double-left" />
+                                        <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="pi pi-angle-double-right" />
+                                        <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="pi pi-angle-double-right" />
+                                        <p:menuitem value="Estadísticas" url="#" icon="pi pi-angle-double-right" />
+                                    </p:submenu>
+                                    <p:submenu label="Usuarios" icon="pi pi-pencil">
+                                        <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="pi pi-angle-double-left" />
+                                    </p:submenu>                                      
+                                </p:menubar>
+
+                            </div>
+                            <div class="col-md-3 col-xs-3 col-sm-3 "></div>
+                        </div> 
                         <h3 style="color: white">Iniciativas por Palabras Clave</h3>
                         <h:form id="iniciativas_clave_Form">
                             <p:panel id="panelIniciativa">
@@ -90,8 +109,7 @@
                                     </p:column>
                                 </p:dataTable>
                             </p:panel>
-                        </h:form>
-                    </div>
+                        </h:form>                    
                 </div> 
             </div>
         </div>
