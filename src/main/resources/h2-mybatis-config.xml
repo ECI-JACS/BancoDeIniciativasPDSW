@@ -21,8 +21,9 @@
         <typeAlias type='edu.eci.pdsw.samples.entities.UserStatus' alias='UserStatus'/>
         <typeAlias type='edu.eci.pdsw.samples.entities.Vote' alias='Vote'/>
     </typeAliases>     
-    
+  	  
     <environments default="test">
+  
         <environment id="test">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
