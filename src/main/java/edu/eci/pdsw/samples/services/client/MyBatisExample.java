@@ -65,7 +65,7 @@ public class MyBatisExample {
 
         try {
             //serviciosBancoIniciativas.registrarArea(new Area(1, "Sistemas"));
-            //System.out.println(serviciosBancoIniciativas.consultarAreas());
+            System.out.println(serviciosBancoIniciativas.consultarAreas());
             //System.out.println(serviciosBancoIniciativas.consultarArea(1));
             //serviciosBancoIniciativas.registrarArea(new Area(1, "Decanatura de Ingenería de Sistemas"));
             //serviciosBancoIniciativas.registrarArea(new Area(2, "Unidad de Proyectos"));
