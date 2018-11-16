@@ -1,6 +1,7 @@
 package edu.eci.pdsw.sampleprj.dao;
 
 import java.util.List;
+import java.sql.Date;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 
@@ -19,7 +20,7 @@ public interface InitiativeDAO {
     
     public void updateInitiativeStatus(int id,int iniStat) throws PersistenceException;
     
-    public List<Initiative> consultInitiativeForKeyWord(String keyWords) throws PersistenceException;
+    public List<Initiative> loadInitiativeForSearch(String palabrasClave, String proponente, Date fechaPropuesta, int dependencia, int estado) throws PersistenceException;
 
     public int loadInitiativeId() throws PersistenceException;
 

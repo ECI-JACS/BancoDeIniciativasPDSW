@@ -6,6 +6,7 @@ import edu.eci.pdsw.sampleprj.dao.InitiativeDAO;
 import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.InitiativeMapper;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
+import java.sql.Date;
 
 import java.util.List;
 
@@ -62,11 +63,11 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
     }
 
     @Override
-    public List<Initiative> consultInitiativeForKeyWord(String keyWords) throws PersistenceException {
+    public List<Initiative> loadInitiativeForSearch(String palabrasClave, String proponente, Date fechaPropuesta, int dependencia, int estado) throws PersistenceException {
         try {
-            return initiativeMapper.consultInitiativeForKeyWord(keyWords);
+            return initiativeMapper.consultarIniciativasPorBusqueda(palabrasClave, proponente, fechaPropuesta, dependencia, estado);
         } catch (PersistenceException e) {
-            throw new PersistenceException("Error al consultar iniciativa por las palabras claves" + keyWords, e);
+            throw new PersistenceException("Error al consultar iniciativa por búsqueda específica", e);
         }
     }
 

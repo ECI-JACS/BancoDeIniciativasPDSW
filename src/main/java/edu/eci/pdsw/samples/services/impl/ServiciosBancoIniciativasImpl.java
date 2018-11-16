@@ -13,6 +13,7 @@ import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
+import java.sql.Date;
 
 import java.util.List;
 
@@ -170,9 +171,9 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
     }
 
     @Override
-    public List<Initiative> consultInitiativeForKeyWord(String keyWords) throws ExceptionServiciosBancoIniciativas {
+    public List<Initiative> consultarIniciativasPorBusqueda(String palabrasClave, String proponente, Date fechaPropuesta, int dependencia, int estado) throws ExceptionServiciosBancoIniciativas {
         try {
-            return initiativeDAO.consultInitiativeForKeyWord(keyWords);
+            return initiativeDAO.loadInitiativeForSearch(palabrasClave, proponente, fechaPropuesta, dependencia, estado);
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
