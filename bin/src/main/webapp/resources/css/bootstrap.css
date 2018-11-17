@@ -1,0 +1,31 @@
+/*!
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.fondo{
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    background-image: url("resources/img/fondo.jpg");
+}
+
+#inicio{
+    background-color:rgb(24, 36, 110);
+}
+/*
+<style type="text/css">
+        body {background:url("resources/img/fondo.jpg");}
+</style>
+*/
