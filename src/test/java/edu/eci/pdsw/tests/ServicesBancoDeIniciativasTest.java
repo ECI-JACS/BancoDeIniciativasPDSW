@@ -16,14 +16,10 @@
  */
 package edu.eci.pdsw.tests;
 
-
-
-
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.util.List;
-
 
 import org.junit.Test;
 
@@ -36,7 +32,6 @@ import edu.eci.pdsw.samples.entities.UserStatus;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
 
-
 /**
  *
  * @author hcadavid
@@ -46,20 +41,20 @@ public class ServicesBancoDeIniciativasTest extends TestBase {
 
     @Inject
     private ServiciosBancoIniciativas serviciosBancoIniciativas;
-    
+
     @Test
     public void pruebaCeroTest() throws SQLException, ExceptionServiciosBancoIniciativas {
-    	try {
-    		serviciosBancoIniciativas.registrarArea(new Area(1, "Sistemas"));
-    		System.out.println(serviciosBancoIniciativas.consultarAreas());
-    		User user = new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas"));
-    		serviciosBancoIniciativas.registrarUsuario(user);
-    		System.out.println(serviciosBancoIniciativas.consultarUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));
-    		assertTrue(true);
-    	}catch (Exception ex) {
-    		ex.printStackTrace();
-		
-		}
-    	
-    }    
+        try {
+            serviciosBancoIniciativas.registrarArea(new Area(1, "Sistemas"));
+            System.out.println(serviciosBancoIniciativas.consultarAreas());
+            User user = new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Decanatura de Ingenería de Sistemas"));
+            serviciosBancoIniciativas.registrarUsuario(user);
+            System.out.println(serviciosBancoIniciativas.consultarUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));
+            assertTrue(true);
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            ex.printStackTrace();
+
+        }
+
+    }
 }

@@ -14,11 +14,18 @@
         <link rel="stylesheet" media="screen" href="resources/css/estiloBasico.css"/>
         <link rel="icon" type="image/png" href="resources/img/bombillo_icono.png"/>
         <meta charset="UTF-8" />
+        <script type="text/javascript">
+            history.pushState(null, document.title, location.href);
+            window.addEventListener('popstate', function (event)
+            {
+                history.pushState(null, document.title, location.href);
+            });
+        </script>
         <title>Banco de Iniciativas</title>   
         <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
 
-    <h:body>  
+    <h:body>   
         <div id="encabezado_div" class="encabezado_div col-md-12 col-xs-12 col-sm-12 " display="block">      
             <img src="resources/img/bombillo.png" border="1" alt="Bombillo" width="auto" height="90%"/>
             Banco de Iniciativas
@@ -86,5 +93,3 @@
         </div>
     </h:body>
 </html>
-
-

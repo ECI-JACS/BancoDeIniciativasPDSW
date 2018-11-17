@@ -122,7 +122,7 @@
         WHERE id = #{id};        
     </update>    
     
-    <select id='consultInitiativeForKeyWord' parameterType='map' resultMap='InitiativeResult'>
+    <select id='consultarIniciativasPorBusqueda' parameterType='map' resultMap='InitiativeResult'>
         SELECT
             i.id as initiativeid,
             i.description as initiativedescription,
@@ -152,7 +152,24 @@
             LEFT JOIN InitiativeStatus AS ie ON (i.initiativestatus_id = ie.id)
             LEFT JOIN Comment AS c ON (i.id = c.initiative_id)
             LEFT JOIN Vote AS v ON (i.id = v.initiative_id)
-        WHERE i.keywords @&gt; string_to_array(#{keyWords},',');
+        <where>
+            <if test="palabrasClave!=''">
+                i.keywords @&gt; string_to_array(#{palabrasClave},',')
+            </if>
+            <if test="proponente!=''">
+                AND u.email = #{proponente}
+            </if>
+            <if test="dependencia!=0">
+                AND a.id = #{dependencia}
+            </if>
+            <if test="fechaPropuesta!=null">
+                AND i.creationdate = #{fechaPropuesta}
+            </if>
+            <if test="estado!=0">
+                AND ie.id = #{estado}
+            </if>
+        </where>
+        ;
     </select>
     
     <select id='consultarIdIniciativa' parameterType='map' resultMap="InitiativeIdResult">
