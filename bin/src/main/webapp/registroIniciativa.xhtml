@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <p:button outcome="index" value="Pruebas Diseño" icon="ui-icon-star">		    
+        </p:button>
+        <meta charset="UTF-8" />
+        <title>Registro Iniciativa</title>
+    </h:head>
+    <h:body>
+        <div>
+            <h1>Registro Iniciativa</h1>
+            <h:form id="registroIniciativaForm">
+                <h:panelGrid id="registroIniciativa_panel" columns="1">                                    
+                    <p:outputLabel for="id" value="Id Iniciativa" />
+                    <p:outputLabel id="id" value="#{registroIniciativaBean.iniciativaId}"/>
+                    
+                    <p:outputLabel for="description" value="Descripción" />
+                    <p:inputTextarea binding="#{description}" rows="5" cols="30" counter="description" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" required="true"/>
+                    <h:outputText id="description"/>
+    
+                    <p:outputLabel for="detail" value="Detalle" />
+                    <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true"/>
+                    
+                    <p:outputLabel for="email" value="Correo Proponente" />
+                    <p:inputText id="email" binding="#{email}" required="true">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>            
+                    
+                    <p:outputLabel for="kewWords" value="Palabras Clave"/>
+                    <p:inputText id="kewWords" binding="#{kewWords}" required="true">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:outputLabel value="Separe las palabras clave por comas ',' "/>
+                </h:panelGrid>
+                <h:commandButton id="registrarIniciativa" value="Registrar Iniciativa" action="#{registroIniciativaBean.registrarIniciativa(description.value, detail.value, email.value, kewWords.value)}"/>	
+            </h:form>
+        </div>
+    </h:body>
+</html>

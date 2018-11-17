@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <p:button outcome="index" value="Pruebas Diseño" icon="ui-icon-star">		    
+        </p:button>
+        <meta charset="UTF-8" />
+        <title>Iniciativas</title>
+    </h:head>
+    <h:body>
+        <div>
+            <h1>Iniciativas</h1>
+            <h:form id="iniciativasForm">
+                <p:selectOneMenu id="estadosIniciativa_select" value="#{iniciativasBean.idEstado}">
+                    <f:selectItem itemLabel="---- Seleccionar Estado ----" itemValue=""/>
+                    <f:selectItems value="#{iniciativasBean.estados}"/>
+                </p:selectOneMenu>
+                <br/>
+                <br/>
+                <p:dataTable id="iniciativas_table" var="iniciativa" value="#{iniciativasBean.iniciativas}" selection="#{iniciativasBean.selectedIniciativa}" rowKey="#{iniciativa.id}">                    			
+                    <f:facet name="header">
+                        Listado de Iniciativas
+                    </f:facet>
+                    <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{iniciativa.id}" />
+                    </p:column>
+                    <p:column headerText="Descripción">
+                        <h:outputText value="#{iniciativa.description}" />
+                    </p:column>
+                    <p:column headerText="Detalle">
+                        <h:outputText value="#{iniciativa.detail}" />
+                    </p:column>
+                    <p:column headerText="Fecha Creación">
+                        <h:outputText value="#{iniciativa.creationDate}" />
+                    </p:column>
+                    <p:column headerText="Fecha Modificación Estado">
+                        <h:outputText value="#{iniciativa.modificationDate}" />
+                    </p:column>
+                    <p:column headerText="Usuario">
+                        <h:outputText value="Nombre: " style="font-weight:bold"/>
+                        <h:outputText value="#{iniciativa.user.names}"/>
+                        <h:outputText value=" "/>
+                        <h:outputText value="#{iniciativa.user.lastNames}"/><br/>
+                        <h:outputText value="Carnet: " style="font-weight:bold"/>
+                        <h:outputText value="#{iniciativa.user.code}" /><br/>
+                        <h:outputText value="Email: " style="font-weight:bold"/>
+                        <h:outputText value="#{iniciativa.user.email}" /><br/>
+                        <h:outputText value="Dependencia: " style="font-weight:bold"/>
+                        <h:outputText value="#{iniciativa.user.area.name}"/>
+                    </p:column>
+                    <p:column headerText="Estado Actual">
+                        <h:outputText value="#{iniciativa.iniciativeStatus.description}" />
+                    </p:column>
+                    <p:column headerText="Palabras Clave">
+                        <h:outputText value="#{iniciativa.keyWords}" />
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="cambiarEstadoIniciativa" value="Cambiar estado" update="iniciativasForm" actionListener="#{iniciativasBean.updateEstadoIniciativa()}"/>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</html>
