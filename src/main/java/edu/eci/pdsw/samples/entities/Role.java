@@ -2,7 +2,7 @@ package edu.eci.pdsw.samples.entities;
 
 /**
  * Esta clase representa los roles que pueden tener los usuarios.
- * @author 2133541
+ * @author ECI-JACS
  */
 public enum Role {
     ADMINISTRADOR,

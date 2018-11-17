@@ -24,7 +24,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
-import org.primefaces.event.ItemSelectEvent;
 import org.primefaces.model.chart.PieChartModel;
 
 /**
@@ -47,22 +46,30 @@ public class IniciativasBean extends BasePageBean {
     private String dependencia;
     private String palabrasClave;
     private String palabra;
-    private PieChartModel pieModel;
+    private String keywords;
+    private String keyword;    
     private List<SelectItem> listaAreas;
+    private PieChartModel pieModel;
 
     @PostConstruct
     public void init() {
         super.init();
+        inicializarVariables();
+        createPieModel();
+    }
+    
+    public void inicializarVariables() {
         selectedIniciativa = new Initiative();
         idEstado = "";
         estados = new ArrayList<>();
         palabrasClave = "";
         palabra = "";
+        keywords = "";
+        keyword = "";
         proponente = "";
         fechaPropuesta = null;
         dependencia = "";
         listaAreas = new ArrayList<>();
-        createPieModel();
     }
 
     public int getIniciativaId() {
@@ -75,16 +82,17 @@ public class IniciativasBean extends BasePageBean {
         return idIniciativa;
     }
 
-    public void registrarIniciativa(String description, String detail, String kewWords) {
+    public void registrarIniciativa(String description, String detail) {
         HttpSession hs;
         try {
             hs = LoginSession.getSession();
             User usuario = (User) hs.getAttribute("usuario");
             int id = serviciosBancoIniciativas.consultarIdIniciativa();
-            serviciosBancoIniciativas.registrarIniciativa(new Initiative(id, description, detail, new java.sql.Date(Calendar.getInstance().getTime().getTime()), null, kewWords, usuario, new InitiativeStatus(1, "En espera de revisión")));
+            serviciosBancoIniciativas.registrarIniciativa(new Initiative(id, description, detail, new java.sql.Date(Calendar.getInstance().getTime().getTime()), null, keywords, usuario, new InitiativeStatus(1, "En espera de revisión")));
         } catch (ExceptionServiciosBancoIniciativas ex) {
             System.out.println(ex.getMessage());
         }
+        inicializarVariables();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso", "--Iniciativa creada correctamente--"));
     }
 
@@ -167,16 +175,9 @@ public class IniciativasBean extends BasePageBean {
         for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {
             pieModel.set(dependenciaArea.getKey(), dependenciaArea.getValue());
         }
-
         pieModel.setTitle("Simple Pie");
         pieModel.setLegendPosition("w");
         pieModel.setShadow(false);
-    }
-
-    public void itemSelect(ItemSelectEvent event) {
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item selected",
-                "Item Index: " + event.getItemIndex() + ", Series Index:" + event.getSeriesIndex());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public HashMap<String, Integer> calcularEstadisticasDependencias() {
@@ -258,7 +259,30 @@ public class IniciativasBean extends BasePageBean {
         this.dependencia = dependencia;
     }
 
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+        if (this.keywords.equals("")){
+            this.keywords = keyword;
+        }
+        else {
+            this.keywords = this.keywords + "," + keyword;
+        }
+    }
+
     public PieChartModel getPieModel() {
+        createPieModel();
         return pieModel;
     }
     

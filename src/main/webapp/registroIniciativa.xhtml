@@ -65,23 +65,27 @@
                             <div class="col-md-4 col-xs-4 col-sm-4 ">
                                 <h3 style="color: white">Registro Iniciativa</h3>
                                 <h:form id="incForm">
-                                    <p:panel id="panelIniciativa">                            
-                                        <h:panelGrid id="registroIniciativa_panel" columns="1">                                    
+                                    <p:panel id="panelIniciativa">
+                                        <h:panelGrid id="registroIniciativa_panel" columns="">                                    
                                             <p:outputLabel for="id" value="Id Iniciativa" />
                                             <p:outputLabel id="id" value="#{iniciativasBean.iniciativaId}"/>
                                             <p:outputLabel for="description" value="Descripción" />
                                             <p:inputTextarea binding="#{description}" rows="5" cols="30" counter="description" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" required="true"/>
                                             <h:outputText id="description"/>
                                             <p:outputLabel for="detail" value="Detalle" />
-                                            <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true"/>         
-                                            <p:outputLabel for="kewWords" value="Palabras Clave"/>
-                                            <p:inputText id="kewWords" binding="#{kewWords}" required="true">
-                                                <f:validateLength minimum="2" />
+                                            <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true"/>
+
+                                            <p:outputLabel for="ingresarKeywords" value="Ingrese las palabras clave una por una"/>
+                                            <p:inputText id="ingresarKeywords" value="#{iniciativasBean.keyword}">
+                                                <p:ajax update="keywords"/>
                                             </p:inputText>
-                                            <p:outputLabel value="Separe las palabras clave por comas ',' "/>
+                                            <p:commandButton value="Agregar" update="ingresarKeywords" icon="ui-icon-check"/>
+                                            <p:outputLabel for="keywords" value="Palabras Clave"/>
+                                            <p:outputLabel id="keywords" value="#{iniciativasBean.keywords}">
+                                            </p:outputLabel>                                            
                                         </h:panelGrid>
-                                        <p:commandButton id="registrarIniciativa" value="Registrar Iniciativa" ajax="false" action="#{iniciativasBean.registrarIniciativa(description.value, detail.value, kewWords.value)}"/>	
-                                    </p:panel>
+                                        <p:commandButton id="registrarIniciativa" value="Registrar Iniciativa" ajax="false" action="#{iniciativasBean.registrarIniciativa(description.value, detail.value)}"/>	
+                                    </p:panel>                                    
                                 </h:form>
                             </div>
                             <div class="col-md-4 col-xs-4 col-sm-4"></div> 

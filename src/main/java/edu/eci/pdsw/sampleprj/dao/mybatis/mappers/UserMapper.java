@@ -1,6 +1,5 @@
 package edu.eci.pdsw.sampleprj.dao.mybatis.mappers;
 
-import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
 import java.util.List;
 
@@ -16,9 +15,10 @@ public interface UserMapper {
     
     public User consultarUsuario(@Param("email") String email);
 
-    public List<User> consultarUsuariosRol(@Param("role") Role role);
+    public List<User> consultarUsuariosPorBusqueda(@Param("nombres") String nombres, @Param("apellidos") String apellidos, @Param("email") String email, @Param("carnet") int carnet, @Param("idArea") int idArea, @Param("role") String role);
 
     public void actualizarUsuariosRol(@Param("email") String email, @Param("role") String role);
     
     public void deleteUser(@Param("email") String email);
+    
 }

@@ -31,11 +31,16 @@ public interface ServiciosBancoIniciativas {
     
     /**
      * Permite consultar a varios usuarios, dado el rol o pefil
+     * @param nombres
+     * @param apellidos
+     * @param email
+     * @param carnet
      * @param role
+     * @param idArea
      * @return
      * @throws ExceptionServiciosBancoIniciativas 
      */
-    public List<User> consultarUsuariosRol(Role role) throws ExceptionServiciosBancoIniciativas;
+    public List<User> consultarUsuariosPorBusqueda(String nombres, String apellidos, String email, int carnet, int idArea, String role) throws ExceptionServiciosBancoIniciativas;
     
     /**
      * Permite actualizar el rol de un usuario, dado el rol.

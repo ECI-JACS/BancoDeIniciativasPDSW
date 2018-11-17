@@ -30,7 +30,7 @@
         WHERE u.email = #{email};
     </select>
     
-    <select id='consultarUsuariosRol' parameterType='map' resultMap='UserResult'>
+    <select id='consultarUsuariosPorBusqueda' parameterType='map' resultMap='UserResult'>
         SELECT
             u.names as usernames,
             u.lastnames as userlastnames,
@@ -42,7 +42,27 @@
             a.name as areaname
         FROM "User" AS u
             LEFT JOIN Area AS a ON (u.area_id = a.id)
-        WHERE u.role = #{role};
+        <where>
+            <if test="nombres!=''">
+                u.names = #{nombres}
+            </if>
+            <if test="apellidos!=''">
+                AND u.lastnames = #{apellidos}
+            </if>
+            <if test="email!=''">
+                AND u.email = #{email}
+            </if>
+            <if test="carnet!=0">
+                AND u.code = #{carnet}
+            </if>
+            <if test="idArea!=0">
+                AND a.id = #{idArea}
+            </if>
+            <if test="role!=''">
+                AND u.role = #{role}
+            </if>
+        </where>
+        ;
     </select>
     
     <insert id='insertarUsuario' parameterType='map'>

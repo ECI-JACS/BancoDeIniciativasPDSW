@@ -63,19 +63,17 @@
                             <div class="col-md-4 col-xs-4 col-sm-4 "></div>
                             <div class="col-md-4 col-xs-4 col-sm-4 ">
                                 <h3 style="color: white">Estadísticas</h3>
-                                <style type="text/css">
-                                    .right div {
-                                        float: right;
-                                    }
-                                </style>
                                 <h:form>
+                                    <style type="text/css">
+                                        .right div {
+                                            float: right;
+                                        }
+                                    </style>
                                     <p:growl id="growl" showDetail="true" />
                                     <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
-                                        <p:chart type="pie" model="#{iniciativasBean.pieModel}" style="width:400px;height:300px">
-                                            <p:ajax event="itemSelect" listener="#{iniciativasBean.itemSelect}" update="growl" />
+                                        <p:chart type="pie" model="#{iniciativasBean.pieModel}" style="width:400px; height:300px">
                                         </p:chart>
                                     </h:panelGrid>
-
                                 </h:form>
                             </div>
                             <div class="col-md-4 col-xs-4 col-sm-4"></div> 

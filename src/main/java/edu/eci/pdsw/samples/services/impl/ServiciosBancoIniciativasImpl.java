@@ -54,9 +54,9 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
     }
     
     @Override
-    public List<User> consultarUsuariosRol(Role role) throws ExceptionServiciosBancoIniciativas {
+    public List<User> consultarUsuariosPorBusqueda(String nombres, String apellidos, String email, int carnet, int idArea, String role) throws ExceptionServiciosBancoIniciativas {
         try {
-            return userDAO.loadUsersRole(role);
+            return userDAO.loadUsersForSearch(nombres, apellidos, email, carnet, idArea, role);
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
