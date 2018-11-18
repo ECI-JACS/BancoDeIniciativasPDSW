@@ -17,82 +17,91 @@
         <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
 
-    <h:body style="background-image: url('resources/img/fondo7.jpg'); background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #66999;">            
-        <div id="encabezado_div_menu" class="encabezado_div_menu col-md-12 col-xs-12 col-sm-12 " display="block" style="background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #66999;">      
+    <h:body>        
+        <div id="encabezado_div_menu" class="encabezado_div_menu col-md-12 col-xs-12 col-sm-12 " display="block">      
             <img src="resources/img/bombillo.png" border="1" alt="Bombillo" width="auto" height="90%"/>
-            Banco de Iniciativas         
-            <p:commandButton class="btn btn-5" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>           
-            <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
-        </div>         
-        <div class="row">
-            <div id="encabezado" class="fondo col-md-12 col-xs-12 col-sm-12">      
-                <h:form id="loginForm">                        
-                    <br></br>
-                    <div id="menu1" class="row">
-                        <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                        <div class="col-md-6 col-xs-6 col-sm-6 "> 
-                            <p:menubar style="text-align: center;">
-                                <p:menuitem value="Home" outcome="menu" icon="pi pi-times" />
-                                <p:submenu label="Perfil" icon="pi pi-pencil">
-                                    <p:menuitem value="Cuenta" outcome="perfil" icon="pi pi-angle-double-left" />
-                                    <p:menuitem value="Tus Iniciativas" url="#" icon="pi pi-angle-double-right" />
-                                </p:submenu>
+            Banco de Iniciativas
+            <p:outputLabel value="#{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="margin-left: 60%; font-size: 17px;" />           
+        </div>          
+        <div id="fondo" style="display: block">           
+            <style type="text/css">
+                body{                       
+                    background-size:  100%;
+                    display: block;                    
+                    background-image: url("resources/img/fondo7.jpg");                    
+                    background-repeat: no-repeat;   
+                }                
+            </style>  
+            <div class="row">
+                <div id="encabezado" class="fondo col-md-12 col-xs-12 col-sm-12">      
+                    <h:form id="loginForm">                        
+                        <br></br>
+                        <div id="menu1" class="row">
+                            <div class="col-md-3 col-xs-3 col-sm-3 "></div>
+                            <div class="col-md-6 col-xs-6 col-sm-6 "> 
+                                <p:menubar style="text-align: center;">
+                                    <p:menuitem value="Home" outcome="menu" icon="pi pi-times" />
+                                    <p:submenu label="Perfil" icon="pi pi-pencil">
+                                        <p:menuitem value="Cuenta" outcome="perfil" icon="pi pi-angle-double-left" />
+                                        <p:menuitem value="Tus Iniciativas" url="#" icon="pi pi-angle-double-right" />
+                                    </p:submenu>
 
-                                <p:submenu label="Iniciativas" icon="pi pi-pencil">
-                                    <p:menuitem value="Crear" outcome="registroIniciativa" icon="pi pi-angle-double-left" />
-                                    <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="pi pi-angle-double-right" />
-                                    <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="pi pi-angle-double-right" />
-                                    <p:menuitem value="Estadísticas" outcome="estadisticas" icon="pi pi-angle-double-right" />
-                                </p:submenu>
-                                <p:submenu label="Usuarios" icon="pi pi-pencil">
-                                    <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="pi pi-angle-double-left" />
-                                </p:submenu>                                      
-                            </p:menubar>
+                                    <p:submenu label="Iniciativas" icon="pi pi-pencil">
+                                        <p:menuitem value="Crear" outcome="registroIniciativa" icon="pi pi-angle-double-left" />
+                                        <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="pi pi-angle-double-right" />
+                                        <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="pi pi-angle-double-right" />
+                                        <p:menuitem value="Estadísticas" outcome="estadisticas" icon="pi pi-angle-double-right" />
+                                    </p:submenu>
+                                    <p:submenu label="Usuarios" icon="pi pi-pencil">
+                                        <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="pi pi-angle-double-left" />
+                                    </p:submenu>                                      
+                                </p:menubar>
 
-                        </div>
-                        <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                    </div> 
-                    <br></br>        
-                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 10px;">
-                        <div class="row">
-                            <div class="col-md-4 col-xs-4 col-sm-4 "></div>
-                            <div class="col-md-4 col-xs-4 col-sm-4 ">                                
-                                <h:form id="perfilForm">
-                                    <p:dataTable id="perfil_table" var="perfil" value="#{loginBean.usuario}" rowKey="#{perfil.email}" style="height:  100%">                    			
-                                        <f:facet name="header">
-                                            Perfil #{loginBean.usuario.names}
-                                        </f:facet>
-                                        <p:column>
-                                            <p:fieldset legend="Nombres" style="margin-bottom:20px; " >
-                                                <h:outputText value="#{perfil.names}"/>
-                                            </p:fieldset>
-                                            <p:fieldset legend="Apellidos" style="margin-top:20px;">
-                                                <h:outputText value="#{perfil.lastNames}"/>
-                                            </p:fieldset>
-                                            <p:fieldset legend="Correo" style="margin-bottom:20px">
-                                                <h:outputText value="#{perfil.email}"/>
-                                            </p:fieldset>
-                                            <p:fieldset legend="Carnet" style="margin-bottom:20px">
-                                                <h:outputText value="#{perfil.code}"/>
-                                            </p:fieldset>
-                                            <p:fieldset legend="Rol" style="margin-bottom:20px">
-                                                <h:outputText value="#{perfil.role}"/>
-                                            </p:fieldset>
-                                            <p:fieldset legend="Dependencia" style="margin-bottom:20px">
-                                                <h:outputText value="#{perfil.area.name}"/>
-                                            </p:fieldset>
-                                            <p:fieldset legend="Estado" style="margin-bottom:20px">
-                                                <h:outputText value="#{perfil.status}"/>
-                                            </p:fieldset>
-                                        </p:column>
-                                    </p:dataTable>
-                                </h:form>
                             </div>
-                            <div class="col-md-4 col-xs-4 col-sm-4"></div> 
+                            <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                         </div> 
-                    </div> 
-                </h:form>
-            </div> 
+                        <br></br>        
+                        <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 10px;">
+                            <div class="row">
+                                <div class="col-md-4 col-xs-4 col-sm-4 "></div>
+                                <div class="col-md-4 col-xs-4 col-sm-4 ">                                
+                                    <h:form id="perfilForm">
+                                        <p:dataTable id="perfil_table" var="perfil" value="#{loginBean.usuario}" rowKey="#{perfil.email}" style="height:  100%">                    			
+                                            <f:facet name="header">
+                                                Perfil #{loginBean.usuario.names}
+                                            </f:facet>
+                                            <p:column>
+                                                <p:fieldset legend="Nombres" style="margin-bottom:20px; " >
+                                                    <h:outputText value="#{perfil.names}"/>
+                                                </p:fieldset>
+                                                <p:fieldset legend="Apellidos" style="margin-top:20px;">
+                                                    <h:outputText value="#{perfil.lastNames}"/>
+                                                </p:fieldset>
+                                                <p:fieldset legend="Correo" style="margin-bottom:20px">
+                                                    <h:outputText value="#{perfil.email}"/>
+                                                </p:fieldset>
+                                                <p:fieldset legend="Carnet" style="margin-bottom:20px">
+                                                    <h:outputText value="#{perfil.code}"/>
+                                                </p:fieldset>
+                                                <p:fieldset legend="Rol" style="margin-bottom:20px">
+                                                    <h:outputText value="#{perfil.role}"/>
+                                                </p:fieldset>
+                                                <p:fieldset legend="Dependencia" style="margin-bottom:20px">
+                                                    <h:outputText value="#{perfil.area.name}"/>
+                                                </p:fieldset>
+                                                <p:fieldset legend="Estado" style="margin-bottom:20px">
+                                                    <h:outputText value="#{perfil.status}"/>
+                                                </p:fieldset>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </h:form>
+                                </div>
+                                <div class="col-md-4 col-xs-4 col-sm-4"></div> 
+                            </div> 
+                        </div> 
+                    </h:form>
+                </div> 
+            </div>
         </div>
     </h:body>
 </html>
