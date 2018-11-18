@@ -21,6 +21,8 @@ import edu.eci.pdsw.samples.entities.UserStatus;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativasFactory;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -65,16 +67,16 @@ public class MyBatisExample {
 
         try {
             //serviciosBancoIniciativas.registrarArea(new Area(1, "Sistemas"));
-            System.out.println(serviciosBancoIniciativas.consultarAreas());
+            //System.out.println(serviciosBancoIniciativas.consultarAreas());
             //System.out.println(serviciosBancoIniciativas.consultarArea(1));
             //serviciosBancoIniciativas.registrarArea(new Area(1, "Decanatura de Ingenería de Sistemas"));
             //serviciosBancoIniciativas.registrarArea(new Area(2, "Unidad de Proyectos"));
             //serviciosBancoIniciativas.registrarArea(new Area(3, "Vicerrectoría"));
             //serviciosBancoIniciativas.registrarArea(new Area(4, "Compras"));
-            System.out.println(serviciosBancoIniciativas.consultarAreas());
-            System.out.println(serviciosBancoIniciativas.consultarArea(1));
+            //System.out.println(serviciosBancoIniciativas.consultarAreas());
+            //System.out.println(serviciosBancoIniciativas.consultarArea(1));
             //serviciosBancoIniciativas.registrarUsuario(new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Sistemas")));
-            System.out.println(serviciosBancoIniciativas.consultarUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));
+            //System.out.println(serviciosBancoIniciativas.consultarUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));
             //serviciosBancoIniciativas.registrarEstadoIniciativa(new InitiativeStatus(1, "En espera de revisión"));
             //-----Creación de un nuevo estado de iniciativa---------
             //System.out.println(serviciosBancoIniciativas.consultarEstadoIniciativas(1));
@@ -105,24 +107,26 @@ public class MyBatisExample {
             //System.out.println(serviciosBancoIniciativas.consultarUsuariosRol(Role.PUBLICO));
             //serviciosBancoIniciativas.actualizarRolUsuario("amalia.alfonso@mail.escuelaing.edu.co", Role.PUBLICO.toString());
 
-            System.out.println(serviciosBancoIniciativas.consultarIdIniciativa());
-            System.out.println(serviciosBancoIniciativas.consultarIniciativas());
-            System.out.println(serviciosBancoIniciativas.consultarEstadosIniciativas());
+            //System.out.println(serviciosBancoIniciativas.consultarIdIniciativa());
+            //System.out.println(serviciosBancoIniciativas.consultarIniciativas());
+            //System.out.println(serviciosBancoIniciativas.consultarEstadosIniciativas());
             //User userr = new User("Eliminado", "Eliminado", "eliminado.eliminado@mail.escuelaing.edu.co", 2222222, UserStatus.ACTIVO, Role.PROPONENTE, new Area(1, "Sistemas"));
             //serviciosBancoIniciativas.registrarUsuario(userr);
-            System.out.println(serviciosBancoIniciativas.consultarUsuario("eliminado.eliminado@mail.escuelaing.edu.co"));
+            //System.out.println(serviciosBancoIniciativas.consultarUsuario("eliminado.eliminado@mail.escuelaing.edu.co"));
             //serviciosBancoIniciativas.deleteUser("eliminado.eliminado@mail.escuelaing.edu.co");
-
             ////System.out.println(serviciosBancoIniciativas.consultarIdIniciativa());
             //System.out.println(serviciosBancoIniciativas.consultarIniciativas());
             //System.out.println(serviciosBancoIniciativas.consultarEstadosIniciativas());
-            System.out.println(serviciosBancoIniciativas.consultarUsuario("amalia.alfonso@mail.escuelaing.edu.co"));
-
-            
+            //System.out.println(serviciosBancoIniciativas.consultarUsuario("amalia.alfonso@mail.escuelaing.edu.co"));
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            java.util.Date parsed = format.parse("20181112");
+            System.out.println((serviciosBancoIniciativas.consultarIniciativasPorBusqueda("", "", null, 0, 0)).size());
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         sqlss.commit();
         sqlss.close();
     }

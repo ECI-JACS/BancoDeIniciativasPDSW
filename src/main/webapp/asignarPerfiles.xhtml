@@ -47,6 +47,87 @@
                             </p:submenu>                                      
                         </p:menubar>
 
+                        </div>
+                        <div class="col-md-3 col-xs-3 col-sm-3 "></div>
+                    </div> 
+                    <br></br>
+                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
+
+                        <h3 style="color: white">Asignar Perfil a Usuarios</h3>
+                        <h:form id="incForm">
+                            <p:panel id="panelIniciativa">
+                                <h:panelGrid columns="10" style="font-size: 12px; font-weight:bold;">
+                                    <!--///////////////////////////////////////-->
+                                    <p:outputLabel for="nombres" value="Nombres"/>
+                                    <p:inputText id="nombres" value="#{asignarPerfilesBean.nombres}">
+                                        <p:ajax event="keyup" update="usuarios_table"/>
+                                    </p:inputText>
+                                    <p:outputLabel for="apellidos" value="Apellidos"/>
+                                    <p:inputText id="apellidos" value="#{asignarPerfilesBean.apellidos}">
+                                        <p:ajax event="keyup" update="usuarios_table"/>
+                                    </p:inputText>
+                                    <p:outputLabel for="email" value="Email"/>
+                                    <p:inputText id="email" value="#{asignarPerfilesBean.email}">
+                                        <p:ajax event="keyup" update="usuarios_table"/>
+                                    </p:inputText>
+                                    <p:outputLabel for="carnet" value="Carnet"/>
+                                    <p:inputText id="carnet" value="#{asignarPerfilesBean.carnet}">
+                                        <p:ajax event="keyup" update="usuarios_table"/>
+                                    </p:inputText>
+                                    <p:selectOneMenu id="roles_select" value="#{asignarPerfilesBean.rol}">
+                                        <p:ajax event="change" update="usuarios_table"></p:ajax>
+                                        <f:selectItem itemLabel="---- Seleccionar Rol ----" itemValue=""/>
+                                        <f:selectItems value="#{asignarPerfilesBean.roles}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel for="area" value="Area"/>
+                                    <p:selectOneMenu id="area" value="#{asignarPerfilesBean.idArea}">
+                                        <p:ajax event="change" update="usuarios_table"/>
+                                        <f:selectItem itemLabel="----- Seleccionar Área -----" itemValue=""/>
+                                        <f:selectItems value="#{asignarPerfilesBean.listaAreas}"/>                        
+                                    </p:selectOneMenu>
+                                    <!--///////////////////////////////////////-->
+                                    <p:commandButton value="Consultar usuarios" ajax="false"/>
+                                </h:panelGrid>
+                                <br/>
+                                <br/>
+                                <p:selectOneMenu id="roles_update_select" value="#{asignarPerfilesBean.rolUpdate}">
+                                    <f:selectItem itemLabel="---- Seleccionar Rol ----" itemValue=""/>
+                                    <f:selectItems value="#{asignarPerfilesBean.roles}"/>
+                                    <p:ajax rendered="usuarios_table"></p:ajax>
+                                </p:selectOneMenu>
+
+
+                                <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}" selection="#{asignarPerfilesBean.selectedUsuarios}" rowKey="#{usuario.email}">                    			
+                                    <f:facet name="header">
+                                        Usuarios
+                                    </f:facet>
+                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                    <p:column headerText="Nombres">
+                                        <h:outputText value="#{usuario.names}" />
+                                    </p:column>
+                                    <p:column headerText="Apellidos">
+                                        <h:outputText value="#{usuario.lastNames}" />
+                                    </p:column>
+                                    <p:column headerText="Correo">
+                                        <h:outputText value="#{usuario.email}" />
+                                    </p:column>
+                                    <p:column headerText="Carnet">
+                                        <h:outputText value="#{usuario.code}" />
+                                    </p:column>
+                                    <p:column headerText="Estado">
+                                        <h:outputText value="#{usuario.status}" />
+                                    </p:column>
+                                    <p:column headerText="Rol">
+                                        <h:outputText value="#{usuario.role}" />
+                                    </p:column>
+                                    <p:column headerText="Área">
+                                        <h:outputText value="#{usuario.area.name}" />
+                                    </p:column>	                    
+                                </p:dataTable>
+                                <br/>
+                                <p:commandButton value="Actualizar Estado" ajax="false" action="#{asignarPerfilesBean.updateUsuarios()}"/>
+                            </p:panel>
+                        </h:form>
                     </div>
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                 </div> 

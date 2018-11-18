@@ -36,11 +36,11 @@ public class MyBATISUserDAO implements UserDAO {
     }
 
     @Override
-    public List<User> loadUsersRole(Role role) throws PersistenceException {
+    public List<User> loadUsersForSearch(String nombres, String apellidos, String email, int carnet, int idArea, String role) throws PersistenceException {
         try {
-            return userMapper.consultarUsuariosRol(role);
+            return userMapper.consultarUsuariosPorBusqueda(nombres, apellidos, email, carnet, idArea, role);
         } catch (PersistenceException e) {
-            throw new PersistenceException("Error al consultar los usuarios por el role " + role, e);
+            throw new PersistenceException("Error al consultar los usuarios por busqueda específica", e);
         }
     }
 

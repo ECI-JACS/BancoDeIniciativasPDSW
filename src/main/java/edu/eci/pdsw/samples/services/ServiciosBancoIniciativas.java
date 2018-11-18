@@ -6,6 +6,7 @@ import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
+import java.sql.Date;
 
 /**
  *
@@ -30,11 +31,16 @@ public interface ServiciosBancoIniciativas {
     
     /**
      * Permite consultar a varios usuarios, dado el rol o pefil
+     * @param nombres
+     * @param apellidos
+     * @param email
+     * @param carnet
      * @param role
+     * @param idArea
      * @return
      * @throws ExceptionServiciosBancoIniciativas 
      */
-    public List<User> consultarUsuariosRol(Role role) throws ExceptionServiciosBancoIniciativas;
+    public List<User> consultarUsuariosPorBusqueda(String nombres, String apellidos, String email, int carnet, int idArea, String role) throws ExceptionServiciosBancoIniciativas;
     
     /**
      * Permite actualizar el rol de un usuario, dado el rol.
@@ -126,12 +132,16 @@ public interface ServiciosBancoIniciativas {
     public void updateInitiativeStatus(int id,int iniStat) throws ExceptionServiciosBancoIniciativas;
     
     /**
-     * Consulta todas las iniciativas asociadas a una palabra clave insertada por el usuario.
-     * @param keyWords
-     * @return List<Initiative> 
-     * @throws ExceptionServiciosBancoIniciativas
+     * Consulta todas las iniciativas asociadas a una búsqueda específica.
+     * @param palabrasClave
+     * @param proponente
+     * @param fechaPropuesta
+     * @param dependencia
+     * @param estado
+     * @return
+     * @throws ExceptionServiciosBancoIniciativas 
      */
-    public List<Initiative> consultInitiativeForKeyWord(String keyWords) throws ExceptionServiciosBancoIniciativas;
+    public List<Initiative> consultarIniciativasPorBusqueda(String palabrasClave, String proponente, Date fechaPropuesta, int dependencia, int estado) throws ExceptionServiciosBancoIniciativas;
     
     /**
      * Elimina un usuario recibiendo como parámetro su email.

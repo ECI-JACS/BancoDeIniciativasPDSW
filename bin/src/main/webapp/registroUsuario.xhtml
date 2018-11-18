@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <p:button outcome="index" value="Pruebas Diseño" icon="ui-icon-star">		    
+        </p:button>
+        <meta charset="UTF-8" />
+        <title>Registro Usuario</title>
+    </h:head>
+    <h:body>
+        <div>
+            <h1>Registro Usuario</h1>
+            <h:form id="registroForm">
+                <h:panelGrid columns="1">                                    
+                    <p:outputLabel for="names" value="Nombres" />
+                    <p:inputText id="names" binding="#{names}" required="true">
+                        <f:validateLength minimum="3" />
+                    </p:inputText>                    
+                    <p:outputLabel for="lastNames" value="Apellidos" />
+                    <p:inputText id="lastNames" binding="#{lastNames}" required="true">
+                        <f:validateLength minimum="3" />
+                    </p:inputText>
+                    <p:outputLabel for="email" value="Correo" />
+                    <p:inputText id="email" binding="#{email}" required="true">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:outputLabel for="code" value="Carnet" />
+                    <p:inputText id="code" binding="#{code}" required="true">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>             
+                    <p:outputLabel id="area" value="Area" />
+                    <p:selectOneMenu id="areas" value="#{registroBean.idArea}">
+                        <f:selectItem itemLabel="----- Seleccionar Área -----" itemValue=""/>
+                        <f:selectItems value="#{registroBean.listaAreas}"/>                        
+                    </p:selectOneMenu>                                        
+                </h:panelGrid>
+                <h:commandButton id="registrarU" value="Registrar" action="#{registroBean.registrarUsuario(names.value, lastNames.value, email.value, code.value)}"/>	
+            </h:form>
+        </div>
+    </h:body>
+</html>

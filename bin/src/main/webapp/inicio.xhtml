@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <p:button outcome="index" value="Pruebas Diseño" icon="ui-icon-star">		    
+        </p:button>
+        <meta charset="UTF-8" />
+        <title>Banco de Iniciativas</title>
+    </h:head>
+    <h:body>        
+        <div id="login">
+            <h:form id="loginForm">
+                <p:panel id="login" header="Ingresar" style="margin-bottom:20px">
+                    <p:focus context="login"/> 
+                    <p:messages />
+                    <h:panelGrid columns="3">
+                        <p:outputLabel for="username" value="Usuario" />
+                        <p:inputText id="username" binding="#{user}" required="true" label="Firstname">
+                            <f:validateLength minimum="2" />
+                        </p:inputText>
+                        <p:message for="username" />
+
+                        <p:outputLabel for="contrasena" value="Contraseña" />
+                        <p:inputText id="contrasena" binding="#{contrasena}" required="true" label="Surname"/> 
+                        <p:message for="contrasena" />			            
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1" cellpadding="5">						
+                        <h:commandButton id="ingresarB" value="Ingresar" action="#{loginBean.authentication(user.value, contrasena.value)}"/>				    
+                    </h:panelGrid>
+                    <p:dialog header="Error" widgetVar="dlg1" minHeight="100">
+                        <h:outputText value="El usuario no existe." />
+                    </p:dialog>  
+                </p:panel>
+                
+                
+
+            </h:form>	
+        </div>     
+
+    </h:body>
+</html>
+
+
