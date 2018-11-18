@@ -19,6 +19,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -41,6 +43,7 @@ public class IniciativasBean extends BasePageBean {
     private Initiative selectedIniciativa;
     private String idEstado;
     private List<SelectItem> estados;
+    private List<Initiative> iniciativas;    
     private String proponente;
     private Date fechaPropuesta;
     private String dependencia;
@@ -49,13 +52,19 @@ public class IniciativasBean extends BasePageBean {
     private String keywords;
     private String keyword;    
     private List<SelectItem> listaAreas;
-    private PieChartModel pieModel;
+    private PieChartModel pieModel; 
+    private boolean buscando;
 
     @PostConstruct
-    public void init() {
-        super.init();
+    public void init() {        
+        super.init();     
+        try {
+            iniciativas = serviciosBancoIniciativas.consultarIniciativas();
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         inicializarVariables();
-        createPieModel();
+        createPieModel();  
     }
     
     public void inicializarVariables() {
@@ -70,6 +79,7 @@ public class IniciativasBean extends BasePageBean {
         fechaPropuesta = null;
         dependencia = "";
         listaAreas = new ArrayList<>();
+        iniciativas = new ArrayList<>();
     }
 
     public int getIniciativaId() {
@@ -105,36 +115,40 @@ public class IniciativasBean extends BasePageBean {
             System.out.println("Lo ingresado no es un id del estado de la iniciativa");
         }
     }
+    
+    public void busqueda(){
+        this.buscando=true;
+    }
 
-    public List<Initiative> getIniciativas() {
-        List<Initiative> iniciativas = new ArrayList<>();
-        try {
-            iniciativas = serviciosBancoIniciativas.consultarIniciativas();
-        } catch (ExceptionServiciosBancoIniciativas ex) {
-            System.out.println(ex.getMessage());
-        }
+    public List<Initiative> getIniciativas() {  
         return iniciativas;
+    }
+    
+    public void setIniciativas(List<Initiative> iniciativas) {
+        this.iniciativas = iniciativas;
     }
 
     public List<Initiative> getIniciativasPorBusqueda() {
-        List<Initiative> iniciativas = new ArrayList<>();
-        try {
-            java.sql.Date fechaSQL = null;
-            if (fechaPropuesta != null) {
-                fechaSQL = new java.sql.Date(fechaPropuesta.getTime());
+        if(buscando){
+            try {
+                java.sql.Date fechaSQL = null;
+                if (fechaPropuesta != null) {
+                    fechaSQL = new java.sql.Date(fechaPropuesta.getTime());
+                }
+                int idE = 0;
+                if (!idEstado.equals("")) {
+                    idE = Integer.parseInt(idEstado);
+                }
+                int idD = 0;
+                if (!dependencia.equals("")) {
+                    idD = Integer.parseInt(dependencia);
+                }
+                iniciativas = serviciosBancoIniciativas.consultarIniciativasPorBusqueda(palabrasClave, proponente, fechaSQL, idD, idE);
+            } catch (ExceptionServiciosBancoIniciativas ex) {
+                System.out.println(ex.getMessage());
             }
-            int idE = 0;
-            if (!idEstado.equals("")) {
-                idE = Integer.parseInt(idEstado);
-            }
-            int idD = 0;
-            if (!dependencia.equals("")) {
-                idD = Integer.parseInt(dependencia);
-            }
-            iniciativas = serviciosBancoIniciativas.consultarIniciativasPorBusqueda(palabrasClave, proponente, fechaSQL, idD, idE);
-        } catch (ExceptionServiciosBancoIniciativas ex) {
-            System.out.println(ex.getMessage());
-        }
+            buscando=false;
+        }              
         return iniciativas;
     }
 
@@ -181,19 +195,26 @@ public class IniciativasBean extends BasePageBean {
     }
 
     public HashMap<String, Integer> calcularEstadisticasDependencias() {
-        List<Initiative> iniciativas = this.getIniciativas();
+        List<Initiative> iniciativas;
         HashMap<String, Integer> estadisticaXDependencias = new HashMap<>();
-        String dependenciaArea = "";
-        int cantidad = 0;
-        for (Initiative i : iniciativas) {
-            dependenciaArea = i.getUser().getArea().getName();
-            if (estadisticaXDependencias.containsKey(dependenciaArea)) {
-                cantidad = estadisticaXDependencias.get(dependenciaArea) + 1;
-                estadisticaXDependencias.replace(dependenciaArea, cantidad);
-            } else {
-                estadisticaXDependencias.put(dependenciaArea, 1);
+        try {
+            iniciativas = serviciosBancoIniciativas.consultarIniciativas();
+            String dependenciaArea = "";
+            int cantidad = 0;
+            for (Initiative i : iniciativas) {
+                dependenciaArea = i.getUser().getArea().getName();
+                if (estadisticaXDependencias.containsKey(dependenciaArea)) {
+                    cantidad = estadisticaXDependencias.get(dependenciaArea) + 1;
+                    estadisticaXDependencias.replace(dependenciaArea, cantidad);
+                } else {
+                    estadisticaXDependencias.put(dependenciaArea, 1);
+                }
             }
+            
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return estadisticaXDependencias;
     }
 
