@@ -35,15 +35,6 @@ public class LoginBean extends BasePageBean {
     
     @Inject
     private ServiciosBancoIniciativas serviciosBancoIniciativas;
-    private List<Initiative> cars1;
-
-    public List<Initiative> getCars1() {
-        return cars1;
-    }
-
-    public void setCars1(List<Initiative> cars1) {
-        this.cars1 = cars1;
-    }
     private User usuario;
 
     public void authentication(String email, String contrasena) throws IOException {
@@ -79,15 +70,4 @@ public class LoginBean extends BasePageBean {
     public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
-    
-    @PostConstruct
-    public void init() {
-        super.init();
-        try {
-            cars1 = serviciosBancoIniciativas.consultarIniciativas();
-        } catch (ExceptionServiciosBancoIniciativas ex) {
-            Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
 }

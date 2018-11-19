@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.utilities.LoginSession;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Date;
 import java.util.ArrayList;
@@ -26,7 +27,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.primefaces.component.export.ExcelOptions;
 import org.primefaces.model.chart.PieChartModel;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.FillPatternType;
 
 /**
  *
@@ -54,6 +63,8 @@ public class IniciativasBean extends BasePageBean {
     private List<SelectItem> listaAreas;
     private PieChartModel pieModel; 
     private boolean buscando;
+    private HashMap<String, Integer> estadisticaXDependencias;
+    private ExcelOptions excelOpt;
 
     @PostConstruct
     public void init() {        
@@ -120,6 +131,28 @@ public class IniciativasBean extends BasePageBean {
         this.buscando=true;
     }
 
+    /**
+     * Obtine las iniciativas ya calculadas. No obtienes las iniciativas desde servicios, 
+     * porque para poder realizar el ordenamiento por columna, se debe consultar las iniciativas
+     * que ya se habían consultado. Si uno genera la consutla desde serivicos no se puede usar esa
+     * funcion de primefaes. El método que trae las iniciativas desde servicios se llama ObtenerIniciativasDeServicios
+     * Para solucionar el ordenamiento por columna, se hace uso de un booleano(buscando): cuando se desea consultar 
+     * por algun campo en especifico, al momento de escribir se llama al metodo getIniciativasPorBusqueda()
+     * y se manda desde el xhtml el booleano buscando(como true) para indicar que el metodo que se va a usar 
+     * es ObtenerIniciativasDeServicios, en este metodo(getIniciativasPorBusqueda), al final se asigna false
+     * al booleano, para que si se desea ordenar en la tabla se llame al metodo getIniciativas.     * 
+     * @return 
+     */
+    public List<Initiative> obtenerIniciativasDeServicios() {  
+        List<Initiative> iniciativas = new ArrayList<>();
+        try {
+            iniciativas = serviciosBancoIniciativas.consultarIniciativas();
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return iniciativas;
+    }
+    
     public List<Initiative> getIniciativas() {  
         return iniciativas;
     }
@@ -187,6 +220,7 @@ public class IniciativasBean extends BasePageBean {
         pieModel = new PieChartModel();
         HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();
         for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {
+            //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
             pieModel.set(dependenciaArea.getKey(), dependenciaArea.getValue());
         }
         pieModel.setTitle("Simple Pie");
@@ -196,28 +230,53 @@ public class IniciativasBean extends BasePageBean {
 
     public HashMap<String, Integer> calcularEstadisticasDependencias() {
         List<Initiative> iniciativas;
-        HashMap<String, Integer> estadisticaXDependencias = new HashMap<>();
-        try {
-            iniciativas = serviciosBancoIniciativas.consultarIniciativas();
-            String dependenciaArea = "";
-            int cantidad = 0;
-            for (Initiative i : iniciativas) {
-                dependenciaArea = i.getUser().getArea().getName();
-                if (estadisticaXDependencias.containsKey(dependenciaArea)) {
-                    cantidad = estadisticaXDependencias.get(dependenciaArea) + 1;
-                    estadisticaXDependencias.replace(dependenciaArea, cantidad);
-                } else {
-                    estadisticaXDependencias.put(dependenciaArea, 1);
-                }
+        estadisticaXDependencias = new HashMap<>();
+        iniciativas = obtenerIniciativasDeServicios();
+        String dependenciaArea;
+        int cantidad = 0;
+        for (Initiative i : iniciativas) {
+            dependenciaArea = i.getUser().getArea().getName();
+            if (estadisticaXDependencias.containsKey(dependenciaArea)) {
+                cantidad = estadisticaXDependencias.get(dependenciaArea) + 1;                 
+            } else { 
+                cantidad = 1;                
             }
-            
-        } catch (ExceptionServiciosBancoIniciativas ex) {
-            Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+            estadisticaXDependencias.put(dependenciaArea, cantidad);
+        }       
         return estadisticaXDependencias;
+        
     }
-
+    
+    private String calcularPorcentaje(String area) {
+        List<Initiative> iniciativas = obtenerIniciativasDeServicios();
+        int total = iniciativas.size();        
+        double porcentaje = ((estadisticaXDependencias.get(area))*100)/total;
+        
+        return Double.toString(porcentaje);
+    }
+    /**
+     * Metodo para exportar reporte en excel
+     * @param document 
+     */
+     public void postProcessXLS(Object document) {
+        HSSFWorkbook wb = (HSSFWorkbook) document;
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFRow header = sheet.getRow(0);
+         
+        HSSFCellStyle cellStyle = wb.createCellStyle(); 
+        Color color = Color.GREEN;
+        
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+         
+        for(int i=0; i < header.getPhysicalNumberOfCells();i++) {
+            HSSFCell cell = header.getCell(i);
+             
+            cell.setCellStyle(cellStyle);
+        }
+    }
+        
+    /*################################ GETTERS AND SETTERS ###############################*/
+    
     public Initiative getSelectedIniciativa() {
         return this.selectedIniciativa;
     }
