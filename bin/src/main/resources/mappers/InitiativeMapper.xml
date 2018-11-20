@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                     
+<mapper namespace="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.InitiativeMapper">
+    
+    <resultMap type='Initiative' id='InitiativeResult'>
+        <id property='id' column='initiativeid'/>        
+        <result property='description' column='initiativedescription'/>
+        <result property='detail' column='initiativedetail'/>
+        <result property='creationDate' column='initiativecreationdate'/>
+        <result property='modificationDate' column='initiativemodificationdate'/>
+        <result property="keyWords" column="keywords"/>
+        <association property='initiativeStatus' resultMap='InitiativeStatusResult'></association>
+        <collection property='user' ofType='User' resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.UserMapper.UserResult'></collection>
+        <collection property='comments' ofType='Comment' resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.CommentMapper.CommentResult'></collection>
+        <collection property='votes' ofType='Vote' resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.VoteMapper.VoteResult'></collection>        
+    </resultMap>
+    
+    <resultMap type='InitiativeStatus' id='InitiativeStatusResult'>
+        <id property='id' column='initiativestatusid'/>        
+        <result property='description' column='initiativestatusdescription'/>
+    </resultMap>
+    
+    <resultMap type='java.lang.Integer' id='InitiativeIdResult'>     
+    </resultMap>
+    
+    <select id='consultarIniciativa' parameterType='map' resultMap='InitiativeResult'>
+        SELECT
+            i.id as initiativeid,
+            i.description as initiativedescription,
+            i.detail as initiativedetail,
+            i.creationdate as initiativecreationdate,
+            i.modificationdate as initiativemodificationdate,
+            array_to_string(i.keywords,',') as keywords,
+            u.names as usernames,
+            u.lastnames as userlastnames,
+            u.email as useremail,
+            u.code as usercode,
+            u.role as userrole,
+            u.status as userstatus,
+            a.id as areaid,
+            a.name as areaname,
+            ie.id as initiativestatusid,
+            ie.description as initiativestatusdescription,
+            c.id as commentid,
+            c.description as commentdescription,
+            c.commentdate as commentdate,
+            v.id as voteid,
+            v.votedate as votedate,
+            v.affinity as voteaffinity
+        FROM Initiative AS i
+            LEFT JOIN "User" AS u ON (i.user_email = u.email)
+            LEFT JOIN Area AS a ON (u.area_id = a.id)
+            LEFT JOIN InitiativeStatus AS ie ON (i.initiativestatus_id = ie.id)
+            LEFT JOIN Comment AS c ON (i.id = c.initiative_id)
+            LEFT JOIN Vote AS v ON (i.id = v.initiative_id)
+        WHERE i.id = #{id};
+    </select>
+    
+    <select id='consultarIniciativas' parameterType='map' resultMap='InitiativeResult'>
+        SELECT
+            i.id as initiativeid,
+            i.description as initiativedescription,
+            i.detail as initiativedetail,
+            i.creationdate as initiativecreationdate,
+            i.modificationdate as initiativemodificationdate,
+            array_to_string(i.keywords,',') as keywords,
+            u.names as usernames,
+            u.lastnames as userlastnames,
+            u.email as useremail,
+            u.code as usercode,
+            u.role as userrole,
+            u.status as userstatus,
+            a.id as areaid,
+            a.name as areaname,
+            ie.id as initiativestatusid,
+            ie.description as initiativestatusdescription,
+            c.id as commentid,
+            c.description as commentdescription,
+            c.commentdate as commentdate,
+            v.id as voteid,
+            v.votedate as votedate,
+            v.affinity as voteaffinity
+        FROM Initiative AS i
+            LEFT JOIN "User" AS u ON (i.user_email = u.email)
+            LEFT JOIN Area AS a ON (u.area_id = a.id)
+            LEFT JOIN InitiativeStatus AS ie ON (i.initiativestatus_id = ie.id)
+            LEFT JOIN Comment AS c ON (i.id = c.initiative_id)
+            LEFT JOIN Vote AS v ON (i.id = v.initiative_id);
+    </select>
+    
+    <insert id='insertarIniciativa' parameterType='map'>
+        INSERT INTO Initiative 
+        VALUES(#{ini.id}, #{ini.description}, #{ini.detail}, #{ini.creationDate}, #{ini.modificationDate}, string_to_array(#{ini.keyWords},','), #{ini.user.email}, #{ini.initiativeStatus.id});
+    </insert>
+    
+    <select id='consultarEstadoIniciativas' parameterType='map' resultMap='InitiativeStatusResult'>
+        SELECT
+            ei.id as initiativestatusid,
+            ei.description as initiativestatusdescription
+        FROM InitiativeStatus AS ei
+        WHERE ei.id = #{id};
+    </select>
+    
+    <select id='consultarEstadosIniciativas' parameterType='map' resultMap='InitiativeStatusResult'>
+        SELECT
+            ei.id as initiativestatusid,
+            ei.description as initiativestatusdescription
+        FROM InitiativeStatus AS ei;
+    </select>
+    
+    <insert id='insertarEstadoIniciativa' parameterType='map'>
+        INSERT INTO InitiativeStatus 
+        VALUES(#{iniSta.id}, #{iniSta.description});
+    </insert>
+    
+    <update id='updateInitiativeStatus' parameterType = 'map'>
+        UPDATE Initiative
+        SET initiativestatus_id = #{iniStat}, modificationdate = current_date
+        WHERE id = #{id};        
+    </update>    
+    
+    <select id='consultarIniciativasPorBusqueda' parameterType='map' resultMap='InitiativeResult'>
+        SELECT
+            i.id as initiativeid,
+            i.description as initiativedescription,
+            i.detail as initiativedetail,
+            i.creationdate as initiativecreationdate,
+            i.modificationdate as initiativemodificationdate,
+            array_to_string(i.keywords,',') as keywords,
+            u.names as usernames,
+            u.lastnames as userlastnames,
+            u.email as useremail,
+            u.code as usercode,
+            u.role as userrole,
+            u.status as userstatus,
+            a.id as areaid,
+            a.name as areaname,
+            ie.id as initiativestatusid,
+            ie.description as initiativestatusdescription,
+            c.id as commentid,
+            c.description as commentdescription,
+            c.commentdate as commentdate,
+            v.id as voteid,
+            v.votedate as votedate,
+            v.affinity as voteaffinity
+        FROM Initiative AS i
+            LEFT JOIN "User" AS u ON (i.user_email = u.email)
+            LEFT JOIN Area AS a ON (u.area_id = a.id)
+            LEFT JOIN InitiativeStatus AS ie ON (i.initiativestatus_id = ie.id)
+            LEFT JOIN Comment AS c ON (i.id = c.initiative_id)
+            LEFT JOIN Vote AS v ON (i.id = v.initiative_id)
+        <where>
+            <if test="palabrasClave!=''">
+                i.keywords @&gt; string_to_array(#{palabrasClave},',')
+            </if>
+            <if test="proponente!=''">
+                AND u.email = #{proponente}
+            </if>
+            <if test="dependencia!=0">
+                AND a.id = #{dependencia}
+            </if>
+            <if test="fechaPropuesta!=null">
+                AND i.creationdate = #{fechaPropuesta}
+            </if>
+            <if test="estado!=0">
+                AND ie.id = #{estado}
+            </if>
+        </where>
+        ;
+    </select>
+    
+    <select id='consultarIdIniciativa' parameterType='map' resultMap="InitiativeIdResult">
+        SELECT MAX(id)+1 AS id FROM Initiative;
+    </select>
+    
+</mapper>

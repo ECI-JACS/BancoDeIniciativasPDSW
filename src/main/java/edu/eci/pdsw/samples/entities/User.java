@@ -91,4 +91,10 @@ public class User {
     public String toString() {
         return "Usuario{" + "names=" + names + ", lastNames=" + lastNames + ", email=" + email + ", code=" + code + ", status=" + status + ", role=" + role + ", area=" + area + "}";
     }
+    
+    public boolean equals(User user) {
+    	return (this.email.equals(user.email))&&(this.code==user.code);
+    	
+    }
+    
 }

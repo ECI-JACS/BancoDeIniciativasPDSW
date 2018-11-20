@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" media="screen" href="resources/css/estiloBasico.css"/>
+        <link rel="icon" type="image/png" href="resources/img/bombillo_icono.png"/>
+        <meta charset="UTF-8" />
+        <script type="text/javascript">
+            history.pushState(null, document.title, location.href);
+            window.addEventListener('popstate', function (event)
+            {
+                history.pushState(null, document.title, location.href);
+            });
+        </script>
+        <title>Banco de Iniciativas</title>   
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+    </h:head>
+
+    <h:body style="background-image: url('resources/img/fondo7.jpg'); background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #66999;">       
+        <div id="encabezado_div" class="encabezado_div col-md-12 col-xs-12 col-sm-12 " display="block">      
+            <img src="resources/img/bombillo.png" border="1" alt="Bombillo" width="auto" height="90%"/>
+            Banco de Iniciativas
+        </div>  
+        <br></br>
+        <div id="div_login_registro" class="row col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
+            <div class="col-md-4 col-xs-4 col-sm-4 "></div>
+            <div class="col-md-4 col-xs-4 col-sm-4 ">
+                <p:tabView id="tablaLogin" class="ui-tabs ui-widget ui-widget-content ui-tabs-nav ui-corner-all ui-tabs-panels" dynamic="true" effect="clip" >
+                    <p:tab id="iniciarSesion_tab" title="Iniciar Sesión" >
+                        <p:focus context="iniciarSesion_tab"/> 
+                        <h:form id="datosLoginForm" style="padding: 0; align-items: center; ">
+                            <h:panelGrid id="grid" columns="3" cellpadding="5">
+                                <p:outputLabel for="username" value="Usuario: " />
+                                <p:inputText id="username" binding="#{user}" label="Firstname" required="true"/>
+                                <p:message for="username" showDetail="false" showSummary="false"/>
+                                <p:outputLabel for="contrasena" value="Contraseña: " />
+                                <p:password id="contrasena" binding="#{contrasena}" label="Surname" required="true"/>
+                                <p:message for="contrasena" showDetail="false" showSummary="false"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="5" style="align-items: center;">						
+                                <p:commandButton id="ingresarB" value="Ingresar" type="submit" ajax="false" action="#{loginBean.authentication(user.value, contrasena.value)}"/>				    
+                            </h:panelGrid>
+                        </h:form>
+                    </p:tab>
+                    <p:tab id="registrar_tab" title="Registrarse">
+                        <p:focus context="registrar_tab"/>
+                        <h:form id="datosRegistrarForm" style="padding: 0; align-items: center; ">
+                            <h:panelGrid columns="1">                                    
+                                <p:outputLabel for="names" value="Nombres" />
+                                <p:inputText id="names" binding="#{names}" required="true"></p:inputText>
+                                <p:outputLabel for="lastNames" value="Apellidos" />
+                                <p:inputText id="lastNames" binding="#{lastNames}" required="true"></p:inputText>
+                                <p:outputLabel for="email" value="Correo" />
+                                <p:inputText id="email" binding="#{email}" required="true"></p:inputText>
+                                <p:outputLabel for="code" value="Carnet" />
+                                <p:inputNumber id="code" binding="#{code}" decimalSeparator="" thousandSeparator="" required="true"></p:inputNumber>
+                                <p:outputLabel id="area" value="Area" />
+                                <p:selectOneMenu id="areas" value="#{registroUsuarioBean.idArea}">
+                                    <f:selectItem itemLabel="----- Seleccionar Área -----" itemValue=""/>
+                                    <f:selectItems value="#{registroUsuarioBean.listaAreas}"/>                        
+                                </p:selectOneMenu>                                        
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="5" style="align-items: center;">						
+                                <p:commandButton id="registrarU" value="Registrar" ajax="false" action="#{registroUsuarioBean.registrarUsuario(names.value, lastNames.value, email.value, code.value)}"/>	
+                            </h:panelGrid>
+                        </h:form>
+                    </p:tab>                
+                </p:tabView>
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate />
+                </p:messages>
+            </div>
+            <div class="col-md-4 col-xs-4 col-sm-4"></div> 
+        </div> 
+    </h:body>
+</html>
