@@ -69,13 +69,17 @@
                                         <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true"/>
 
                                         <p:outputLabel for="ingresarKeywords" value="Ingrese las palabras clave una por una"/>
-                                        <p:inputText id="ingresarKeywords" value="#{iniciativasBean.keyword}">
-                                            <p:ajax update="keywords"/>
+                                        <p:inputText id="ingresarKeywords" binding="#{keyword}">                                            
                                         </p:inputText>
-                                        <p:commandButton value="Agregar" update="ingresarKeywords" icon="ui-icon-check"/>
-                                        <p:outputLabel for="keywords" value="Palabras Clave"/>
-                                        <p:outputLabel id="keywords" value="#{iniciativasBean.keywords}">
-                                        </p:outputLabel>                                            
+                                        <p:dataTable id="palabras_tabla" value="#{iniciativasBean.listaPalabrasClave}" var="palabra" style="font-size: 17px;">                    			                                            
+                                            <!--<p:column headerText="Seleccionar" selectionMode="single" style="width: auto; text-align:center"/>-->
+                                            <p:column headerText="Palabras" sortBy="#{palabra}">
+                                                <h:outputText value="#{palabra}"/>
+                                            </p:column>                                           
+                                        </p:dataTable>
+                                        <h:commandLink value="agregar" action="#{iniciativasBean.agregarPalabra(keyword.value)}">                                            
+                                            
+                                        </h:commandLink>                                                                                                                                                              
                                     </h:panelGrid>
                                     <p:commandButton id="registrarIniciativa" value="Registrar Iniciativa" ajax="false" action="#{iniciativasBean.registrarIniciativa(description.value, detail.value)}"/>	
                                 </p:panel>                                    

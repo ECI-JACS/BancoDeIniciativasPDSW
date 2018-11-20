@@ -65,6 +65,7 @@ public class IniciativasBean extends BasePageBean {
     private boolean buscando;
     private HashMap<String, Integer> estadisticaXDependencias;
     private ExcelOptions excelOpt;
+    private List<String> listaPalabrasClave;
 
     @PostConstruct
     public void init() {        
@@ -91,6 +92,7 @@ public class IniciativasBean extends BasePageBean {
         dependencia = "";
         listaAreas = new ArrayList<>();
         iniciativas = new ArrayList<>();
+        listaPalabrasClave = new ArrayList<>();
     }
 
     public int getIniciativaId() {
@@ -223,7 +225,6 @@ public class IniciativasBean extends BasePageBean {
             //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
             pieModel.set(dependenciaArea.getKey(), dependenciaArea.getValue());
         }
-        pieModel.setTitle("Simple Pie");
         pieModel.setLegendPosition("w");
         pieModel.setShadow(false);
     }
@@ -305,14 +306,18 @@ public class IniciativasBean extends BasePageBean {
         return palabra;
     }
 
-    public void setPalabra(String palabra) {
-        this.palabra = palabra;
-        if (this.palabrasClave.equals("")){
-            this.palabrasClave = palabra;
-        }
-        else {
-            this.palabrasClave = this.palabrasClave + "," + palabra;
-        }
+    public void agregarPalabra(String palabra) {
+        System.out.println("######"+palabra);
+        listaPalabrasClave.add(palabra);       
+    }
+    
+    public List<String> getListaPalabrasClave() {
+        System.out.println(listaPalabrasClave);
+        return listaPalabrasClave;
+    }
+    
+    public void eliminarPalabras(String palabra) {
+        listaPalabrasClave.add(palabra);       
     }
 
     public String getProponente() {
