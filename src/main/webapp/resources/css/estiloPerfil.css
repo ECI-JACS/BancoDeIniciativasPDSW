@@ -15,31 +15,11 @@ html {
     height: auto;    
 }
 
-#encabezado_div{
-    padding: 0; height: 150px; color: snow; background-color: #1d3192; text-align: center; font-size: 70px;  font-style: oblique;
-}
-
 #encabezado_div_menu{
     padding: 0; padding-left: 2%; height: 50px; color: snow; background-color: #1d3192; text-align: left; font-size: 30px;  font-style: oblique;
 }
 
-.botonP {
-    border-radius: 3px;    
-    padding: 60px;
-    border-radius: 6px;
-    border: 2px solid #0016b0;
-    transition: all 2s ease;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    background: #cce5ff;
-}
 
-#panelIniciativa{
-    border-radius: 11px;    
-    border-style: groove;
-    posición :  relativa ;
-    overflow: hidden;
-    padding: 0;
-}
 
 .ui-tabs { 
     position: relative;
@@ -52,66 +32,7 @@ html {
     background: #92c5f1b3;
     background-color: rgba(255, 255, 255, 0.48);
 }
-
-.ui-tabs .ui-tabs-nav {
-    border-radius: 8px;
-    text-align: center !important;
-    background: #cce5ff;
-    text-align: center;
-    float: none !important;
-    top: 0px;
-    margin: 0em;
-    padding-bottom: 0px;
-}
-
-.ui-tabs-nav {
-    border-radius: 12px;
-    border-color: aliceblue;
-    text-align: center !important;
-    background: #cce5ff8f;
-    text-align: center;
-    float: none !important;
-    top: 0px;
-    margin: 0em;
-    padding-bottom: 0px;
-}
-
-.ui-tabs .ui-tabs-nav li .ui-tabs-selected{
-    border-style: inherit;
-    background-color: #cce5ff8f;
-    border-width: 0px;
-}
-
-.ui-tabs .ui-tabs-nav li a{
-    cursor: pointer;
-    border-style: inherit;
-    background-color: #cce5ff8f;
-    border-width: 0px;
-}
-
-
-.ui-tabs-panels{  
-    text-align: -webkit-center;
-}
-
-.ui-inputfield{
-    width: -webkit-fill-available;
-}
-
-.ui-tabs-nav li{
-    border: 1px solid #3c4898d4;
-}
-label {
-    display: inline-block;
-    margin-bottom: 0;
-}
-.ui-button:hover:before {
-    height: 42px;
-    background: rgba(91, 140, 212, 0.79);
-    border-radius: 5px;
-    transition: all 2s ease;
-}
-
+  
 .btn-5 {
     background-color: #1d3192;
     color: white;
@@ -168,8 +89,46 @@ label {
 }
 
 /*PERFIL*/
-#tabla_perfil .ui-datatable .ui-datatable-header {
-    margin-top: 20px;
+.ui-datatable .ui-datatable-header {
+    margin-top: 20px;    
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    text-align: center !important;
+    background: #cce5ff;
+    text-align: center;
+    float: none !important;
+    top: 0px;   
+    padding-top: 8px;
+    padding-bottom: 8px;    
+    
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th {
+    padding: 2px 10px;
+}
+
+.ui-datatable table{
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.ui-fieldset, .ui-fieldset .ui-fieldset-legend{
+    margin-top: 11px; 
+    
+}
+
+.ui-state-default .ui-fieldset-legend{
+    background: #cce5ff;   
+}
+
+
+.ui-datatable{
+   margin-bottom: 15px;
+   
+}
+
+.ui-widget .ui-widget {
+    font-size: 1em;
 }
 
 .ui-fieldset, .ui-fieldset .ui-fieldset-legend{

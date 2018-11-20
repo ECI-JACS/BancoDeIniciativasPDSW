@@ -1,6 +1,7 @@
 package edu.eci.pdsw.view;
 
 import com.google.inject.Inject;
+import com.sun.jmx.snmp.UserAcl;
 import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.Role;
@@ -62,7 +63,14 @@ public class LoginBean extends BasePageBean {
         hs.invalidate();
         FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");
     }
-
+    
+    /*######################################### Permisos para rol #########################################*/
+    //Permitir modificar estado de las iniciativas 
+    public boolean permitirModificarEstadoIniciativas(){ 
+        return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;
+    }
+    
+     /*######################################### ################ #########################################*/
     public User getUsuario() {
         return usuario;
     }

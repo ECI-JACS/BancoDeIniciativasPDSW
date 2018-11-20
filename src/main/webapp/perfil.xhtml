@@ -11,7 +11,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="Pragma" content="no-cache"/>
-        <link rel="stylesheet" media="screen" href="resources/css/estiloBasico.css"/>
+        <link rel="stylesheet" media="screen" href="resources/css/estiloPerfil.css"/>
         <meta charset="UTF-8" />
         <link rel="icon" type="image/png" href="resources/img/bombillo_icono.png"/>
         <title>Perfil</title>   
@@ -26,27 +26,27 @@
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
         </div> 
         <div class="row">
-            <div id="encabezado" class="fondo col-md-12 col-xs-12 col-sm-12">      
-                <h:form id="loginForm">                        
+            <div id="encabezado" class="col-md-12 col-xs-12 col-sm-12">      
+                <h:form id="perfilForm">                        
                     <br></br>
-                    <div id="menu1" class="row">
+                    <div id="menuBarra" class="row">
                         <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                         <div class="col-md-6 col-xs-6 col-sm-6 "> 
-                            <p:menubar style="text-align: center;">
-                                <p:menuitem value="Home" outcome="menu" icon="pi pi-times" />
+                            <p:menubar style="text-align: center; width: 50%; float: start;" >
+                                <p:menuitem value="Home" outcome="menu" />
                                 <p:submenu label="Perfil" icon="pi pi-pencil">
-                                    <p:menuitem value="Cuenta" outcome="perfil" icon="pi pi-angle-double-left" />
-                                    <p:menuitem value="Tus Iniciativas" url="#" icon="pi pi-angle-double-right" />
+                                    <p:menuitem value="Cuenta" outcome="perfil"  />
+                                    <p:menuitem value="Tus Iniciativas" url="#"  />
                                 </p:submenu>
 
-                                <p:submenu label="Iniciativas" icon="pi pi-pencil">
-                                    <p:menuitem value="Crear" outcome="registroIniciativa" icon="pi pi-angle-double-left" />
-                                    <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="pi pi-angle-double-right" />
-                                    <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="pi pi-angle-double-right" />
-                                    <p:menuitem value="Estadísticas" outcome="estadisticas" icon="pi pi-angle-double-right" />
+                                <p:submenu label="Iniciativas">
+                                    <p:menuitem value="Crear" outcome="registroIniciativa"/>
+                                    <p:menuitem value="Consultar" outcome="consultarIniciativa" />
+                                    <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas"  />
+                                    <p:menuitem value="Estadísticas" outcome="estadisticas" />
                                 </p:submenu>
                                 <p:submenu label="Usuarios" icon="pi pi-pencil">
-                                    <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="pi pi-angle-double-left" />
+                                    <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles"/>
                                 </p:submenu>                                      
                             </p:menubar>
 
@@ -59,12 +59,12 @@
                             <div class="col-md-4 col-xs-4 col-sm-4 "></div>
                             <div class="col-md-4 col-xs-4 col-sm-4 ">                                
                                 <h:form id="perfilForm">
-                                    <p:dataTable id="perfil_table" var="perfil" value="#{loginBean.usuario}" rowKey="#{perfil.email}" style="height:  100%">                    			
+                                    <p:dataTable id="tabla_perfil" class="tabla_perfil ui-tabs ui-widget-content ui-fieldset ui-fieldset ui-fieldset-legend ui-datatable ui-datatable-header ui-state-default ui-fieldset-legend" var="perfil" value="#{loginBean.usuario}" rowKey="#{perfil.email}" style="height:  100%">                    			
                                         <f:facet name="header">
                                             Perfil #{loginBean.usuario.names}
                                         </f:facet>
                                         <p:column>
-                                            <p:fieldset legend="Nombres" style="margin-bottom:20px; " >
+                                            <p:fieldset legend="Nombres" style="margin-bottom:20px;" >
                                                 <h:outputText value="#{perfil.names}"/>
                                             </p:fieldset>
                                             <p:fieldset legend="Apellidos" style="margin-top:20px;">
