@@ -16,6 +16,9 @@
  */
 package edu.eci.pdsw.tests;
 
+
+
+import static org.quicktheories.QuickTheory.qt;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
@@ -25,6 +28,7 @@ import org.junit.Test;
 
 import com.google.inject.Inject;
 
+import edu.eci.pdsw.generators.UserGenerator;
 import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
@@ -45,13 +49,29 @@ public class ServicesBancoDeIniciativasTest extends TestBase {
     @Test
     public void pruebaCeroTest() throws SQLException, ExceptionServiciosBancoIniciativas {
         try {
-            serviciosBancoIniciativas.registrarArea(new Area(1, "Sistemas"));
-            System.out.println(serviciosBancoIniciativas.consultarAreas());
-            User user = new User("Carlos Andrés", "Medina Rivas", "carlos.medina-ri@mail.escuelaing.edu.co", 2125262, UserStatus.ACTIVO, Role.ADMINISTRADOR, new Area(1, "Decanatura de Ingenería de Sistemas"));
-            serviciosBancoIniciativas.registrarUsuario(user);
-            System.out.println(serviciosBancoIniciativas.consultarUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));
-            assertTrue(true);
-        } catch (ExceptionServiciosBancoIniciativas ex) {
+        	serviciosBancoIniciativas.registrarArea(new Area(1, "Decanatura de Ingenería de Sistemas"));
+        	//serviciosBancoIniciativas.registrarArea(new Area(2, "Unidad de Proyectos"));
+        	//serviciosBancoIniciativas.registrarArea(new Area(3, "Vicerrectoría"));
+        	//serviciosBancoIniciativas.registrarArea(new Area(4, "Compras"));
+
+        	
+        	qt().forAll(UserGenerator.userGenerator()).check(user -> {
+        		//System.out.println(user.toString());
+        		try {
+        			user.setArea(new Area(1, "Decanatura de Ingenería de Sistemas"));
+					serviciosBancoIniciativas.registrarUsuario(user);
+					User user2 = serviciosBancoIniciativas.consultarUsuario(user.getEmail());
+					boolean kha = user.equals(user2);
+					//System.out.println(kha);
+					assertTrue(kha);
+					
+				} catch (ExceptionServiciosBancoIniciativas e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		return true;
+        	});
+        } catch (Exception ex) {
             ex.printStackTrace();
 
         }
