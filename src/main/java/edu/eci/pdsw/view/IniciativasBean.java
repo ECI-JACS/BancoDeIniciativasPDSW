@@ -66,6 +66,7 @@ public class IniciativasBean extends BasePageBean {
     private HashMap<String, Integer> estadisticaXDependencias;
     private ExcelOptions excelOpt;
     private List<String> listaPalabrasClave;
+    private User usuarioProponente;
 
     @PostConstruct
     public void init() {        
@@ -91,8 +92,10 @@ public class IniciativasBean extends BasePageBean {
         fechaPropuesta = null;
         dependencia = "";
         listaAreas = new ArrayList<>();
+        buscando = true;
         iniciativas = new ArrayList<>();
-        listaPalabrasClave = new ArrayList<>();
+        listaPalabrasClave = new ArrayList<>(); 
+        usuarioProponente = new User();
     }
 
     public int getIniciativaId() {
@@ -305,6 +308,10 @@ public class IniciativasBean extends BasePageBean {
     public String getPalabra() {
         return palabra;
     }
+    
+    public void setPalabra(String palabra) {
+        this.palabra = palabra;
+    }
 
     public void agregarPalabra(String palabra) {
         System.out.println("######"+palabra);
@@ -369,6 +376,14 @@ public class IniciativasBean extends BasePageBean {
     public PieChartModel getPieModel() {
         createPieModel();
         return pieModel;
+    }
+
+    public User getUsuarioProponente() {
+        return usuarioProponente;
+    }
+
+    public void setUsuarioProponente(User usuarioProponente) {
+        this.usuarioProponente = usuarioProponente;
     }
     
 }
