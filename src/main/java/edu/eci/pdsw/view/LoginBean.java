@@ -1,9 +1,6 @@
 package edu.eci.pdsw.view;
 
 import com.google.inject.Inject;
-import com.sun.jmx.snmp.UserAcl;
-import edu.eci.pdsw.samples.entities.Area;
-import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.Role;
 import java.io.IOException;
 
@@ -13,16 +10,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import edu.eci.pdsw.samples.entities.User;
-import edu.eci.pdsw.samples.entities.UserStatus;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.utilities.LoginSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
 /**

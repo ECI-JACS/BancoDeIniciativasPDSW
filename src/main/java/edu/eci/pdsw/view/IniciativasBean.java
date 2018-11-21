@@ -34,7 +34,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.primefaces.component.export.ExcelOptions;
 import org.primefaces.model.chart.PieChartModel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.FillPatternType;
 
 /**
@@ -66,6 +65,9 @@ public class IniciativasBean extends BasePageBean {
     private HashMap<String, Integer> estadisticaXDependencias;
     private ExcelOptions excelOpt;
     private List<String> listaPalabrasClave;
+    private String selectedPalabra;    
+
+    
 
     @PostConstruct
     public void init() {        
@@ -111,7 +113,14 @@ public class IniciativasBean extends BasePageBean {
             hs = LoginSession.getSession();
             User usuario = (User) hs.getAttribute("usuario");
             int id = serviciosBancoIniciativas.consultarIdIniciativa();
-            serviciosBancoIniciativas.registrarIniciativa(new Initiative(id, description, detail, new java.sql.Date(Calendar.getInstance().getTime().getTime()), null, keywords, usuario, new InitiativeStatus(1, "En espera de revisión")));
+            String palabrasClaveR="";
+            for(String palabra : listaPalabrasClave){
+                if(palabrasClaveR.isEmpty()){
+                    palabrasClaveR = palabra;
+                }else{palabrasClaveR = palabrasClaveR+","+palabra;}                
+            }            
+            System.out.println(palabrasClaveR);
+            serviciosBancoIniciativas.registrarIniciativa(new Initiative(id, description, detail, new java.sql.Date(Calendar.getInstance().getTime().getTime()), null, palabrasClaveR, usuario, new InitiativeStatus(1, "En espera de revisión")));
         } catch (ExceptionServiciosBancoIniciativas ex) {
             System.out.println(ex.getMessage());
         }
@@ -306,18 +315,24 @@ public class IniciativasBean extends BasePageBean {
         return palabra;
     }
 
-    public void agregarPalabra(String palabra) {
-        System.out.println("######"+palabra);
-        listaPalabrasClave.add(palabra);       
+    public void agregarPalabra(String palabraI) {
+        listaPalabrasClave.add(palabraI);       
     }
     
-    public List<String> getListaPalabrasClave() {
-        System.out.println(listaPalabrasClave);
+    public List<String> getListaPalabrasClave() {       
         return listaPalabrasClave;
     }
     
-    public void eliminarPalabras(String palabra) {
-        listaPalabrasClave.add(palabra);       
+    public String getSelectedPalabra() {
+        return selectedPalabra;
+    }
+
+    public void setSelectedPalabra(String selectedPalabra) {
+        this.selectedPalabra = selectedPalabra;
+    }
+        
+    public void eliminarPalabras() {
+        listaPalabrasClave.remove(listaPalabrasClave.indexOf(selectedPalabra));        
     }
 
     public String getProponente() {
