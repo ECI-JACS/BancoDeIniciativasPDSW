@@ -20,7 +20,7 @@
         <div id="encabezado_div_menu" class="encabezado_div_menu col-md-12 col-xs-12 col-sm-12 " display="block" style="background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #66999;">      
             <img src="resources/img/bombillo.png" border="1" alt="Bombillo" width="auto" height="90%"/>
             Banco de Iniciativas         
-            <p:commandButton class="btn btn-5" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>           
+            <p:commandButton class="btn btnsalir" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>           
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
         </div>          
         <div class="row">
@@ -29,24 +29,23 @@
                 <div id="menu1" class="row">
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                     <div class="col-md-6 col-xs-6 col-sm-6 "> 
-                        <p:menubar style="text-align: center;">
-                            <p:menuitem value="Home" outcome="menu" icon="pi pi-times" />
-                            <p:submenu label="Perfil" icon="pi pi-pencil">
-                                <p:menuitem value="Cuenta" outcome="perfil" icon="pi pi-angle-double-left" />
-                                <p:menuitem value="Tus Iniciativas" url="#" icon="pi pi-angle-double-right" />
+                        <p:menubar class="menu ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow" style="text-align: center; width: 55%; float: start; margin-left: 25%;" >
+                            <p:menuitem value="Home" outcome="menu" icon="ui-icon-home"/>
+                            <p:submenu label="Perfil" icon="ui-icon-contact">
+                                <p:menuitem value="Cuenta" outcome="perfil" icon="ui-icon-radio-off" />
+                                <p:menuitem value="Tus Iniciativas" url="#" icon="ui-icon-radio-off" />
                             </p:submenu>
-
-                            <p:submenu label="Iniciativas" icon="pi pi-pencil">
-                                <p:menuitem value="Crear" outcome="registroIniciativa" icon="pi pi-angle-double-left" />
-                                <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="pi pi-angle-double-right" />
-                                <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="pi pi-angle-double-right" />
-                                <p:menuitem value="Estadísticas" outcome="estadisticas" icon="pi pi-angle-double-right" />
+                            <p:submenu label="Iniciativas" icon="ui-icon-script">
+                                <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off"/>
+                                <p:menuitem value="Ver Relacionadas" outcome="iniciativasRelacionadas" icon="ui-icon-radio-off" rendered="#{loginBean.verIniciativasRelacionadas()}"/>
+                                <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="ui-icon-radio-off"/>
+                                <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="ui-icon-radio-off" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" />
+                                <p:menuitem value="Estadísticas" outcome="estadisticas" icon="ui-icon-radio-off"/>
                             </p:submenu>
-                            <p:submenu label="Usuarios" icon="pi pi-pencil">
-                                <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="pi pi-angle-double-left" />
+                            <p:submenu label="Usuarios" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" icon="ui-icon-person">
+                                <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="ui-icon-radio-off"/>
                             </p:submenu>                                      
                         </p:menubar>
-
                     </div>
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                 </div> 
@@ -58,44 +57,42 @@
                             <div class="col-md-8 col-xs-8 col-sm-8" style="text-align: center;">
                                 <h3 style="color: white; position: center;">Estadísticas</h3>  
                                 <div class="row col-md-12 col-xs-12 col-sm-12 "></div>
-                                <div class="row">
-                                    <div class="col-md-2 col-xs-2 col-sm-2"></div>
-                                    <div id="div_grafica" class="col-md-4 col-xs-4 col-sm-4 " style="padding: 0; max-width: 100%; height: 100%;">                                                                                                                  
-                                        <p:growl id="growl" showDetail="true" />
-                                        <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
-                                            <p:chart type="pie" model="#{iniciativasBean.pieModel}" style="width:400px; height:300px; padding: 0"  >
-                                            </p:chart>
-                                        </h:panelGrid>                                    
+                                <p:panel id="panelIniciativa" style="height: 50%;">
+                                    <div class="row">
+                                        <div class="col-md-2 col-xs-2 col-sm-2"></div>
+                                        <div id="div_grafica" class="col-md-4 col-xs-4 col-sm-4 " style="padding: 0; max-width: 100%; height: 100%;">                                                                                                                  
+                                            <p:growl id="growl" showDetail="true" />
+                                            <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+                                                <p:chart type="pie" model="#{iniciativasBean.pieModel}" style="width:400px; height:300px; padding: 0"  >
+                                                </p:chart>
+                                            </h:panelGrid>                                    
+                                        </div>
+                                        <div id="div_tabla" class="col-md-4 col-xs-4 col-sm-4">
+                                            <p:dataTable id="tabla_estadistivas" var="dependencia" value="#{iniciativasBean.calcularEstadisticasDependencias()}" style="font-size: 15px; margin-bottom:40px; padding: 0; margin-top: 20px; " paginatorTemplate="{CurrentPageReport} {Exporters}" paginator="true" >>
+                                                <f:facet name="{Exporters}">
+                                                    <div style="float:right">
+                                                        <h:commandLink id="excel">
+                                                            <p:graphicImage url="resources/img/excel.png" style="width: 20px; height: 20px;"/>
+                                                            <p:dataExporter type="xls" target="tabla_estadistivas" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
+                                                        </h:commandLink>
+                                                    </div>                                               
+                                                </f:facet>
+                                                <p:column headerText="Area" >
+                                                    <h:outputText value="#{dependencia.key}" />
+                                                </p:column>
+                                                <p:column headerText="Cantidad">
+                                                    <h:outputText value="#{dependencia.value}" />
+                                                </p:column> 
+                                                <!--
+                                                <p:column headerText="Porcentaje">
+                                                    <h:outputText value="#{iniciativasBean.calcularPorcentaje(dependencia.key)}" />
+                                                </p:column>  
+                                                -->
+                                            </p:dataTable>                                            
+                                        </div>
+                                        <div class="col-md-2 col-xs-2 col-sm-2"></div>
                                     </div>
-                                    <div id="div_tabla" class="col-md-4 col-xs-4 col-sm-4">
-                                        <p:dataTable id="tabla_estadistivas" var="dependencia" value="#{iniciativasBean.calcularEstadisticasDependencias()}" style="font-size: 15px; margin-bottom:40px; padding: 0; margin-top: 20px; " paginatorTemplate="{CurrentPageReport} {Exporters}" paginator="true" >>
-                                            <f:facet name="{Exporters}">
-                                                 <div style="float:right">
-                                                    <h:commandLink id="excel">
-                                                        <p:graphicImage url="resources/img/excel.png" style="width: 20px; height: 20px;"/>
-                                                        <p:dataExporter type="xls" target="tabla_estadistivas" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
-                                                    </h:commandLink>
-                                                </div>                                               
-                                            </f:facet>
-                                            <p:column headerText="Area" >
-                                                <h:outputText value="#{dependencia.key}" />
-                                            </p:column>
-                                            <p:column headerText="Cantidad">
-                                                <h:outputText value="#{dependencia.value}" />
-                                            </p:column> 
-                                            <!--
-                                            <p:column headerText="Porcentaje">
-                                                <h:outputText value="#{iniciativasBean.calcularPorcentaje(dependencia.key)}" />
-                                            </p:column>  
-                                            -->
-                                        </p:dataTable>
-                                        <h:commandLink id="excel">
-                                            <p:graphicImage url="resources/img/excel.png" style="width: 50px; height: 50px;"/>
-                                            <p:dataExporter type="xls" target="tabla_estadistivas" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
-                                        </h:commandLink>
-                                    </div>
-                                    <div class="col-md-2 col-xs-2 col-sm-2"></div>                                
-                                </div>
+                                </p:panel>  
                             </div>        
                             <div class="col-md-2 col-xs-2 col-sm-2 "></div>
                         </div> 
