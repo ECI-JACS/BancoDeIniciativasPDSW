@@ -19,7 +19,9 @@ html {
     padding: 0; padding-left: 2%; height: 50px; color: snow; background-color: #1d3192; text-align: left; font-size: 30px;  font-style: oblique;
 }
 
-
+.ui-icon-csv {
+    background-image: url(resources/img/menu2.png);
+}
 
 .ui-tabs { 
     position: relative;
@@ -32,26 +34,38 @@ html {
     background: #92c5f1b3;
     background-color: rgba(255, 255, 255, 0.48);
 }
-  
-.btn-5 {
-    background-color: #1d3192;
+
+.ui-men li a{
+    background-color: #cce5ffde;
+}
+
+.ui-menu .ui-menu-parent .ui-menu-child {
+    background-color: #cce5ffde;
+}
+
+.ui-widget-content ui-icon {
+    background-image: url(resources/img/menu.png);
+}
+
+.btnsalir {    
+    background: #1d3192;    
     color: white;
     border: 0 solid;
     /*box-shadow: inset 0 0 35px rgba(255, 255, 255, 0);*/
     outline: 1px solid;
     /*outline-color: rgba(255, 255, 255, .5);*/
-   /*outline-offset: 0px;*/
+    /*outline-offset: 0px;*/
     /*text-shadow: none;*/
-    /*transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);*/
+    /*transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);*/    
 } 
 
-.btn-5:hover {
-    border: 1px solid;
+.btnsalir:hover {
+    border: 1px solid;    
     /*box-shadow: inset 0 0 35px rgba(29, 49, 76, .5), 0 0 35px rgba(29, 49, 76, .2);*/
     outline-color: rgba(255, 255, 255, 0);
     outline-offset: 15px;
-    /*text-shadow: 1px 1px 2px #427388; */
- }
+    /*text-shadow: 1px 1px 2px #427388; */  
+}
  
 .btn-4 {
     border-radius: 3px;    

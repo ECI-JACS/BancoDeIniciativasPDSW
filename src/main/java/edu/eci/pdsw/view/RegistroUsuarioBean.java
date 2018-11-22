@@ -38,11 +38,11 @@ public class RegistroUsuarioBean extends BasePageBean{
             Area area = serviciosBancoIniciativas.consultarArea(Integer.parseInt(idArea));
             User user = new User(names, lastNames, email, code, UserStatus.ACTIVO, Role.PUBLICO, area);
             serviciosBancoIniciativas.registrarUsuario(user);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso", "--Usuario creado correctamente--"));
         } catch (ExceptionServiciosBancoIniciativas ex) {
             System.out.println(ex.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Verifique", "--Usuario ya existente--"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Verifique", "--Usuario no creado--"));
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso", "--Usuario creado correctamente--"));
     }
 
     public List<SelectItem> getListaAreas() throws IOException {

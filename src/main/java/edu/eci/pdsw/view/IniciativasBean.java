@@ -64,8 +64,10 @@ public class IniciativasBean extends BasePageBean {
     private List<String> listaPalabrasClaveConsulta;
     private String selectedPalabra;
     private String selectedPalabraConsulta;
-
     private User usuarioProponente;
+    private boolean registrar;
+    private List<Initiative> iniciativasRelacionadas;
+    private int intentosRegistrar;
 
     @PostConstruct
     public void init() {
@@ -80,18 +82,21 @@ public class IniciativasBean extends BasePageBean {
     }
 
     public void inicializarVariables() {
-        selectedIniciativa = new Initiative();
-        idEstado = "";
-        estados = new ArrayList<>();
-        proponente = "";
-        fechaPropuesta = null;
-        dependencia = "";
-        listaAreas = new ArrayList<>();
-        buscando = true;
-        iniciativas = new ArrayList<>();
-        listaPalabrasClave = new ArrayList<>();
-        listaPalabrasClaveConsulta = new ArrayList<>();
-        usuarioProponente = new User();
+        this.selectedIniciativa = new Initiative();
+        this.idEstado = "";
+        this.estados = new ArrayList<>();
+        this.proponente = "";
+        this.fechaPropuesta = null;
+        this.dependencia = "";
+        this.listaAreas = new ArrayList<>();
+        this.buscando = true;
+        this.iniciativas = new ArrayList<>();
+        this.listaPalabrasClave = new ArrayList<>();
+        this.listaPalabrasClaveConsulta = new ArrayList<>();
+        this.usuarioProponente = new User();
+        this.registrar = true;
+        this.iniciativasRelacionadas = new ArrayList<>();
+        this.intentosRegistrar = 0;
     }
 
     public int getIniciativaId() {
@@ -118,13 +123,52 @@ public class IniciativasBean extends BasePageBean {
                     palabrasClaveR = palabrasClaveR + "," + palabra;
                 }
             }
-            System.out.println(palabrasClaveR);
+            this.verificarIniciativasRelacionadas(palabrasClaveR);
+            if (!this.iniciativasRelacionadas.isEmpty() && intentosRegistrar < 1) {
+                this.registrar = false;
+                intentosRegistrar++;
+                throw new ExceptionServiciosBancoIniciativas("Hay palabras relacionadas");
+            }
             serviciosBancoIniciativas.registrarIniciativa(new Initiative(id, description, detail, new java.sql.Date(Calendar.getInstance().getTime().getTime()), null, palabrasClaveR, usuario, new InitiativeStatus(1, "En espera de revisión")));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso", "--Iniciativa creada correctamente--"));
+            inicializarVariables();
         } catch (ExceptionServiciosBancoIniciativas ex) {
-            System.out.println(ex.getMessage());
+            if (ex.getMessage().equals("Hay palabras relacionadas")) {
+                System.out.println(ex.getMessage());
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Verifique", "--Iniciativa no creada--"));
+            }
         }
-        inicializarVariables();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso", "--Iniciativa creada correctamente--"));
+    }
+
+    /**
+     * Este método permite verificar qué iniciativas están relacionadas, dadas unas palabras clave. Si el porcentaje de 
+     * similitud es mayor o igual a 60%, entonces se puede considerar una iniciativa relacionada.
+     * @param palabrasClave
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public void verificarIniciativasRelacionadas(String palabrasClave) throws ExceptionServiciosBancoIniciativas {
+        List<Initiative> iniciativasPosiblementeRelacionadas = serviciosBancoIniciativas.consultarIniciativasPorBusqueda(palabrasClave, "", null, 0, 0);
+        List<Initiative> iniciativasRelacionadasPre = new ArrayList<>();
+        String[] palabrasClaveVerificar = palabrasClave.split(",");
+        String[] palabrasClaveIniciativa;
+        double porcentajeSimilitud = 0;
+        int palabrasIguales = 0;
+        for (Initiative i : iniciativasPosiblementeRelacionadas) {
+            palabrasClaveIniciativa = i.getKeyWords().split(",");
+            for (String p1 : palabrasClaveVerificar) {
+                for (String p2 : palabrasClaveIniciativa) {
+                    if (p1.equals(p2)) {
+                        palabrasIguales++;
+                    }
+                }
+            }
+            porcentajeSimilitud = palabrasIguales * 100 / palabrasClaveIniciativa.length;
+            if (porcentajeSimilitud >= 60) {
+                iniciativasRelacionadasPre.add(i);
+            }
+        }
+        this.iniciativasRelacionadas = iniciativasRelacionadasPre;
     }
 
     public void updateEstadoIniciativa() {
@@ -163,8 +207,10 @@ public class IniciativasBean extends BasePageBean {
         List<Initiative> iniciativas = new ArrayList<>();
         try {
             iniciativas = serviciosBancoIniciativas.consultarIniciativas();
+
         } catch (ExceptionServiciosBancoIniciativas ex) {
-            Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IniciativasBean.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return iniciativas;
     }
@@ -172,6 +218,8 @@ public class IniciativasBean extends BasePageBean {
     public List<Initiative> getIniciativas() {
         return iniciativas;
     }
+    
+    
 
     public void setIniciativas(List<Initiative> iniciativas) {
         this.iniciativas = iniciativas;
@@ -272,13 +320,19 @@ public class IniciativasBean extends BasePageBean {
 
     }
 
-    private String calcularPorcentaje(String area) {
+    /**
+     * Permite calcular el porcentaje para hacer las gráficas
+     *
+     * @param area
+     * @return
+     */
+    /*private String calcularPorcentaje(String area) {
         List<Initiative> iniciativas = obtenerIniciativasDeServicios();
         int total = iniciativas.size();
         double porcentaje = ((estadisticaXDependencias.get(area)) * 100) / total;
 
         return Double.toString(porcentaje);
-    }
+    }*/
 
     /**
      * Metodo para exportar reporte en excel
@@ -302,7 +356,9 @@ public class IniciativasBean extends BasePageBean {
         }
     }
 
-    /*################################ GETTERS AND SETTERS ###############################*/
+    /*######################################################################################*/
+
+    /*################################# GETTERS AND SETTERS ################################*/
     public Initiative getSelectedIniciativa() {
         return this.selectedIniciativa;
     }
@@ -322,15 +378,23 @@ public class IniciativasBean extends BasePageBean {
     public void agregarPalabra(String palabraI) {
         listaPalabrasClave.add(palabraI);
     }
-    
+
     public void agregarPalabraConsulta(String palabraI) {
         listaPalabrasClaveConsulta.add(palabraI);
+    }
+
+    public void eliminarPalabras() {
+        listaPalabrasClave.remove(listaPalabrasClave.indexOf(selectedPalabra));
+    }
+
+    public void eliminarPalabrasConsulta() {
+        listaPalabrasClaveConsulta.remove(listaPalabrasClaveConsulta.indexOf(selectedPalabraConsulta));
     }
 
     public List<String> getListaPalabrasClave() {
         return listaPalabrasClave;
     }
-    
+
     public void setListaPalabrasClave(List<String> listaPalabrasClave) {
         this.listaPalabrasClave = listaPalabrasClave;
     }
@@ -350,21 +414,13 @@ public class IniciativasBean extends BasePageBean {
     public void setSelectedPalabra(String selectedPalabra) {
         this.selectedPalabra = selectedPalabra;
     }
-    
+
     public String getSelectedPalabraConsulta() {
         return selectedPalabraConsulta;
     }
 
     public void setSelectedPalabraConsulta(String selectedPalabraConsulta) {
         this.selectedPalabraConsulta = selectedPalabraConsulta;
-    }
-
-    public void eliminarPalabras() {
-        listaPalabrasClave.remove(listaPalabrasClave.indexOf(selectedPalabraConsulta));
-    }
-    
-    public void eliminarPalabrasConsulta() {
-        listaPalabrasClaveConsulta.remove(listaPalabrasClaveConsulta.indexOf(selectedPalabraConsulta));
     }
 
     public String getProponente() {
@@ -404,4 +460,20 @@ public class IniciativasBean extends BasePageBean {
         this.usuarioProponente = usuarioProponente;
     }
 
+    public boolean isRegistrar() {
+        return registrar;
+    }
+
+    public void setRegistrar(boolean registrar) {
+        this.registrar = registrar;
+    }
+
+    public List<Initiative> getIniciativasRelacionadas() {
+        return iniciativasRelacionadas;
+    }
+
+    public void setIniciativasRelacionadas(List<Initiative> iniciativasRelacionadas) {
+        this.iniciativasRelacionadas = iniciativasRelacionadas;
+    }
+    
 }
