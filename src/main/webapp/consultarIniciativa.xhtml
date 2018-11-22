@@ -69,13 +69,21 @@
                                 <f:selectItem itemLabel="----- Seleccionar Área -----" itemValue=""/>
                                 <f:selectItems value="#{iniciativasBean.listaAreas}"/>                        
                             </p:selectOneMenu>
-                            <p:outputLabel for="palabras_clave" value="Palabras Clave"/>
-                            <p:inputText id="palabras_clave" value="#{iniciativasBean.palabrasClave}">
-                                <p:ajax event="keyup" update="iniciativas_p_table" listener="#{iniciativasBean.busqueda()}"/>
-                            </p:inputText>
-                            <p:inputText id="ingresarPalabras" value="#{iniciativasBean.palabra}">
-                            </p:inputText>
-                            <p:commandButton value="Agregar" update="palabras_clave" ajax="false" icon="pi pi-check" />
+                            <p:outputLabel for="palabraclave" value="Palabras clave: "/>
+                            <p:inputText id="palabraclave" binding="#{palabraclave}">
+                            </p:inputText> 
+                            <p:dataTable id="palabras_tabla" var="palabra" value="#{iniciativasBean.listaPalabrasClaveConsulta}" selection="#{iniciativasBean.selectedPalabraConsulta}" rowKey="#{palabra}" style="font-size: 17px;">
+                                <p:column headerText="Seleccionar" selectionMode="single" style="width: available; text-align:center"/>
+                                <p:column headerText="Palabras">
+                                    <h:outputText value="#{palabra}"/>
+                                </p:column>     
+                                <f:facet name="footer">
+                                    <p:commandButton id="agregarPalabra" ajax="false" icon="ui-icon-circle-plus" actionListener="#{iniciativasBean.agregarPalabraConsulta(palabraclave.value)}" update=":palabrasForm:palabras_tabla">
+                                        <f:event type="preRenderView" listener="#{iniciativasBean.busqueda()}"/>
+                                    </p:commandButton>                                                                                    
+                                    <p:commandButton id="eliminarPalabra" ajax="false" icon="ui-icon-trash" actionListener="#{iniciativasBean.eliminarPalabrasConsulta()}"/>                                                                                     
+                                </f:facet>
+                            </p:dataTable>
                             <p:outputLabel for="estadosIniciativas_select" value="Estado Iniciativas"/>
                             <p:selectOneMenu id="estadosIniciativas_select" value="#{iniciativasBean.idEstado}">
                                 <p:ajax event="change" update="iniciativas_p_table" listener="#{iniciativasBean.busqueda()}"/>
