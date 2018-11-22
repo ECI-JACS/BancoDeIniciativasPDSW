@@ -70,7 +70,7 @@ public class CommentBean extends BasePageBean{
 		
 		try {	
 			inicializarVariables();
-			System.out.println(iniciativaOri.getComments().size());
+			//System.out.println(iniciativaOri.getComments().size());
 			return iniciativaOri.getComments();
 		} catch (ExceptionServiciosBancoIniciativas e) {
 			e.printStackTrace();
