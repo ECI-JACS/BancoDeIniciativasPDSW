@@ -5,6 +5,7 @@ import java.sql.Date;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 
+import edu.eci.pdsw.samples.entities.Comment;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 
@@ -27,4 +28,5 @@ public interface InitiativeDAO {
     public List<Initiative> loadInitiatives() throws PersistenceException;
 
     public List<InitiativeStatus> loadAllInitiativesStatus() throws PersistenceException;
+    
 }

@@ -26,6 +26,12 @@
     <resultMap type='java.lang.Integer' id='InitiativeIdResult'>     
     </resultMap>
     
+    <resultMap type='Comment' id='CommentResult'>
+        <id property='id' column='commentid'/>        
+        <result property='description' column='commentdescription'/>
+        <result property='commentDate' column='commentdate'/>
+    </resultMap>
+    
     <select id='consultarIniciativa' parameterType='map' resultMap='InitiativeResult'>
         SELECT
             i.id as initiativeid,
@@ -47,6 +53,7 @@
             c.id as commentid,
             c.description as commentdescription,
             c.commentdate as commentdate,
+            c.user_email as cUserEmail,
             v.id as voteid,
             v.votedate as votedate,
             v.affinity as voteaffinity

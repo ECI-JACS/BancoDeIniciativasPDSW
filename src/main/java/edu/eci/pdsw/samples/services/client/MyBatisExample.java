@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.eci.pdsw.samples.entities.Area;
+import edu.eci.pdsw.samples.entities.Comment;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 import edu.eci.pdsw.samples.entities.Role;
@@ -102,7 +103,7 @@ public class MyBatisExample {
                     System.out.println(iniciativas.get(indice).toString());
                 }
             } else {
-                System.out.println("No se encontraron reslutados");
+                System.out.println("No se encontraron resultados");
             }*/
             //System.out.println(serviciosBancoIniciativas.consultarUsuariosRol(Role.PUBLICO));
             //serviciosBancoIniciativas.actualizarRolUsuario("amalia.alfonso@mail.escuelaing.edu.co", Role.PUBLICO.toString());
@@ -118,12 +119,14 @@ public class MyBatisExample {
             //System.out.println(serviciosBancoIniciativas.consultarIniciativas());
             //System.out.println(serviciosBancoIniciativas.consultarEstadosIniciativas());
             //System.out.println(serviciosBancoIniciativas.consultarUsuario("amalia.alfonso@mail.escuelaing.edu.co"));
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-            java.util.Date parsed = format.parse("20181112");
+            //SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            //java.util.Date parsed = format.parse("20181112");
+            //Initiative iniciativaa = serviciosBancoIniciativas.consultarIniciativa(4);
+            //Comment comentario = new Comment(2,"Hola Willson <3", new Date(2018-1900,10,2), "julian.bojaca@mail.escuelaing.edu.co", iniciativaa);
+            //serviciosBancoIniciativas.insertarComentarioEnUnaIniciativa(comentario);
+            System.out.println(serviciosBancoIniciativas.consultarIniciativa(4));
             System.out.println((serviciosBancoIniciativas.consultarIniciativasPorBusqueda("", "", null, 0, 0)).size());
         } catch (ExceptionServiciosBancoIniciativas ex) {
-            Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }
 
