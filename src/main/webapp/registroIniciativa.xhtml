@@ -40,6 +40,7 @@
                             <p:submenu label="Iniciativas" icon="pi pi-pencil">
                                 <p:menuitem value="Crear" outcome="registroIniciativa" icon="pi pi-angle-double-left" />
                                 <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="pi pi-angle-double-right" />
+                                <p:menuitem value="Ver Relacionadas" outcome="iniciativasRelacionadas" icon="pi pi-angle-double-right" />
                                 <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="pi pi-angle-double-right" />
                                 <p:menuitem value="Estadísticas" outcome="estadisticas" icon="pi pi-angle-double-right" />
                             </p:submenu>
@@ -80,10 +81,35 @@
                                                 </f:facet>
                                             </p:dataTable>                                          
                                         </h:form>
-                                        <p:commandButton id="registrarIniciativa" ajax="false" value="Registrar Iniciativa" actionListener="#{iniciativasBean.registrarIniciativa(description.value, detail.value)}"/>	
+                                        <p:commandButton id="registrarIniciativa" ajax="false" update="iniciativasRelacionadas" value="Registrar Iniciativa" actionListener="#{iniciativasBean.registrarIniciativa(description.value, detail.value)}"/>	
+                                        <p:outputLabel for="linkIniRel" rendered="#{!iniciativasBean.registrar}" value="Hay iniciativas que pueden estar relacionadas a la que usted está intentando ingresar. Haga click en ver iniciativas relacionadas.">
+                                        </p:outputLabel> 
+                                        <p:commandLink id="linkIniRel" rendered="#{!iniciativasBean.registrar}" value="Ver iniciativas relacionadas" onclick="PF('iniRelDialog').show();"></p:commandLink>
                                     </h:panelGrid>                                                                        
                                 </p:panel>                                  
-                            </h:form>                            
+                            </h:form>
+                            <p:messages id="messages" showDetail="true" closable="true">
+                                <p:autoUpdate />
+                            </p:messages>
+                            <p:dialog header="Iniciativas Relacionadas" widgetVar="iniRelDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true">
+                                <p:dataTable id="iniRelacionadas" var="iniciativa" value="#{iniciativasBean.iniciativasRelacionadas}" rendered="#{not empty iniciativasBean.iniciativasRelacionadas}">
+                                    <p:column headerText="Id">
+                                        <h:outputText value="#{iniciativa.id}"/>
+                                    </p:column>
+                                    <p:column headerText="Descripción">
+                                        <h:outputText value="#{iniciativa.description}"/>
+                                    </p:column>
+                                    <p:column headerText="Detalle">
+                                        <h:outputText value="#{iniciativa.detail}"/>
+                                    </p:column>
+                                    <p:column headerText="Palabras Clave">
+                                        <h:outputText value="#{iniciativa.keyWords}"/>
+                                    </p:column>
+                                </p:dataTable>
+                                <h:panelGrid columns="2" >
+                                    <p:commandButton styleClass="button" value="Volver" onclick="PF('iniRelDialog').hide();"/>
+                                </h:panelGrid>
+                            </p:dialog>
                         </div>
                         <div class="col-md-4 col-xs-4 col-sm-4"></div> 
                     </div> 
