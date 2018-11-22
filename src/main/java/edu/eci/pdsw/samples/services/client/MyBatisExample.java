@@ -122,10 +122,11 @@ public class MyBatisExample {
             //SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
             //java.util.Date parsed = format.parse("20181112");
             //Initiative iniciativaa = serviciosBancoIniciativas.consultarIniciativa(4);
-            //Comment comentario = new Comment(2,"Hola Willson <3", new Date(2018-1900,10,2), "julian.bojaca@mail.escuelaing.edu.co", iniciativaa);
+            //Comment comentario = new Comment(serviciosBancoIniciativas.consultarIdComentarios(),"Hola Willson <3 :)", new Date(2018-1900,10,2), "julian.bojaca@mail.escuelaing.edu.co", iniciativaa);
             //serviciosBancoIniciativas.insertarComentarioEnUnaIniciativa(comentario);
             System.out.println(serviciosBancoIniciativas.consultarIniciativa(4));
             System.out.println((serviciosBancoIniciativas.consultarIniciativasPorBusqueda("", "", null, 0, 0)).size());
+            System.out.println(serviciosBancoIniciativas.consultarIdComentarios());
             List<Area> areas = serviciosBancoIniciativas.consultarAreas();
             for (int indice = 0; indice < areas.size(); indice++) {
                 System.out.println(areas.get(indice).toString());

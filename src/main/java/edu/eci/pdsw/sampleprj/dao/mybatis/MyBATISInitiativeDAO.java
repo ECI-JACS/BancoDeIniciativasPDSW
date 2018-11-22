@@ -98,13 +98,22 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
             throw new PersistenceException("Error al consultar todos los estados de las iniciativas", e);
         }
     }
-
+    
     @Override
-    public List<Initiative> loadInitiativesUser(String email) {
+    public List<Initiative> loadInitiativesUser(String email) throws PersistenceException {
         try {
             return initiativeMapper.consultarIniciativasUsuario(email);
         } catch (PersistenceException e) {
             throw new PersistenceException("Error al consultar las iniciativas del usuario " + email, e);
+        }
+    }
+    
+    @Override
+    public int loadCommentId() throws PersistenceException {
+        try {
+            return initiativeMapper.consultarIdComentarios();
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al consultar el máximo id que tomará un comentario", e);
         }
     }
 }

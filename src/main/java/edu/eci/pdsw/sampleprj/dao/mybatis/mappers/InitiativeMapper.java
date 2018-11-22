@@ -32,7 +32,8 @@ public interface InitiativeMapper {
     public List<Initiative> consultarIniciativas();
 
     public List<InitiativeStatus> consultarEstadosIniciativas();
-
+    
     public List<Initiative> consultarIniciativasUsuario(@Param("email") String email);
     
+    public int consultarIdComentarios();
 }
