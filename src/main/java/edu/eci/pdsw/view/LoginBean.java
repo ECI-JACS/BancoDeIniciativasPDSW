@@ -1,8 +1,6 @@
 package edu.eci.pdsw.view;
 
 import com.google.inject.Inject;
-import edu.eci.pdsw.samples.entities.Area;
-import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.Role;
 import java.io.IOException;
 
@@ -12,16 +10,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import edu.eci.pdsw.samples.entities.User;
-import edu.eci.pdsw.samples.entities.UserStatus;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.utilities.LoginSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -35,15 +26,6 @@ public class LoginBean extends BasePageBean {
     
     @Inject
     private ServiciosBancoIniciativas serviciosBancoIniciativas;
-    private List<Initiative> cars1;
-
-    public List<Initiative> getCars1() {
-        return cars1;
-    }
-
-    public void setCars1(List<Initiative> cars1) {
-        this.cars1 = cars1;
-    }
     private User usuario;
 
     public void authentication(String email, String contrasena) throws IOException {
@@ -71,7 +53,14 @@ public class LoginBean extends BasePageBean {
         hs.invalidate();
         FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");
     }
-
+    
+    /*######################################### Permisos para rol #########################################*/
+    //Permitir modificar estado de las iniciativas 
+    public boolean permitirModificarEstadoIniciativas(){ 
+        return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;
+    }
+    
+     /*######################################### ################ #########################################*/
     public User getUsuario() {
         return usuario;
     }
@@ -79,15 +68,4 @@ public class LoginBean extends BasePageBean {
     public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
-    
-    @PostConstruct
-    public void init() {
-        super.init();
-        try {
-            cars1 = serviciosBancoIniciativas.consultarIniciativas();
-        } catch (ExceptionServiciosBancoIniciativas ex) {
-            Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
 }

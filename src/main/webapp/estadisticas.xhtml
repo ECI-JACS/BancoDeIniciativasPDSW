@@ -51,26 +51,55 @@
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                 </div> 
                 <br></br>  
-                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
-                    <div class="row">
-                        <div class="col-md-4 col-xs-4 col-sm-4 "></div>
-                        <div class="col-md-4 col-xs-4 col-sm-4 ">
-                            <h3 style="color: white">Estadísticas</h3>
-                            <h:form>
-                                <style type="text/css">
-                                    .right div {
-                                        float: right;
-                                    }
-                                </style>
-                                <p:growl id="growl" showDetail="true" />
-                                <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
-                                    <p:chart type="pie" model="#{iniciativasBean.pieModel}" style="width:400px; height:300px">
-                                    </p:chart>
-                                </h:panelGrid>
-                            </h:form>
-                        </div>
-                        <div class="col-md-4 col-xs-4 col-sm-4"></div> 
-                    </div> 
+                <div class="general col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px;">
+                    <h:form>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-2 col-sm-2 "></div>
+                            <div class="col-md-8 col-xs-8 col-sm-8" style="text-align: center;">
+                                <h3 style="color: white; position: center;">Estadísticas</h3>  
+                                <div class="row col-md-12 col-xs-12 col-sm-12 "></div>
+                                <div class="row">
+                                    <div class="col-md-2 col-xs-2 col-sm-2"></div>
+                                    <div id="div_grafica" class="col-md-4 col-xs-4 col-sm-4 " style="padding: 0; max-width: 100%; height: 100%;">                                                                                                                  
+                                        <p:growl id="growl" showDetail="true" />
+                                        <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+                                            <p:chart type="pie" model="#{iniciativasBean.pieModel}" style="width:400px; height:300px; padding: 0"  >
+                                            </p:chart>
+                                        </h:panelGrid>                                    
+                                    </div>
+                                    <div id="div_tabla" class="col-md-4 col-xs-4 col-sm-4">
+                                        <p:dataTable id="tabla_estadistivas" var="dependencia" value="#{iniciativasBean.calcularEstadisticasDependencias()}" style="font-size: 15px; margin-bottom:40px; padding: 0; margin-top: 20px; " paginatorTemplate="{CurrentPageReport} {Exporters}" paginator="true" >>
+                                            <f:facet name="{Exporters}">
+                                                 <div style="float:right">
+                                                    <h:commandLink id="excel">
+                                                        <p:graphicImage url="resources/img/excel.png" style="width: 20px; height: 20px;"/>
+                                                        <p:dataExporter type="xls" target="tabla_estadistivas" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
+                                                    </h:commandLink>
+                                                </div>                                               
+                                            </f:facet>
+                                            <p:column headerText="Area" >
+                                                <h:outputText value="#{dependencia.key}" />
+                                            </p:column>
+                                            <p:column headerText="Cantidad">
+                                                <h:outputText value="#{dependencia.value}" />
+                                            </p:column> 
+                                            <!--
+                                            <p:column headerText="Porcentaje">
+                                                <h:outputText value="#{iniciativasBean.calcularPorcentaje(dependencia.key)}" />
+                                            </p:column>  
+                                            -->
+                                        </p:dataTable>
+                                        <h:commandLink id="excel">
+                                            <p:graphicImage url="resources/img/excel.png" style="width: 50px; height: 50px;"/>
+                                            <p:dataExporter type="xls" target="tabla_estadistivas" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
+                                        </h:commandLink>
+                                    </div>
+                                    <div class="col-md-2 col-xs-2 col-sm-2"></div>                                
+                                </div>
+                            </div>        
+                            <div class="col-md-2 col-xs-2 col-sm-2 "></div>
+                        </div> 
+                    </h:form>
                 </div>
             </div> 
         </div> 

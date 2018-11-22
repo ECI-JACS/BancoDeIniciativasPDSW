@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.utilities.LoginSession;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Date;
 import java.util.ArrayList;
@@ -26,7 +27,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.primefaces.component.export.ExcelOptions;
 import org.primefaces.model.chart.PieChartModel;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.FillPatternType;
 
 /**
  *
@@ -43,43 +51,47 @@ public class IniciativasBean extends BasePageBean {
     private Initiative selectedIniciativa;
     private String idEstado;
     private List<SelectItem> estados;
-    private List<Initiative> iniciativas;    
+    private List<Initiative> iniciativas;
     private String proponente;
     private Date fechaPropuesta;
     private String dependencia;
-    private String palabrasClave;
-    private String palabra;
-    private String keywords;
-    private String keyword;    
     private List<SelectItem> listaAreas;
-    private PieChartModel pieModel; 
+    private PieChartModel pieModel;
     private boolean buscando;
+    private HashMap<String, Integer> estadisticaXDependencias;
+    private ExcelOptions excelOpt;
+    private List<String> listaPalabrasClave;
+    private List<String> listaPalabrasClaveConsulta;
+    private String selectedPalabra;
+    private String selectedPalabraConsulta;
+
+    private User usuarioProponente;
 
     @PostConstruct
-    public void init() {        
-        super.init();     
+    public void init() {
+        super.init();
         try {
             iniciativas = serviciosBancoIniciativas.consultarIniciativas();
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         inicializarVariables();
-        createPieModel();  
+        createPieModel();
     }
-    
+
     public void inicializarVariables() {
         selectedIniciativa = new Initiative();
         idEstado = "";
         estados = new ArrayList<>();
-        palabrasClave = "";
-        palabra = "";
-        keywords = "";
-        keyword = "";
         proponente = "";
         fechaPropuesta = null;
         dependencia = "";
         listaAreas = new ArrayList<>();
+        buscando = true;
         iniciativas = new ArrayList<>();
+        listaPalabrasClave = new ArrayList<>();
+        listaPalabrasClaveConsulta = new ArrayList<>();
+        usuarioProponente = new User();
     }
 
     public int getIniciativaId() {
@@ -98,7 +110,16 @@ public class IniciativasBean extends BasePageBean {
             hs = LoginSession.getSession();
             User usuario = (User) hs.getAttribute("usuario");
             int id = serviciosBancoIniciativas.consultarIdIniciativa();
-            serviciosBancoIniciativas.registrarIniciativa(new Initiative(id, description, detail, new java.sql.Date(Calendar.getInstance().getTime().getTime()), null, keywords, usuario, new InitiativeStatus(1, "En espera de revisión")));
+            String palabrasClaveR = "";
+            for (String palabra : listaPalabrasClave) {
+                if (palabrasClaveR.isEmpty()) {
+                    palabrasClaveR = palabra;
+                } else {
+                    palabrasClaveR = palabrasClaveR + "," + palabra;
+                }
+            }
+            System.out.println(palabrasClaveR);
+            serviciosBancoIniciativas.registrarIniciativa(new Initiative(id, description, detail, new java.sql.Date(Calendar.getInstance().getTime().getTime()), null, palabrasClaveR, usuario, new InitiativeStatus(1, "En espera de revisión")));
         } catch (ExceptionServiciosBancoIniciativas ex) {
             System.out.println(ex.getMessage());
         }
@@ -115,21 +136,49 @@ public class IniciativasBean extends BasePageBean {
             System.out.println("Lo ingresado no es un id del estado de la iniciativa");
         }
     }
-    
-    public void busqueda(){
-        this.buscando=true;
+
+    public void busqueda() {
+        this.buscando = true;
     }
 
-    public List<Initiative> getIniciativas() {  
+    /**
+     * Obtine las iniciativas ya calculadas. No obtienes las iniciativas desde
+     * servicios, porque para poder realizar el ordenamiento por columna, se
+     * debe consultar las iniciativas que ya se habían consultado. Si uno genera
+     * la consutla desde serivicos no se puede usar esa funcion de primefaes. El
+     * método que trae las iniciativas desde servicios se llama
+     * ObtenerIniciativasDeServicios Para solucionar el ordenamiento por
+     * columna, se hace uso de un booleano(buscando): cuando se desea consultar
+     * por algun campo en especifico, al momento de escribir se llama al metodo
+     * getIniciativasPorBusqueda() y se manda desde el xhtml el booleano
+     * buscando(como true) para indicar que el metodo que se va a usar es
+     * ObtenerIniciativasDeServicios, en este metodo(getIniciativasPorBusqueda),
+     * al final se asigna false al booleano, para que si se desea ordenar en la
+     * tabla se llame al metodo getIniciativas.
+     *
+     *
+     * @return
+     */
+    public List<Initiative> obtenerIniciativasDeServicios() {
+        List<Initiative> iniciativas = new ArrayList<>();
+        try {
+            iniciativas = serviciosBancoIniciativas.consultarIniciativas();
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return iniciativas;
     }
-    
+
+    public List<Initiative> getIniciativas() {
+        return iniciativas;
+    }
+
     public void setIniciativas(List<Initiative> iniciativas) {
         this.iniciativas = iniciativas;
     }
 
     public List<Initiative> getIniciativasPorBusqueda() {
-        if(buscando){
+        if (buscando) {
             try {
                 java.sql.Date fechaSQL = null;
                 if (fechaPropuesta != null) {
@@ -143,12 +192,22 @@ public class IniciativasBean extends BasePageBean {
                 if (!dependencia.equals("")) {
                     idD = Integer.parseInt(dependencia);
                 }
-                iniciativas = serviciosBancoIniciativas.consultarIniciativasPorBusqueda(palabrasClave, proponente, fechaSQL, idD, idE);
+                String palabrasClaveR = "";
+                if (!listaPalabrasClaveConsulta.isEmpty()) {
+                    for (String palabra : listaPalabrasClaveConsulta) {
+                        if (palabrasClaveR.isEmpty()) {
+                            palabrasClaveR = palabra;
+                        } else {
+                            palabrasClaveR = palabrasClaveR + "," + palabra;
+                        }
+                    }
+                }
+                iniciativas = serviciosBancoIniciativas.consultarIniciativasPorBusqueda(palabrasClaveR, proponente, fechaSQL, idD, idE);
             } catch (ExceptionServiciosBancoIniciativas ex) {
                 System.out.println(ex.getMessage());
             }
-            buscando=false;
-        }              
+            buscando = false;
+        }
         return iniciativas;
     }
 
@@ -166,7 +225,7 @@ public class IniciativasBean extends BasePageBean {
         }
         return estados;
     }
-    
+
     public List<SelectItem> getListaAreas() throws IOException {
         listaAreas = new ArrayList<>();
         listaAreas.clear();
@@ -181,43 +240,69 @@ public class IniciativasBean extends BasePageBean {
         }
         return listaAreas;
     }
-    
+
     /*#################################### ESTADISTICAS ####################################*/
     private void createPieModel() {
         pieModel = new PieChartModel();
         HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();
         for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {
+            //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
             pieModel.set(dependenciaArea.getKey(), dependenciaArea.getValue());
         }
-        pieModel.setTitle("Simple Pie");
         pieModel.setLegendPosition("w");
         pieModel.setShadow(false);
     }
 
     public HashMap<String, Integer> calcularEstadisticasDependencias() {
         List<Initiative> iniciativas;
-        HashMap<String, Integer> estadisticaXDependencias = new HashMap<>();
-        try {
-            iniciativas = serviciosBancoIniciativas.consultarIniciativas();
-            String dependenciaArea = "";
-            int cantidad = 0;
-            for (Initiative i : iniciativas) {
-                dependenciaArea = i.getUser().getArea().getName();
-                if (estadisticaXDependencias.containsKey(dependenciaArea)) {
-                    cantidad = estadisticaXDependencias.get(dependenciaArea) + 1;
-                    estadisticaXDependencias.replace(dependenciaArea, cantidad);
-                } else {
-                    estadisticaXDependencias.put(dependenciaArea, 1);
-                }
+        estadisticaXDependencias = new HashMap<>();
+        iniciativas = obtenerIniciativasDeServicios();
+        String dependenciaArea;
+        int cantidad = 0;
+        for (Initiative i : iniciativas) {
+            dependenciaArea = i.getUser().getArea().getName();
+            if (estadisticaXDependencias.containsKey(dependenciaArea)) {
+                cantidad = estadisticaXDependencias.get(dependenciaArea) + 1;
+            } else {
+                cantidad = 1;
             }
-            
-        } catch (ExceptionServiciosBancoIniciativas ex) {
-            Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
+            estadisticaXDependencias.put(dependenciaArea, cantidad);
         }
-        
         return estadisticaXDependencias;
+
     }
 
+    private String calcularPorcentaje(String area) {
+        List<Initiative> iniciativas = obtenerIniciativasDeServicios();
+        int total = iniciativas.size();
+        double porcentaje = ((estadisticaXDependencias.get(area)) * 100) / total;
+
+        return Double.toString(porcentaje);
+    }
+
+    /**
+     * Metodo para exportar reporte en excel
+     *
+     * @param document
+     */
+    public void postProcessXLS(Object document) {
+        HSSFWorkbook wb = (HSSFWorkbook) document;
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFRow header = sheet.getRow(0);
+
+        HSSFCellStyle cellStyle = wb.createCellStyle();
+        Color color = Color.GREEN;
+
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+        for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
+            HSSFCell cell = header.getCell(i);
+
+            cell.setCellStyle(cellStyle);
+        }
+    }
+
+    /*################################ GETTERS AND SETTERS ###############################*/
     public Initiative getSelectedIniciativa() {
         return this.selectedIniciativa;
     }
@@ -234,26 +319,52 @@ public class IniciativasBean extends BasePageBean {
         this.idEstado = idEstado;
     }
 
-    public String getPalabrasClave() {
-        return palabrasClave;
-    }
-
-    public void setPalabrasClave(String palabrasClave) {
-        this.palabrasClave = palabrasClave;
+    public void agregarPalabra(String palabraI) {
+        listaPalabrasClave.add(palabraI);
     }
     
-    public String getPalabra() {
-        return palabra;
+    public void agregarPalabraConsulta(String palabraI) {
+        listaPalabrasClaveConsulta.add(palabraI);
     }
 
-    public void setPalabra(String palabra) {
-        this.palabra = palabra;
-        if (this.palabrasClave.equals("")){
-            this.palabrasClave = palabra;
-        }
-        else {
-            this.palabrasClave = this.palabrasClave + "," + palabra;
-        }
+    public List<String> getListaPalabrasClave() {
+        return listaPalabrasClave;
+    }
+    
+    public void setListaPalabrasClave(List<String> listaPalabrasClave) {
+        this.listaPalabrasClave = listaPalabrasClave;
+    }
+
+    public List<String> getListaPalabrasClaveConsulta() {
+        return listaPalabrasClaveConsulta;
+    }
+
+    public void setListaPalabrasClaveConsulta(List<String> listaPalabrasClaveConsulta) {
+        this.listaPalabrasClaveConsulta = listaPalabrasClaveConsulta;
+    }
+
+    public String getSelectedPalabra() {
+        return selectedPalabra;
+    }
+
+    public void setSelectedPalabra(String selectedPalabra) {
+        this.selectedPalabra = selectedPalabra;
+    }
+    
+    public String getSelectedPalabraConsulta() {
+        return selectedPalabraConsulta;
+    }
+
+    public void setSelectedPalabraConsulta(String selectedPalabraConsulta) {
+        this.selectedPalabraConsulta = selectedPalabraConsulta;
+    }
+
+    public void eliminarPalabras() {
+        listaPalabrasClave.remove(listaPalabrasClave.indexOf(selectedPalabraConsulta));
+    }
+    
+    public void eliminarPalabrasConsulta() {
+        listaPalabrasClaveConsulta.remove(listaPalabrasClaveConsulta.indexOf(selectedPalabraConsulta));
     }
 
     public String getProponente() {
@@ -280,31 +391,17 @@ public class IniciativasBean extends BasePageBean {
         this.dependencia = dependencia;
     }
 
-    public String getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-        if (this.keywords.equals("")){
-            this.keywords = keyword;
-        }
-        else {
-            this.keywords = this.keywords + "," + keyword;
-        }
-    }
-
     public PieChartModel getPieModel() {
         createPieModel();
         return pieModel;
     }
-    
+
+    public User getUsuarioProponente() {
+        return usuarioProponente;
+    }
+
+    public void setUsuarioProponente(User usuarioProponente) {
+        this.usuarioProponente = usuarioProponente;
+    }
+
 }

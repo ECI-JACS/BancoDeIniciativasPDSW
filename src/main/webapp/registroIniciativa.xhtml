@@ -60,26 +60,30 @@
                             <h:form id="incForm">
                                 <p:panel id="panelIniciativa">
                                     <h:panelGrid id="registroIniciativa_panel" columns="">                                    
-                                        <p:outputLabel for="id" value="Id Iniciativa" />
-                                        <p:outputLabel id="id" value="#{iniciativasBean.iniciativaId}"/>
+                                        <p:outputLabel id="id" for="id" value="Id Iniciativa " style="color: #0016b0;">#{iniciativasBean.iniciativaId}</p:outputLabel>                                        
                                         <p:outputLabel for="description" value="Descripción" />
-                                        <p:inputTextarea binding="#{description}" rows="5" cols="30" counter="description" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" required="true"/>
+                                        <p:inputTextarea binding="#{description}" rows="5" cols="30" counter="description" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" required="true" style="height: 80px;"/>
                                         <h:outputText id="description"/>
                                         <p:outputLabel for="detail" value="Detalle" />
-                                        <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true"/>
-
-                                        <p:outputLabel for="ingresarKeywords" value="Ingrese las palabras clave una por una"/>
-                                        <p:inputText id="ingresarKeywords" value="#{iniciativasBean.keyword}">
-                                            <p:ajax update="keywords"/>
-                                        </p:inputText>
-                                        <p:commandButton value="Agregar" update="ingresarKeywords" icon="ui-icon-check"/>
-                                        <p:outputLabel for="keywords" value="Palabras Clave"/>
-                                        <p:outputLabel id="keywords" value="#{iniciativasBean.keywords}">
-                                        </p:outputLabel>                                            
-                                    </h:panelGrid>
-                                    <p:commandButton id="registrarIniciativa" value="Registrar Iniciativa" ajax="false" action="#{iniciativasBean.registrarIniciativa(description.value, detail.value)}"/>	
-                                </p:panel>                                    
-                            </h:form>
+                                        <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true" style="height: 80px;"  autoResize="false"/>
+                                        <h:form id="palabrasForm">
+                                            <p:outputLabel for="palabraI" value="Palabras clave: "/>
+                                            <p:inputText id="palabraI" binding="#{palabraI}"/> 
+                                            <p:dataTable id="palabras_tabla" var="palabra" value="#{iniciativasBean.listaPalabrasClave}" selection="#{iniciativasBean.selectedPalabra}" rowKey="#{palabra}" style="font-size: 17px;">                                    
+                                                <p:column headerText="Seleccionar" selectionMode="single" style="width: available; text-align:center"/>
+                                                <p:column headerText="Palabras">
+                                                    <h:outputText value="#{palabra}"/>
+                                                </p:column>     
+                                                <f:facet name="footer">
+                                                    <p:commandButton id="agregarPalabra" ajax="false" icon="ui-icon-circle-plus" actionListener="#{iniciativasBean.agregarPalabra(palabraI.value)}" update=":palabrasForm:palabras_tabla"/>                                                                                     
+                                                    <p:commandButton id="eliminarPalabra" ajax="false" icon="ui-icon-trash" actionListener="#{iniciativasBean.eliminarPalabras()}"/>                                                                                     
+                                                </f:facet>
+                                            </p:dataTable>                                          
+                                        </h:form>
+                                        <p:commandButton id="registrarIniciativa" ajax="false" value="Registrar Iniciativa" actionListener="#{iniciativasBean.registrarIniciativa(description.value, detail.value)}"/>	
+                                    </h:panelGrid>                                                                        
+                                </p:panel>                                  
+                            </h:form>                            
                         </div>
                         <div class="col-md-4 col-xs-4 col-sm-4"></div> 
                     </div> 

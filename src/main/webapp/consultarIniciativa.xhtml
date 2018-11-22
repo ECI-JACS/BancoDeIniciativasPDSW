@@ -69,13 +69,21 @@
                                 <f:selectItem itemLabel="----- Seleccionar Área -----" itemValue=""/>
                                 <f:selectItems value="#{iniciativasBean.listaAreas}"/>                        
                             </p:selectOneMenu>
-                            <p:outputLabel for="palabras_clave" value="Palabras Clave"/>
-                            <p:inputText id="palabras_clave" value="#{iniciativasBean.palabrasClave}">
-                                <p:ajax event="keyup" update="iniciativas_p_table" listener="#{iniciativasBean.busqueda()}"/>
-                            </p:inputText>
-                            <p:inputText id="ingresarPalabras" value="#{iniciativasBean.palabra}">
-                            </p:inputText>
-                            <p:commandButton value="Agregar" update="palabras_clave" ajax="false" icon="pi pi-check" />
+                            <p:outputLabel for="palabraclave" value="Palabras clave: "/>
+                            <p:inputText id="palabraclave" binding="#{palabraclave}">
+                            </p:inputText> 
+                            <p:dataTable id="palabras_tabla" var="palabra" value="#{iniciativasBean.listaPalabrasClaveConsulta}" selection="#{iniciativasBean.selectedPalabraConsulta}" rowKey="#{palabra}" style="font-size: 17px;">
+                                <p:column headerText="Seleccionar" selectionMode="single" style="width: available; text-align:center"/>
+                                <p:column headerText="Palabras">
+                                    <h:outputText value="#{palabra}"/>
+                                </p:column>     
+                                <f:facet name="footer">
+                                    <p:commandButton id="agregarPalabra" ajax="false" icon="ui-icon-circle-plus" actionListener="#{iniciativasBean.agregarPalabraConsulta(palabraclave.value)}" update=":palabrasForm:palabras_tabla">
+                                        <f:event type="preRenderView" listener="#{iniciativasBean.busqueda()}"/>
+                                    </p:commandButton>                                                                                    
+                                    <p:commandButton id="eliminarPalabra" ajax="false" icon="ui-icon-trash" actionListener="#{iniciativasBean.eliminarPalabrasConsulta()}"/>                                                                                     
+                                </f:facet>
+                            </p:dataTable>
                             <p:outputLabel for="estadosIniciativas_select" value="Estado Iniciativas"/>
                             <p:selectOneMenu id="estadosIniciativas_select" value="#{iniciativasBean.idEstado}">
                                 <p:ajax event="change" update="iniciativas_p_table" listener="#{iniciativasBean.busqueda()}"/>
@@ -84,11 +92,11 @@
                             </p:selectOneMenu>
                         </h:panelGrid>
                         <br/>
-                        <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.iniciativasPorBusqueda}" style="font-size: 15px; margin-bottom:40px; padding: 0;" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+                        <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.iniciativasPorBusqueda}" style="font-size: 15px; margin-bottom: 40px; padding: 0;" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
                             <f:facet name="header">
                                 Iniciativas
                             </f:facet>
-                            <p:column headerText="Id" sortBy="#{iniciativa.id}" filterBy="#{iniciativa.id}">
+                            <p:column headerText="Id" sortBy="#{iniciativa.id}" filterBy="#{iniciativa.id}" style="width: 100px; text-align: center;">
                                 <h:outputText value="#{iniciativa.id}" />
                             </p:column>
                             <p:column headerText="Descripción" sortBy="#{iniciativa.description}" filterBy="#{iniciativa.description}">
@@ -103,11 +111,10 @@
                             <p:column headerText="Fecha Modificación Estado" sortBy="#{iniciativa.modificationDate}" filterBy="#{iniciativa.modificationDate}">
                                 <h:outputText value="#{iniciativa.modificationDate}" />
                             </p:column>
-                            <p:column headerText="Proponente" sortBy="#{iniciativa.user.names}" filterBy="#{iniciativa.user.names}">                        
-                                <h:outputText value="Nombre: " style="font-weight:bold"/>
-                                <h:outputText value="#{iniciativa.user.names}"/>
-                                <h:outputText value=" "/>
-                                <h:outputText value="#{iniciativa.user.lastNames}"/>
+                            <p:column headerText="Proponente" sortBy="#{iniciativa.user.names}" filterBy="#{iniciativa.user.names}" style="text-align: center;">                        
+                                <p:commandButton styleClass="button_table_size" icon="ui-icon-circle-zoomout" onclick="PF('proponenteDialog').show();" update="datosProponente">
+                                    <f:setPropertyActionListener value="#{iniciativa.user}" target="#{iniciativasBean.usuarioProponente}"/>
+                                </p:commandButton>
                             </p:column>
                             <p:column headerText="Estado Actual" sortBy="#{iniciativa.iniciativeStatus.description}" filterBy="#{iniciativa.iniciativeStatus.description}">
                                 <h:outputText value="#{iniciativa.iniciativeStatus.description}" />
@@ -117,7 +124,21 @@
                             </p:column>
                         </p:dataTable>
                     </p:panel>
-                </h:form>                    
+                </h:form>
+                <p:dialog header="Usuario proponente" widgetVar="proponenteDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true">
+                    <p:outputPanel id="datosProponente" rendered="#{not empty iniciativasBean.usuarioProponente}">
+                        <h:panelGrid columns="2" >
+                            <h:outputText value="Nombres:" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.usuarioProponente.names}"/>
+                            <h:outputText value="Apellidos:" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.usuarioProponente.lastNames}"/>
+                            <h:outputText value="Email:" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.usuarioProponente.email}"/>
+                            <h:outputText value="Código:" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.usuarioProponente.code}"/>
+                            <h:outputText value="Rol:" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.usuarioProponente.role}"/>
+                            <h:outputText value="Estado:" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.usuarioProponente.status}"/>
+                            <h:outputText value="Área:" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.usuarioProponente.area.name}"/>
+                            <p:commandButton styleClass="button" value="Volver" onclick="PF('proponenteDialog').hide();"/>
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
             </div> 
         </div>
     </h:body>

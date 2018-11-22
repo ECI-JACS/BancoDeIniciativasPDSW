@@ -126,6 +126,10 @@ public class MyBatisExample {
             //serviciosBancoIniciativas.insertarComentarioEnUnaIniciativa(comentario);
             System.out.println(serviciosBancoIniciativas.consultarIniciativa(4));
             System.out.println((serviciosBancoIniciativas.consultarIniciativasPorBusqueda("", "", null, 0, 0)).size());
+            List<Area> areas = serviciosBancoIniciativas.consultarAreas();
+            for (int indice = 0; indice < areas.size(); indice++) {
+                System.out.println(areas.get(indice).toString());
+            }
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }

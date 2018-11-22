@@ -47,30 +47,30 @@
                                 }
                             </style>
 
+                            <h:form id="incForm">
+                                <p:panel id="panelIniciativa">                                                                       
+                                    <p:outputLabel id="id" for="id" value="Id Iniciativa:  ">#{iniciativasBean.iniciativaId}</p:outputLabel>                                        
+                                    <p:outputLabel for="description" value="Descripción" />
+                                    <p:inputTextarea binding="#{description}" rows="5" cols="30" counter="description" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" required="true" style="height: 80px;"/>
+                                    <h:outputText id="description"/>
+                                    <p:outputLabel for="detail" value="Detalle" />
+                                    <p:inputTextarea id="detail" binding="#{detail}" rows="6" cols="33" required="true" style="height: 80px;"  autoResize="false"/>                                                                                   
+                                    <h:form id="palabrasForm">
+                                        <p:outputLabel for="palabraI" value="Ingrese las palabras clave una por una"/>
+                                        <p:inputText id="palabraI" binding="#{palabraI}"/> 
+                                        <p:dataTable id="palabras_tabla" var="palabra" value="#{iniciativasBean.listaPalabrasClave}" selection="#{iniciativasBean.listaPalabrasClave}" rowKey="#{palabra}" style="font-size: 17px; width: 50px">                    			                                            
+                                            <p:column headerText="Seleccionar" selectionMode="single" style="width: auto; text-align:center"/>
+                                            <p:column headerText="Palabras">
+                                                <h:outputText value="#{palabra}"/>
+                                            </p:column>     
+                                            <f:facet name="footer">
+                                                <p:commandButton id="agregarPalabra" value="agregar" actionListener="#{iniciativasBean.agregarPalabra(palabraI.value)}" update=":palabrasForm:palabras_tabla"/>                                                                                     
+                                            </f:facet>
+                                        </p:dataTable>
+                                    </h:form>
+                                    
+                                </p:panel>
 
-                            <h:form>
-                                <p:panel id="panelIniciativa">
-                                <p:dataTable var="iniciativa" value="#{loginBean.cars1}" style="margin-bottom:40px">
-                                    <f:facet name="header">
-                                        Single Column Sort
-                                    </f:facet>
-                                    <p:column headerText="Id" sortBy="#{iniciativa.id}">
-                                        <h:outputText value="#{iniciativa.id}" />
-                                    </p:column>
-
-                                    <p:column headerText="Year" sortBy="#{iniciativa.description}">
-                                        <h:outputText value="#{iniciativa.description}" />
-                                    </p:column>
-
-                                    <p:column headerText="Brand" sortBy="#{iniciativa.detail}">
-                                        <h:outputText value="#{iniciativa.detail}" />
-                                    </p:column>
-
-                                    <p:column headerText="Color" sortBy="#{iniciativa.creationDate}">
-                                        <h:outputText value="#{iniciativa.creationDate}" />
-                                    </p:column>
-                                </p:dataTable>
-                                    </p:panel>
                             </h:form>
                         </div>
                         <div class="col-xs-4"> 

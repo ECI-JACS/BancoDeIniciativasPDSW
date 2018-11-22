@@ -33,12 +33,12 @@
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
         </div> 
         <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">      
-            <h:form id="menuForm">                    
+            <h:form >                    
                 <br></br>
                 <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="position: absolute; ">
                     <div id="menu1" class="row">
                         <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                        <div class="col-md-6 col-xs-6 col-sm-6 "> 
+                        <div class="col-md-6 col-xs-6 col-sm-6 ">                            
                             <p:menubar style="text-align: center;">
                                 <p:menuitem value="Home" outcome="menu" icon="pi pi-times" />
                                 <p:submenu label="Perfil" icon="pi pi-pencil">
@@ -49,10 +49,10 @@
                                 <p:submenu label="Iniciativas" icon="pi pi-pencil">
                                     <p:menuitem value="Crear" outcome="registroIniciativa" icon="pi pi-angle-double-left" />
                                     <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="pi pi-angle-double-right" />
-                                    <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="pi pi-angle-double-right" />
+                                    <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="pi pi-angle-double-right" rendered="#{loginBean.permitirModificarEstadoIniciativas()}"/>
                                     <p:menuitem value="Estadísticas" outcome="estadisticas" icon="pi pi-angle-double-right" />
                                 </p:submenu>
-                                <p:submenu label="Usuarios" icon="pi pi-pencil">
+                                <p:submenu label="Usuarios" icon="pi pi-pencil" rendered="#{loginBean.permitirModificarEstadoIniciativas()}">
                                     <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="pi pi-angle-double-left" />
                                 </p:submenu>                                      
                             </p:menubar>
@@ -65,22 +65,39 @@
                         <div class="col-md-2 col-xs-2 col-sm-2 "></div>
                         <div class="col-md-8 col-xs-8 col-sm-8 "> 
                             <div class="col-md-12 col-xs-12 col-sm-12 " style="margin-top:0px">                                                                       
-                                <div class="row">
-                                    <div class="col-md-2 col-xs-2 col-sm-2 "></div>                                    
-                                    <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
-                                        <h:button class="btn btn-4" style="width: 80%;height: 90%; background-image: url('resources/img/u.png'); background-size: 70%; background-position: 50% 50%; background-repeat: no-repeat;" id="Perfil" outcome="perfil" ></h:button>
+                                <p:panel style="background: transparent; border: transparent;" rendered="#{loginBean.permitirModificarEstadoIniciativas()}">
+                                    <div class="row">
+                                        <div class="col-md-2 col-xs-2 col-sm-2 "></div>                                    
+                                        <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
+                                            <h:button class="btn btn-4" style="width: 80%;height: 90%; background-image: url('resources/img/u.png'); background-size: 70%; background-position: 50% 50%; background-repeat: no-repeat;" outcome="perfil" ></h:button>
+                                        </div> 
+                                        <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
+                                            <h:button class="btn btn-4"  style="width: 80%;height: 90%; background-image: url('resources/img/b.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" outcome="registroIniciativa"></h:button>
+                                        </div> 
+                                        <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
+                                            <h:button class="btn btn-4"  style="width: 80%;height: 90%; background-image: url('resources/img/b2.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" outcome="consultarIniciativa"></h:button>
+                                        </div> 
+                                        <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
+                                            <h:button class="btn btn-4"  style="width: 80%;height: 90%; background-image: url('resources/img/a.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" outcome="asignarPerfiles"></h:button>
+                                        </div>                                    
+                                        <div class="col-md-2 col-xs-2 col-sm-2 "></div>
                                     </div> 
-                                    <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
-                                        <h:button class="btn btn-4"  style="width: 80%;height: 90%; background-image: url('resources/img/b.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;"  id="Iniciativas" outcome="registroIniciativa"></h:button>
+                                </p:panel>
+                                <p:panel style="background: transparent; border: transparent;" rendered="#{!loginBean.permitirModificarEstadoIniciativas()}">
+                                    <div class="row">
+                                        <div class="col-md-3 col-xs-3 col-sm-3 "></div>                                   
+                                        <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
+                                            <h:button class="btn btn-4" style="width: 80%;height: 90%; background-image: url('resources/img/u.png'); background-size: 70%; background-position: 50% 50%; background-repeat: no-repeat;" outcome="perfil" ></h:button>
+                                        </div> 
+                                        <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
+                                            <h:button class="btn btn-4"  style="width: 80%;height: 90%; background-image: url('resources/img/b.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;"  outcome="registroIniciativa"></h:button>
+                                        </div> 
+                                        <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
+                                            <h:button class="btn btn-4"  style="width: 80%;height: 90%; background-image: url('resources/img/b2.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" outcome="consultarIniciativa"></h:button>
+                                        </div>                                                                           
+                                        <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                                     </div> 
-                                    <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
-                                        <h:button class="btn btn-4"  style="width: 80%;height: 90%; background-image: url('resources/img/b2.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" id="ConsultarIniciativas" outcome="consultarIniciativa"></h:button>
-                                    </div> 
-                                    <div class="col-md-2 col-xs-2 col-sm-2 " style="margin-top:150px; height: 180px; width: 150px">
-                                        <h:button class="btn btn-4"  style="width: 80%;height: 90%; background-image: url('resources/img/a.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;" id="AsignarPerfiles" outcome="asignarPerfiles"></h:button>
-                                    </div>                                    
-                                    <div class="col-md-2 col-xs-2 col-sm-2 "></div>
-                                </div> 
+                                </p:panel>
                             </div>                               
                         </div>
                         <div class="col-md-2 col-xs-2 col-sm-2 "></div>
