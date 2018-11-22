@@ -20,7 +20,7 @@
         <div id="encabezado_div_menu" class="encabezado_div_menu col-md-12 col-xs-12 col-sm-12 " display="block" style="background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #66999;">      
             <img src="resources/img/bombillo.png" border="1" alt="Bombillo" width="auto" height="90%"/>
             Banco de Iniciativas         
-            <p:commandButton class="btn btnsalir" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>           
+            <p:commandButton class="btn btnsalir" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
         </div>          
         <div class="row">
@@ -33,7 +33,7 @@
                             <p:menuitem value="Home" outcome="menu" icon="ui-icon-home"/>
                             <p:submenu label="Perfil" icon="ui-icon-contact">
                                 <p:menuitem value="Cuenta" outcome="perfil" icon="ui-icon-radio-off" />
-                                <p:menuitem value="Tus Iniciativas" url="#" icon="ui-icon-radio-off" />
+                                <p:menuitem value="Mis Iniciativas" outcome="iniciativasUsuario" icon="ui-icon-radio-off" />
                             </p:submenu>
                             <p:submenu label="Iniciativas" icon="ui-icon-script">
                                 <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off"/>
@@ -60,8 +60,7 @@
                                 <p:panel id="panelIniciativa" style="height: 50%;">
                                     <div class="row">
                                         <div class="col-md-2 col-xs-2 col-sm-2"></div>
-                                        <div id="div_grafica" class="col-md-4 col-xs-4 col-sm-4 " style="padding: 0; max-width: 100%; height: 100%;">                                                                                                                  
-                                            <p:growl id="growl" showDetail="true" />
+                                        <div id="div_grafica" class="col-md-4 col-xs-4 col-sm-4 " style="padding: 0; max-width: 100%; height: 100%;">
                                             <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
                                                 <p:chart type="pie" model="#{iniciativasBean.pieModel}" style="width:400px; height:300px; padding: 0"  >
                                                 </p:chart>
