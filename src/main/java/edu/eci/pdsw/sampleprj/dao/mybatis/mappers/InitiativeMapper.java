@@ -33,4 +33,5 @@ public interface InitiativeMapper {
 
     public List<InitiativeStatus> consultarEstadosIniciativas();
     
+    public int consultarIdComentarios();
 }

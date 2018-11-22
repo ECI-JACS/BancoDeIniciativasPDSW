@@ -29,4 +29,5 @@ public interface InitiativeDAO {
 
     public List<InitiativeStatus> loadAllInitiativesStatus() throws PersistenceException;
     
+    public int loadCommentId() throws PersistenceException;
 }

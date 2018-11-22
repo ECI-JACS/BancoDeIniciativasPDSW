@@ -26,10 +26,7 @@
     <resultMap type='java.lang.Integer' id='InitiativeIdResult'>     
     </resultMap>
     
-    <resultMap type='Comment' id='CommentResult'>
-        <id property='id' column='commentid'/>        
-        <result property='description' column='commentdescription'/>
-        <result property='commentDate' column='commentdate'/>
+    <resultMap type='java.lang.Integer' id='CommentIdResult'>     
     </resultMap>
     
     <select id='consultarIniciativa' parameterType='map' resultMap='InitiativeResult'>
@@ -181,6 +178,10 @@
     
     <select id='consultarIdIniciativa' parameterType='map' resultMap="InitiativeIdResult">
         SELECT MAX(id)+1 AS id FROM Initiative;
+    </select>
+    
+    <select id='consultarIdComentarios' parameterType='map' resultMap="CommentIdResult">
+        SELECT MAX(id)+1 AS id FROM Comment;
     </select>
     
 </mapper>

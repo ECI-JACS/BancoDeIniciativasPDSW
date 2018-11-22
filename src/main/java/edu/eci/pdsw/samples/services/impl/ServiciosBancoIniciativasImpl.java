@@ -201,4 +201,13 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
 	}
+	
+	@Override
+    public int consultarIdComentarios() throws ExceptionServiciosBancoIniciativas {
+        try {
+            return initiativeDAO.loadCommentId();
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
 }

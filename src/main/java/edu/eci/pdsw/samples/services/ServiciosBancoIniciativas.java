@@ -157,4 +157,11 @@ public interface ServiciosBancoIniciativas {
      * @throws ExceptionServiciosBancoIniciativas
      */
     public void insertarComentarioEnUnaIniciativa(Comment com) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Permite consulta el siguiente Id que tendrá un comentario.
+     * @return
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public int consultarIdComentarios() throws ExceptionServiciosBancoIniciativas;
 }
