@@ -28,5 +28,7 @@ public interface InitiativeDAO {
     public List<Initiative> loadInitiatives() throws PersistenceException;
 
     public List<InitiativeStatus> loadAllInitiativesStatus() throws PersistenceException;
+
+    public List<Initiative> loadInitiativesUser(String email);
     
 }

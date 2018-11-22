@@ -130,6 +130,7 @@ public class MyBatisExample {
             for (int indice = 0; indice < areas.size(); indice++) {
                 System.out.println(areas.get(indice).toString());
             }
+            System.out.println(serviciosBancoIniciativas.consultarIniciativasUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(MyBatisExample.class.getName()).log(Level.SEVERE, null, ex);
         }

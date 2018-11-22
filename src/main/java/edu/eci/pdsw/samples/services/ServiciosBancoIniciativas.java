@@ -81,6 +81,13 @@ public interface ServiciosBancoIniciativas {
     public List<Initiative> consultarIniciativas() throws ExceptionServiciosBancoIniciativas;
     
     /**
+     * Permite consultar todas las iniciativas existentes de un usuario
+     * @return
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public List<Initiative> consultarIniciativasUsuario(String email) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
      * Permite consultar un área o dependencia en específico
      * @param id
      * @return area

@@ -36,7 +36,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
 
     @Inject
     private AreaDAO areaDAO;
-    
+
     @Inject
     private CommentDAO commentDAO;
 
@@ -57,7 +57,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public List<User> consultarUsuariosPorBusqueda(String nombres, String apellidos, String email, int carnet, int idArea, String role) throws ExceptionServiciosBancoIniciativas {
         try {
@@ -66,7 +66,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public void actualizarRolUsuario(String email, String role) throws ExceptionServiciosBancoIniciativas {
         try {
@@ -75,7 +75,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public int consultarIdIniciativa() throws ExceptionServiciosBancoIniciativas {
         try {
@@ -102,11 +102,20 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public List<Initiative> consultarIniciativas() throws ExceptionServiciosBancoIniciativas {
         try {
             return initiativeDAO.loadInitiatives();
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+    
+    @Override
+    public List<Initiative> consultarIniciativasUsuario(String email) throws ExceptionServiciosBancoIniciativas {
+        try {
+            return initiativeDAO.loadInitiativesUser(email);
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
@@ -156,7 +165,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public List<InitiativeStatus> consultarEstadosIniciativas() throws ExceptionServiciosBancoIniciativas {
         try {
@@ -184,21 +193,21 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
         }
     }
 
-	@Override
-	public void deleteUser(String email) throws ExceptionServiciosBancoIniciativas {
-		try {
-			userDAO.deleteUser(email);
-		}catch (PersistenceException ex) {
-			throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
-		}
-	}
-
-	@Override
-	public void insertarComentarioEnUnaIniciativa(Comment com) throws ExceptionServiciosBancoIniciativas {
-		try {
-			commentDAO.insertComment(com);
+    @Override
+    public void deleteUser(String email) throws ExceptionServiciosBancoIniciativas {
+        try {
+            userDAO.deleteUser(email);
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
-	}
+    }
+
+    @Override
+    public void insertarComentarioEnUnaIniciativa(Comment com) throws ExceptionServiciosBancoIniciativas {
+        try {
+            commentDAO.insertComment(com);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
 }

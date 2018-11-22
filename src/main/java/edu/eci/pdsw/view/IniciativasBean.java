@@ -214,6 +214,19 @@ public class IniciativasBean extends BasePageBean {
         }
         return iniciativas;
     }
+    
+    public List<Initiative> iniciativasUsuario() {
+        List<Initiative> iniciativasUsuario = new ArrayList<>();
+        HttpSession hs;
+        try {
+            hs = LoginSession.getSession();
+            User usuario = (User) hs.getAttribute("usuario");
+            iniciativasUsuario = serviciosBancoIniciativas.consultarIniciativasUsuario(usuario.getEmail());
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            System.out.println(ex.getMessage());
+        }
+        return iniciativasUsuario;
+    }
 
     public List<Initiative> getIniciativas() {
         return iniciativas;
