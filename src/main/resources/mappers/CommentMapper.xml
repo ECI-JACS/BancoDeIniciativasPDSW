@@ -9,6 +9,12 @@
         <id property='id' column='commentid'/>        
         <result property='description' column='commentdescription'/>
         <result property='commentDate' column='commentdate'/>
+        <result property='userEmail' column='CUserEmail'/>
     </resultMap>
+    
+    <insert id='insertarComentario' parameterType='map'>
+        INSERT INTO Comment 
+        VALUES(#{com.id}, #{com.description}, #{com.commentDate}, #{com.userEmail}, #{com.initiative.id});
+    </insert>
 
 </mapper>

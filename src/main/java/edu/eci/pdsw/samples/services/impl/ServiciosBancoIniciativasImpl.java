@@ -6,7 +6,9 @@ import com.google.inject.Singleton;
 import edu.eci.pdsw.sampleprj.dao.AreaDAO;
 import edu.eci.pdsw.sampleprj.dao.InitiativeDAO;
 import edu.eci.pdsw.sampleprj.dao.UserDAO;
+import edu.eci.pdsw.sampleprj.dao.CommentDAO;
 import edu.eci.pdsw.samples.entities.Area;
+import edu.eci.pdsw.samples.entities.Comment;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 import edu.eci.pdsw.samples.entities.Role;
@@ -34,6 +36,9 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
 
     @Inject
     private AreaDAO areaDAO;
+    
+    @Inject
+    private CommentDAO commentDAO;
 
     @Override
     public void registrarUsuario(User user) throws ExceptionServiciosBancoIniciativas {
@@ -188,4 +193,12 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
 		}
 	}
 
+	@Override
+	public void insertarComentarioEnUnaIniciativa(Comment com) throws ExceptionServiciosBancoIniciativas {
+		try {
+			commentDAO.insertComment(com);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+	}
 }

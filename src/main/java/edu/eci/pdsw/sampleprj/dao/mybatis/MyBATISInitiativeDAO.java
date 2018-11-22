@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 
 import edu.eci.pdsw.sampleprj.dao.InitiativeDAO;
 import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.InitiativeMapper;
+import edu.eci.pdsw.samples.entities.Comment;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 import java.sql.Date;
@@ -97,5 +98,4 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
             throw new PersistenceException("Error al consultar todos los estados de las iniciativas", e);
         }
     }
-
 }
