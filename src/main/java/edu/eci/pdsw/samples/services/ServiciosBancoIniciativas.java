@@ -2,6 +2,7 @@ package edu.eci.pdsw.samples.services;
 
 import java.util.List;
 import edu.eci.pdsw.samples.entities.Area;
+import edu.eci.pdsw.samples.entities.Comment;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 import edu.eci.pdsw.samples.entities.Role;
@@ -149,4 +150,11 @@ public interface ServiciosBancoIniciativas {
      * @throws ExceptionServiciosBancoIniciativas
      */
     public void deleteUser(String email) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Inserta un comentario en una iniciativa.
+     * @param com
+     * @throws ExceptionServiciosBancoIniciativas
+     */
+    public void insertarComentarioEnUnaIniciativa(Comment com) throws ExceptionServiciosBancoIniciativas;
 }

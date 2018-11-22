@@ -34,18 +34,18 @@
                         <p:menubar class="menu ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow" style="text-align: center; width: 55%; float: start; margin-left: 25%;" >
                             <p:menuitem value="Home" outcome="menu" icon="ui-icon-home"/>
                             <p:submenu label="Perfil" icon="ui-icon-contact">
-                                <p:menuitem value="Cuenta" outcome="perfil"  />
-                                <p:menuitem value="Tus Iniciativas" url="#" />
+                                <p:menuitem value="Cuenta" outcome="perfil" icon="ui-icon-radio-off" />
+                                <p:menuitem value="Tus Iniciativas" url="#" icon="ui-icon-radio-off" />
                             </p:submenu>
-
                             <p:submenu label="Iniciativas" icon="ui-icon-script">
-                                <p:menuitem value="Crear" outcome="registroIniciativa"/>
-                                <p:menuitem value="Consultar" outcome="consultarIniciativa" />
-                                <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" />
-                                <p:menuitem value="Estadísticas" outcome="estadisticas" />
+                                <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off"/>
+                                <p:menuitem value="Ver Relacionadas" outcome="iniciativasRelacionadas" icon="ui-icon-radio-off" rendered="#{loginBean.verIniciativasRelacionadas()}"/>
+                                <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="ui-icon-radio-off"/>
+                                <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="ui-icon-radio-off" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" />
+                                <p:menuitem value="Estadísticas" outcome="estadisticas" icon="ui-icon-radio-off"/>
                             </p:submenu>
                             <p:submenu label="Usuarios" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" icon="ui-icon-person">
-                                <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles"/>
+                                <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="ui-icon-radio-off"/>
                             </p:submenu>                                      
                         </p:menubar>
                     </div>

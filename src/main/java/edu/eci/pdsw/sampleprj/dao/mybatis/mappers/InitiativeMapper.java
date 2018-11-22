@@ -1,5 +1,6 @@
 package edu.eci.pdsw.sampleprj.dao.mybatis.mappers;
 
+import edu.eci.pdsw.samples.entities.Comment;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 import java.sql.Date;

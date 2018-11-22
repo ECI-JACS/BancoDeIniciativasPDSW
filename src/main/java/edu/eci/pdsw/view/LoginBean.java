@@ -60,6 +60,10 @@ public class LoginBean extends BasePageBean {
         return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;
     }
     
+    public boolean verIniciativasRelacionadas(){ 
+        return usuario.getRole() == Role.ADMINISTRADOR;
+    }
+    
      /*######################################### ################ #########################################*/
     public User getUsuario() {
         return usuario;
