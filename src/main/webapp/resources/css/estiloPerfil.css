@@ -19,7 +19,9 @@ html {
     padding: 0; padding-left: 2%; height: 50px; color: snow; background-color: #1d3192; text-align: left; font-size: 30px;  font-style: oblique;
 }
 
-
+.ui-icon-csv {
+    background-image: url(resources/img/menu2.png);
+}
 
 .ui-tabs { 
     position: relative;
@@ -31,6 +33,18 @@ html {
 .ui-widget-content {
     background: #92c5f1b3;
     background-color: rgba(255, 255, 255, 0.48);
+}
+
+.ui-men li a{
+    background-color: #cce5ffde;
+}
+
+.ui-menu .ui-menu-parent .ui-menu-child {
+    background-color: #cce5ffde;
+}
+
+.ui-widget-content ui-icon {
+    background-image: url(resources/img/menu.png);
 }
   
 .btn-5 {

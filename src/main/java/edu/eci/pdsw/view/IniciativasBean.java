@@ -172,6 +172,8 @@ public class IniciativasBean extends BasePageBean {
     public List<Initiative> getIniciativas() {
         return iniciativas;
     }
+    
+    
 
     public void setIniciativas(List<Initiative> iniciativas) {
         this.iniciativas = iniciativas;

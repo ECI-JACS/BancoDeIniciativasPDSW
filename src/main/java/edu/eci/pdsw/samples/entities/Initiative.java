@@ -136,6 +136,11 @@ public class Initiative {
     public String getKeyWords() {
         return keyWords;
     }
+    
+    public String showKeyWords() {
+        String keyWords2 = keyWords.replace(",",", ");
+        return keyWords2;
+    }
 
     public void setKeyWords(String keyWords) {
         this.keyWords = keyWords;
