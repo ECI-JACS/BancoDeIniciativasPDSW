@@ -60,7 +60,7 @@ public class LoginBean extends BasePageBean {
         try{
             return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;         
         }catch(NullPointerException ex){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
+            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
             FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");           
         }       
         return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;        
@@ -71,10 +71,9 @@ public class LoginBean extends BasePageBean {
         try{
             return usuario.getRole() == Role.ADMINISTRADOR;          
         }catch(NullPointerException ex){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
+            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
             FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");           
-        }
-        
+        }        
         return usuario.getRole() == Role.ADMINISTRADOR;
         
     }

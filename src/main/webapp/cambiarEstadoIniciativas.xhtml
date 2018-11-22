@@ -17,19 +17,22 @@
         <title>Iniciativas</title>   
         <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
+
     <h:body style="background-image: url('resources/img/fondo7.jpg'); background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #66999;">            
         <div id="encabezado_div_menu" class="encabezado_div_menu col-md-12 col-xs-12 col-sm-12 " display="block" style="background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #66999;">      
             <img src="resources/img/bombillo.png" border="1" alt="Bombillo" width="auto" height="90%"/>
             Banco de Iniciativas         
-            <p:commandButton class="btn btnsalir" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>
+            <p:commandButton class="btn btnsalir" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>           
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
-        </div>    
-        <div class="row">
-            <div id="general" class="fondo col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 20px;">                
-                <br></br>
+        </div> 
+        <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">      
+
+            <br></br>
+            <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="position: absolute; ">
+
                 <div id="menu1" class="row">
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                    <div class="col-md-6 col-xs-6 col-sm-6 "> 
+                    <div class="col-md-6 col-xs-6 col-sm-6 ">                            
                         <p:menubar class="menu ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow" style="text-align: center; width: 55%; float: start; margin-left: 25%;" >
                             <p:menuitem value="Home" outcome="menu" icon="ui-icon-home"/>
                             <p:submenu label="Perfil" icon="ui-icon-contact">
@@ -50,10 +53,12 @@
                     </div>
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                 </div>
-                <div class="row col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 20px; width: 100%;" >
-                    <div class="fondo col-md-1 col-xs-1 col-sm-1" style="margin-bottom: 20px;"></div>
-                    <div id="general" class="fondo col-md-10 col-xs-10 col-sm-10" style="margin-bottom: 20px;">
-                        <h3 style="color: white">Busqueda de Iniciativas</h3>
+
+                <br></br>  
+                <div class="row">
+                    <div class="col-md-1 col-xs-1 col-sm-1"></div>
+                    <div class="col-md-10 col-xs-10 col-sm-10">
+                        <h3 style="color: white">Actualizar Estado de Iniciativas</h3> 
                         <h:form id="iniciativasForm">
                             <p:panel id="panelIniciativa">            
                                 <p:selectOneMenu id="estadosIniciativa_select" value="#{iniciativasBean.idEstado}" >
@@ -107,9 +112,9 @@
                             </p:panel>
                         </h:form>
                     </div>
-                    <div class="fondo col-md-2 col-xs-2 col-sm-2" style="margin-bottom: 20px;"></div>
-                </div>
-            </div>
+                    <div class="col-md-1 col-xs-1 col-sm-1"></div>
+                </div> 
+            </div> 
         </div> 
     </h:body>
 </html>
