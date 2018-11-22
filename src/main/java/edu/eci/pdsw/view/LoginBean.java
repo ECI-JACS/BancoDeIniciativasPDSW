@@ -56,16 +56,37 @@ public class LoginBean extends BasePageBean {
     
     /*######################################### Permisos para rol #########################################*/
     //Permitir modificar estado de las iniciativas 
-    public boolean permitirModificarEstadoIniciativas(){ 
-        return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;
+    public boolean permitirModificarEstadoIniciativas() throws IOException{ 
+        try{
+            return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;         
+        }catch(NullPointerException ex){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
+            FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");           
+        }       
+        return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;        
+        
     }
     
-    public boolean verIniciativasRelacionadas(){ 
+    public boolean verIniciativasRelacionadas() throws IOException{ 
+        try{
+            return usuario.getRole() == Role.ADMINISTRADOR;          
+        }catch(NullPointerException ex){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
+            FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");           
+        }
+        
         return usuario.getRole() == Role.ADMINISTRADOR;
+        
     }
     
      /*######################################### ################ #########################################*/
-    public User getUsuario() {
+    public User getUsuario() throws IOException {
+        try{
+            return usuario;            
+        }catch(NullPointerException ex){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
+            FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");           
+        }
         return usuario;
     }
 

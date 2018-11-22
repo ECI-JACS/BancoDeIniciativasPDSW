@@ -68,15 +68,14 @@
                                             </h:panelGrid>                                    
                                         </div>
                                         <div id="div_tabla" class="col-md-4 col-xs-4 col-sm-4">
-                                            <p:dataTable id="tabla_estadistivas" var="dependencia" value="#{iniciativasBean.calcularEstadisticasDependencias()}" style="font-size: 15px; margin-bottom:40px; padding: 0; margin-top: 20px; " paginatorTemplate="{CurrentPageReport} {Exporters}" paginator="true" >>
-                                                <f:facet name="{Exporters}">
-                                                    <div style="float:right">
-                                                        <h:commandLink id="excel">
-                                                            <p:graphicImage url="resources/img/excel.png" style="width: 20px; height: 20px;"/>
+                                            <p:dataTable id="tabla_estadistivas" var="dependencia" value="#{iniciativasBean.calcularEstadisticasDependencias()}" style="font-size: 15px; margin-bottom:40px; padding: 0; margin-top: 20px; " paginatorTemplate="{Exporters}" paginator="true" >>
+                                                <f:facet name="header">                                                    
+                                                    <h:commandLink id="excel">
+                                                            <p:graphicImage url="resources/img/excel.png" style="width: 25px; height: 25px;"/>
                                                             <p:dataExporter type="xls" target="tabla_estadistivas" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
                                                         </h:commandLink>
-                                                    </div>                                               
                                                 </f:facet>
+                                                
                                                 <p:column headerText="Area" >
                                                     <h:outputText value="#{dependencia.key}" />
                                                 </p:column>
