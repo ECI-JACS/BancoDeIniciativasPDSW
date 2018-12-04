@@ -125,11 +125,18 @@ public class MyBatisExample {
             //Initiative iniciativaa = serviciosBancoIniciativas.consultarIniciativa(4);
             //Comment comentario = new Comment(serviciosBancoIniciativas.consultarIdComentarios(),"Hola Willson <3 :)", new Date(2018-1900,10,2), "julian.bojaca@mail.escuelaing.edu.co", iniciativaa);
             //serviciosBancoIniciativas.insertarComentarioEnUnaIniciativa(comentario);
+            System.out.println(serviciosBancoIniciativas.consultarIniciativa(4));
+            System.out.println((serviciosBancoIniciativas.consultarIniciativasPorBusqueda("", "", null, 0, 0)).size());
+            System.out.println(serviciosBancoIniciativas.consultarIdComentarios());           
+            serviciosBancoIniciativas.actualizarIniciativa(3, "ACTUALIZANDO", "ACTUALIZANDO", "iniciativa, prueba");          
+            List<Area> areas = serviciosBancoIniciativas.consultarAreas();
+            /*for (int indice = 0; indice < areas.size(); indice++) {
             //System.out.println(serviciosBancoIniciativas.consultarIniciativa(1));
             //System.out.println((serviciosBancoIniciativas.consultarIniciativasPorBusqueda("", "", null, 0, 0)).size());
             //System.out.println(serviciosBancoIniciativas.consultarIdComentarios());
             //List<Area> areas = serviciosBancoIniciativas.consultarAreas();
-            /*for (int indice = 0; indice < areas.size(); indice++) {
+            }
+            for (int indice = 0; indice < areas.size(); indice++) {
                 System.out.println(areas.get(indice).toString());
             }*/
             System.out.println(serviciosBancoIniciativas.consultarIniciativasUsuario("carlos.medina-ri@mail.escuelaing.edu.co"));

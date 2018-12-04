@@ -110,6 +110,10 @@ html {
     border: 1px solid #3c4898d4;
 }
 
+ui-datatable-data ui-widget-content {
+    background: aqua;
+}
+
 
 label {
     display: inline-block;
@@ -157,8 +161,7 @@ label {
     margin-top: 100%;
 }
 
-.btnmenu:hover {
-    
+.btnmenu:hover {    
     background: #cce5ff;
     border: 1px solid white;  
     border-radius: 200px;
@@ -169,8 +172,37 @@ label {
     /*text-shadow: 1px 1px 2px #427388; */
      
 }
+/*TABLAS*/
+.ui-datatable .ui-datatable-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #095acf;
+    color: white;
+}
 
+.ui-datatable .ui-datatable-footer {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background: #0443a9;
+    color: white;
+    border-color: #095acf;
+}
 
+tabla.ui-state-default, .ui-widget-content .ui-state-default{
+    font-size: 15px;
+    border-color: #d0fffe;
+    background: #accef8d4; 
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th {
+    background: #e0effe82;
+    border-color: #8498d9;
+}
+
+.ui-paginator.ui-paginator-bottom {
+    background: #accef8d4;
+    border-color: #8498d9;
+}
 
 /*PERFIL*/
 #tabla_perfil .ui-datatable .ui-datatable-header {

@@ -25,8 +25,7 @@
             <p:commandButton class="btn btnsalir" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>           
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
         </div> 
-        <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">      
-
+        <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">
             <br></br>
             <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="position: absolute; ">
                 <h:form >  
@@ -61,7 +60,7 @@
                         <h3 style="color: white">Consultar Iniciativas</h3> 
 
                         <h:form id="iniciativas_clave_Form">
-                            <p:panel id="panelIniciativa"> 
+                            <p:panel id="panelIniciativa" style="margin-bottom: 40px;"> 
                                 <style type="text/css">
                                     .ui-g div {
                                         background-color: #cce5ffde;
@@ -120,10 +119,7 @@
                                 <p:messages id="messages" showDetail="true" closable="true" globalOnly="true">
                                     <p:autoUpdate />
                                 </p:messages>
-                                <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.iniciativasPorBusqueda}" style="font-size: 15px; margin-bottom: 40px; padding: 0;" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
-                                    <f:facet name="header">
-                                        Iniciativas
-                                    </f:facet>
+                                <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.iniciativasPorBusqueda}" paginatorPosition="bottom"  style="font-size: 15px; margin-bottom: 10px; margin-top: 10px; padding: 0;" rows="5" paginator="true"  paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}">
                                     <p:column headerText="Id" sortBy="#{iniciativa.id}" filterBy="#{iniciativa.id}" style="padding: 3; width: 5%; text-align: center;">
                                         <h:outputText value="#{iniciativa.id}" />
                                     </p:column>

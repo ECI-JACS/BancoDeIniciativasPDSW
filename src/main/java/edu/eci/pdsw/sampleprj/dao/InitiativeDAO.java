@@ -21,6 +21,8 @@ public interface InitiativeDAO {
     
     public void updateInitiativeStatus(int id,int iniStat) throws PersistenceException;
     
+    public void updateInitiative(int id, String descripcion, String detalle, String palabrasClave) throws PersistenceException;
+    
     public List<Initiative> loadInitiativeForSearch(String palabrasClave, String proponente, Date fechaPropuesta, int dependencia, int estado) throws PersistenceException;
 
     public int loadInitiativeId() throws PersistenceException;

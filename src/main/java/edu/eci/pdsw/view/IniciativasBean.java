@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,10 @@ import org.primefaces.component.export.ExcelOptions;
 import org.primefaces.model.chart.PieChartModel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.FillPatternType;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /**
  *
@@ -49,6 +54,7 @@ public class IniciativasBean extends BasePageBean {
     private ServiciosBancoIniciativas serviciosBancoIniciativas;
 
     private Initiative selectedIniciativa;
+    private Initiative selectedMiIniciativa;
     private String idEstado;
     private List<SelectItem> estados;
     private List<Initiative> iniciativas;
@@ -68,13 +74,15 @@ public class IniciativasBean extends BasePageBean {
     private boolean registrar;
     private List<Initiative> iniciativasRelacionadas;
     private int intentosRegistrar;
+    private String descripcionMiIniciativa;
+    private String detalleMiIniciativa;
     private Initiative selectedIniciativaRelacionada;
 
     @PostConstruct
     public void init() {
         super.init();
-        try {
-            iniciativas = serviciosBancoIniciativas.consultarIniciativas();
+        try {            
+            iniciativas = serviciosBancoIniciativas.consultarIniciativas();           
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,6 +92,7 @@ public class IniciativasBean extends BasePageBean {
 
     public void inicializarVariables() {
         this.selectedIniciativa = new Initiative();
+        this.selectedMiIniciativa = new Initiative();
         this.idEstado = "";
         this.estados = new ArrayList<>();
         this.proponente = "";
@@ -98,6 +107,8 @@ public class IniciativasBean extends BasePageBean {
         this.registrar = true;
         this.iniciativasRelacionadas = new ArrayList<>();
         this.intentosRegistrar = 0;
+        this.descripcionMiIniciativa = "";
+        this.detalleMiIniciativa = "";
         this.selectedIniciativaRelacionada = new Initiative();
     }
 
@@ -116,15 +127,8 @@ public class IniciativasBean extends BasePageBean {
         try {
             hs = LoginSession.getSession();
             User usuario = (User) hs.getAttribute("usuario");
-            int id = serviciosBancoIniciativas.consultarIdIniciativa();
-            String palabrasClaveR = "";
-            for (String palabra : listaPalabrasClave) {
-                if (palabrasClaveR.isEmpty()) {
-                    palabrasClaveR = palabra;
-                } else {
-                    palabrasClaveR = palabrasClaveR + "," + palabra;
-                }
-            }
+            int id = serviciosBancoIniciativas.consultarIdIniciativa(); 
+            String palabrasClaveR = convertirPalabrasClaveEnString();
             this.verificarIniciativasRelacionadas(palabrasClaveR);
             if (!this.iniciativasRelacionadas.isEmpty() && intentosRegistrar < 1) {
                 this.registrar = false;
@@ -144,6 +148,19 @@ public class IniciativasBean extends BasePageBean {
             System.out.println("No se ha seleccionado una iniciativa para ver sus relacionadas");
         }
     }
+    
+    public String convertirPalabrasClaveEnString(){
+        String palabrasClaveR = "";
+        for (String palabra : listaPalabrasClave) {
+            if (palabrasClaveR.isEmpty()) {
+                palabrasClaveR = palabra;
+            } else {
+                palabrasClaveR = palabrasClaveR + "," + palabra;
+            }
+        }
+        return palabrasClaveR;
+    }
+        
 
     /**
      * Este método permite verificar qué iniciativas están relacionadas, dadas
@@ -226,7 +243,7 @@ public class IniciativasBean extends BasePageBean {
 
     public List<Initiative> iniciativasUsuario() {
         List<Initiative> iniciativasUsuario = new ArrayList<>();
-        HttpSession hs;
+        HttpSession hs;        
         try {
             hs = LoginSession.getSession();
             User usuario = (User) hs.getAttribute("usuario");
@@ -375,17 +392,109 @@ public class IniciativasBean extends BasePageBean {
         }
     }
 
+    /*############################## Editar Mis Iniciativas ########################################################*/  
+    public boolean permisoParaEditarIniciativa() throws IOException{ 
+        boolean permiso=false;
+        try{
+            System.out.println("Entrooooooooooooooo");
+            permiso = selectedMiIniciativa.getIniciativeStatus().getDescription().equals("En espera de revisión");
+        }catch(NullPointerException ex){
+            return false;         
+        }       
+        return permiso;          
+    }
+    
+    public boolean mostrarBotonAgregar(String palabraI) { 
+        boolean permiso=false;
+        if(!palabraI.equals("")) permiso=true;
+        return permiso;          
+    }
+    
+    public void cargarPalabrasClaveEnTabla() {
+        listaPalabrasClave.clear();
+        List<String> palabras = new ArrayList<String>(Arrays.asList(selectedMiIniciativa.showKeyWords().split(", ")));
+        for(String a: palabras){
+            listaPalabrasClave.add(a);
+            System.out.println("PALABRAS INICIALES A : "+a);
+        }  
+        System.out.println("PALABRAS INICIALESSSSSSS: "+listaPalabrasClave);
+    }
+    
+    public void actualizarIniciativa(String descripcion, String detalle) {        
+        try {
+            System.out.println("Voy a actualizar");
+            System.out.println("id="+selectedMiIniciativa.getId()+",description="+descripcion+",detalle="+detalle);
+            serviciosBancoIniciativas.actualizarIniciativa(this.selectedMiIniciativa.getId(), descripcion, detalle, convertirPalabrasClaveEnString());
+        } catch (ExceptionServiciosBancoIniciativas ex) {
+            Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void onRowSelect(SelectEvent event) {
+        FacesMessage msg = new FacesMessage("Iniciativa Selectd", Integer.toString(((Initiative) event.getObject()).getId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }    
+    
+    public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Iniciativa Editada", Integer.toString(((Initiative) event.getObject()).getId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edición Cancelada", Integer.toString(((Initiative) event.getObject()).getId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    /*################################# GETTERS AND SETTERS ################################*/
     /*######################################################################################*/
 
  /*################################# GETTERS AND SETTERS ################################*/
     public Initiative getSelectedIniciativa() {
+        System.out.println("2################## Se guardo esta iniciativa: "+selectedMiIniciativa.getId());
         return this.selectedIniciativa;
     }
 
     public void setSelectedIniciativa(Initiative selectedIniciativa) {
-        this.selectedIniciativa = selectedIniciativa;
+        this.selectedIniciativa = selectedIniciativa;        
+    }
+    
+    public Initiative getSelectedMiIniciativa() {     
+        return this.selectedMiIniciativa;        
+    }
+    
+    public String getDescripcionMiIniciativa() {
+        return descripcionMiIniciativa;
     }
 
+    public String getDetalleMiIniciativa() {
+        return detalleMiIniciativa;
+    }
+    
+    public void setDescripcionMiIniciativa(String descripcionMiIniciativa) {
+        this.descripcionMiIniciativa=descripcionMiIniciativa;
+    }
+
+    public void setDetalleMiIniciativa(String detalleMiIniciativa) {
+        this.detalleMiIniciativa=detalleMiIniciativa;
+    }
+
+    public void setSelectedMiIniciativa(Initiative selectedMiIniciativa) {
+        System.out.println("################## Set MI INICIATIVA: "+selectedMiIniciativa.getId());
+        System.out.println("################## Set MI INICIATIVA: "+selectedMiIniciativa.getDetail());
+        this.selectedMiIniciativa = selectedMiIniciativa;   
+        this.descripcionMiIniciativa = selectedMiIniciativa.getDescription();
+        this.detalleMiIniciativa = selectedMiIniciativa.getDetail();
+    }    
+    
     public String getIdEstado() {
         return idEstado;
     }
@@ -395,7 +504,10 @@ public class IniciativasBean extends BasePageBean {
     }
 
     public void agregarPalabra(String palabraI) {
+        System.out.println("1 ################### agregar : "+listaPalabrasClave.toString());
         listaPalabrasClave.add(palabraI);
+        System.out.println("2 ################### agregar palabra: "+palabraI);
+        System.out.println("3 ################### agregar Lista: "+listaPalabrasClave.toString());
     }
 
     public void agregarPalabraConsulta(String palabraI) {
@@ -403,7 +515,10 @@ public class IniciativasBean extends BasePageBean {
     }
 
     public void eliminarPalabras() {
+        System.out.println("1 ################### eliminar: "+listaPalabrasClave.toString());
         listaPalabrasClave.remove(listaPalabrasClave.indexOf(selectedPalabra));
+        System.out.println("2 ################### eliminar Palabra: "+selectedPalabra);
+        System.out.println("3 ################### eliminar Lista: "+listaPalabrasClave.toString());
     }
 
     public void eliminarPalabrasConsulta() {

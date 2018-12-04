@@ -23,6 +23,8 @@ public interface InitiativeMapper {
     
     public void updateInitiativeStatus(@Param("id")int id, @Param("iniStat") int iniStat);
     
+    public void updateInitiative(@Param("id")int id, @Param("descripcion") String descripcion, @Param("detalle") String detalle,  @Param("palabrasClave") String palabrasClave);
+    
     public InitiativeStatus consultarEstadoIniciativas(@Param("id") int id);
 
     public List<Initiative> consultarIniciativasPorBusqueda(@Param("palabrasClave") String palabrasClave, @Param("proponente") String proponente, @Param("fechaPropuesta") Date fechaPropuesta, @Param("dependencia") int dependencia, @Param("estado") int estado);
@@ -35,5 +37,5 @@ public interface InitiativeMapper {
     
     public List<Initiative> consultarIniciativasUsuario(@Param("email") String email);
     
-    public int consultarIdComentarios();
+    public int consultarIdComentarios();    
 }

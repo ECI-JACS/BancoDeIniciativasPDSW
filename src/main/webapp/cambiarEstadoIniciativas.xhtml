@@ -60,17 +60,14 @@
                     <div class="col-md-10 col-xs-10 col-sm-10">
                         <h3 style="color: white">Actualizar Estado de Iniciativas</h3> 
                         <h:form id="iniciativasForm">
-                            <p:panel id="panelIniciativa">            
+                            <p:panel id="panelIniciativa" style="margin-bottom: 40px;">            
                                 <p:selectOneMenu id="estadosIniciativa_select" value="#{iniciativasBean.idEstado}" >
                                     <f:selectItem itemLabel="---- Seleccionar Estado ----" itemValue=""/>
                                     <f:selectItems value="#{iniciativasBean.estados}"/>
                                 </p:selectOneMenu>
                                 <br/>
                                 <br/>
-                                <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.obtenerIniciativasDeServicios()}" selection="#{iniciativasBean.selectedIniciativa}" rowKey="#{iniciativa.id}" style="font-size: 17px;" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">                			
-                                    <f:facet name="header">
-                                        Listado de Iniciativas
-                                    </f:facet>
+                                <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.obtenerIniciativasDeServicios()}" selection="#{iniciativasBean.selectedIniciativa}" rowKey="#{iniciativa.id}" style="font-size: 17px;" rows="5" paginator="true" paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink} {Exporters}">
                                     <p:column selectionMode="single" style="width: 3%; text-align:center"/>
                                     <p:column headerText="Id" style="width: 3%;">
                                         <h:outputText value="#{iniciativa.id}" />
