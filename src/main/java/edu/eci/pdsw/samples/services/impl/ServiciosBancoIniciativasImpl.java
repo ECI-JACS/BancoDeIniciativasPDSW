@@ -7,12 +7,13 @@ import edu.eci.pdsw.sampleprj.dao.AreaDAO;
 import edu.eci.pdsw.sampleprj.dao.InitiativeDAO;
 import edu.eci.pdsw.sampleprj.dao.UserDAO;
 import edu.eci.pdsw.sampleprj.dao.CommentDAO;
+import edu.eci.pdsw.sampleprj.dao.VoteDAO;
 import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Comment;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
-import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
+import edu.eci.pdsw.samples.entities.Vote;
 import edu.eci.pdsw.samples.services.ExceptionServiciosBancoIniciativas;
 import edu.eci.pdsw.samples.services.ServiciosBancoIniciativas;
 import java.sql.Date;
@@ -36,9 +37,12 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
 
     @Inject
     private AreaDAO areaDAO;
-    
+
     @Inject
     private CommentDAO commentDAO;
+    
+    @Inject
+    private VoteDAO voteDAO;
 
     @Override
     public void registrarUsuario(User user) throws ExceptionServiciosBancoIniciativas {
@@ -57,7 +61,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public List<User> consultarUsuariosPorBusqueda(String nombres, String apellidos, String email, int carnet, int idArea, String role) throws ExceptionServiciosBancoIniciativas {
         try {
@@ -66,7 +70,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public void actualizarRolUsuario(String email, String role) throws ExceptionServiciosBancoIniciativas {
         try {
@@ -75,7 +79,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public int consultarIdIniciativa() throws ExceptionServiciosBancoIniciativas {
         try {
@@ -102,7 +106,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public List<Initiative> consultarIniciativas() throws ExceptionServiciosBancoIniciativas {
         try {
@@ -111,7 +115,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public List<Initiative> consultarIniciativasUsuario(String email) throws ExceptionServiciosBancoIniciativas {
         try {
@@ -119,7 +123,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
-    }    
+    }
 
     @Override
     public Area consultarArea(int id) throws ExceptionServiciosBancoIniciativas {
@@ -165,7 +169,7 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
     }
-    
+
     @Override
     public List<InitiativeStatus> consultarEstadosIniciativas() throws ExceptionServiciosBancoIniciativas {
         try {
@@ -193,28 +197,55 @@ public class ServiciosBancoIniciativasImpl implements ServiciosBancoIniciativas 
         }
     }
 
-	@Override
-	public void deleteUser(String email) throws ExceptionServiciosBancoIniciativas {
-		try {
-			userDAO.deleteUser(email);
-		}catch (PersistenceException ex) {
-			throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
-		}
-	}
-
-	@Override
-	public void insertarComentarioEnUnaIniciativa(Comment com) throws ExceptionServiciosBancoIniciativas {
-		try {
-			commentDAO.insertComment(com);
+    @Override
+    public void deleteUser(String email) throws ExceptionServiciosBancoIniciativas {
+        try {
+            userDAO.deleteUser(email);
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }
-	}
-	
-	@Override
+    }
+
+    @Override
+    public void insertarComentarioEnUnaIniciativa(Comment com) throws ExceptionServiciosBancoIniciativas {
+        try {
+            commentDAO.insertComment(com);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
     public int consultarIdComentarios() throws ExceptionServiciosBancoIniciativas {
         try {
             return initiativeDAO.loadCommentId();
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public void votar(Vote voto) throws ExceptionServiciosBancoIniciativas {
+        try {
+            voteDAO.saveVote(voto);
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public int consultarIdVotos() throws ExceptionServiciosBancoIniciativas {
+        try {
+            return voteDAO.loadVoteId();
+        } catch (PersistenceException ex) {
+            throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public void quitarVoto(String userEmail, int iniciativaId) throws ExceptionServiciosBancoIniciativas {
+        try {
+            voteDAO.deleteVote(userEmail, iniciativaId);
         } catch (PersistenceException ex) {
             throw new ExceptionServiciosBancoIniciativas(ex.getMessage(), ex);
         }

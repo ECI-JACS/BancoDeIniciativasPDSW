@@ -5,7 +5,9 @@
 <configuration>
     
     <!--<settings>
-        <setting name="logImpl" value="LOG4J"/>        
+        <settings>
+            <setting name="logImpl" value="LOG4J"/>        
+        </settings>
     </settings>-->
     
     <properties resource="test.properties">

@@ -7,10 +7,12 @@ import edu.eci.pdsw.sampleprj.dao.AreaDAO;
 import edu.eci.pdsw.sampleprj.dao.CommentDAO;
 import edu.eci.pdsw.sampleprj.dao.InitiativeDAO;
 import edu.eci.pdsw.sampleprj.dao.UserDAO;
+import edu.eci.pdsw.sampleprj.dao.VoteDAO;
 import edu.eci.pdsw.sampleprj.dao.mybatis.MyBATISUserDAO;
 import edu.eci.pdsw.sampleprj.dao.mybatis.MyBATISAreaDAO;
 import edu.eci.pdsw.sampleprj.dao.mybatis.MyBATISCommentDAO;
 import edu.eci.pdsw.sampleprj.dao.mybatis.MyBATISInitiativeDAO;
+import edu.eci.pdsw.sampleprj.dao.mybatis.MyBATISVoteDAO;
 import edu.eci.pdsw.samples.services.impl.ServiciosBancoIniciativasImpl;
 
 import java.util.Optional;
@@ -37,6 +39,7 @@ public class ServiciosBancoIniciativasFactory {
                 bind(InitiativeDAO.class).to(MyBATISInitiativeDAO.class);
                 bind(AreaDAO.class).to(MyBATISAreaDAO.class);
                 bind(CommentDAO.class).to(MyBATISCommentDAO.class);
+                bind(VoteDAO.class).to(MyBATISVoteDAO.class);
             }
         });
     }

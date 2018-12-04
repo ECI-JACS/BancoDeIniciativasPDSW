@@ -105,7 +105,7 @@
                                         <h:outputText value="#{iniciativa.modificationDate}" />
                                     </p:column>
                                     <p:column headerText="Proponente" style="width: 8%; padding: 0; text-align: center;">                        
-                                        <p:commandButton styleClass="button_table_size" icon="ui-icon-circle-zoomout" onclick="PF('proponenteDialog').show();" update="datosProponente">
+                                        <p:commandButton styleClass="button_table_size" icon="ui-icon-circle-zoomout" onclick="PF('proponenteDialog').show();" update="datosProponente" title="Ver Proponente">
                                             <f:setPropertyActionListener value="#{iniciativa.user}" target="#{iniciativasBean.usuarioProponente}"/>
                                         </p:commandButton>
                                     </p:column>
@@ -115,9 +115,9 @@
                                     <p:column headerText="Palabras Clave">
                                         <h:outputText value="#{iniciativa.showKeyWords()}" />
                                     </p:column>
-                                    <p:column style="width: 5%; text-align: center">
-                                        <p:commandButton onclick="PF('iniRelDialog').show();" icon="pi pi-search" title="View">
-                                            <p:ajax update="iniRelacionadas" listener="#{iniciativasBean.verificarIniciativasRelacionadas(iniciativa.keyWords)}" />
+                                    <p:column headerText="Ver Relacionadas" style="width: 5%; text-align: center">
+                                        <p:commandButton onclick="PF('iniRelDialog').show();" action="#{iniciativasBean.verificarIniciativasRelacionadas(iniciativa.keyWords)}" icon="pi pi-search" update="iniRelacionadas">
+                                            <f:setPropertyActionListener value="#{iniciativa}" target="#{iniciativasBean.selectedIniciativaRelacionada}" />
                                         </p:commandButton>
                                     </p:column>
                                 </p:dataTable>
@@ -137,7 +137,7 @@
                                 </p:outputPanel>
                             </p:dialog>
                             <p:dialog header="Iniciativas Relacionadas" widgetVar="iniRelDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true">
-                                <p:dataTable id="iniRelacionadas" var="iniciativa" value="#{iniciativasBean.iniciativasRelacionadas}" rendered="#{not empty iniciativasBean.iniciativasRelacionadas}">
+                                <p:dataTable id="iniRelacionadas" var="iniciativa" value="#{iniciativasBean.iniciativasRelacionadas}" emptyMessage="No hay iniciativas relacionadas.">
                                     <p:column headerText="Id">
                                         <h:outputText value="#{iniciativa.id}"/>
                                     </p:column>

@@ -117,6 +117,9 @@
                                     </div>                                                                  
                                 </div>
                                 <br/>
+                                <p:messages id="messages" showDetail="true" closable="true" globalOnly="true">
+                                    <p:autoUpdate />
+                                </p:messages>
                                 <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.iniciativasPorBusqueda}" style="font-size: 15px; margin-bottom: 40px; padding: 0;" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
                                     <f:facet name="header">
                                         Iniciativas
@@ -137,7 +140,7 @@
                                         <h:outputText value="#{iniciativa.modificationDate}" />
                                     </p:column>
                                     <p:column headerText="Proponente" sortBy="#{iniciativa.user.names}" filterBy="#{iniciativa.user.names}" style="padding: 3; width: 10%; text-align: center;">                        
-                                        <p:commandButton styleClass="button_table_size" icon="ui-icon-circle-zoomout" onclick="PF('proponenteDialog').show();" update="datosProponente">
+                                        <p:commandButton styleClass="button_table_size" icon="ui-icon-circle-zoomout" onclick="PF('proponenteDialog').show();" update="datosProponente" title="Ver Proponente">
                                             <f:setPropertyActionListener value="#{iniciativa.user}" target="#{iniciativasBean.usuarioProponente}"/>
                                         </p:commandButton>
                                     </p:column>
@@ -148,8 +151,23 @@
                                         <h:outputText value="#{iniciativa.showKeyWords()}" />
                                     </p:column>
                                     <p:column headerText="Comentarios" style="text-align: center;">                                      
-                                        <p:commandButton icon="ui-icon-circle-zoomout" actionListener="#{commentBean.commentIniciativa}" async="true" ajax="true" action="comments.xhtml">
-                                            <f:attribute name="parameter" value="#{iniciativa.id}"/>
+                                        <p:commandButton action="#{commentBean.verComentarios}" icon="ui-icon-comment" title="Ver Comentarios">
+                                            <f:setPropertyActionListener value="#{iniciativa}" target="#{commentBean.iniciativa}"/>
+                                        </p:commandButton>
+                                        <p:commandButton onclick="PF('agrComentDialog').show();" icon="ui-icon-plus" title="Agregar Comentario">
+                                            <f:setPropertyActionListener value="#{iniciativa}" target="#{commentBean.iniciativa}"/>
+                                        </p:commandButton>
+                                    </p:column>
+                                    <p:column headerText="Votos" style="text-align: center;">
+                                        <p:commandButton action="#{voteBean.like()}" icon="ui-icon-heart" title="Me gusta" update="votos">
+                                            <f:setPropertyActionListener value="#{iniciativa}" target="#{voteBean.iniciativa}"/>
+                                        </p:commandButton>
+                                        <br/>
+                                        <h:outputText id="votos" value="#{iniciativa.votes.size()} votos"></h:outputText>
+                                        <br/>
+                                        <p:commandButton action="#{voteBean.dislike()}" icon="ui-icon-cancel" title="No me gusta" update="votos">
+                                            <f:setPropertyActionListener value="#{iniciativa}" target="#{voteBean.iniciativa}"/>
+                                            <p:ajax event="click" update="votos"></p:ajax>
                                         </p:commandButton>
                                     </p:column>
                                 </p:dataTable>
@@ -169,11 +187,21 @@
                                 </h:panelGrid>
                             </p:outputPanel>
                         </p:dialog>
+                        <h:form>
+                            <p:dialog header="Agregar Comentario" widgetVar="agrComentDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true">
+                                <p:outputPanel id="datosAgregarComent">
+                                    <h:panelGrid columns="2" >
+                                        <h:outputLabel for="comentarioUsuario" value="Comentario:" style="font-weight: bold"/>
+                                        <p:inputText id="comentarioUsuario" binding="#{comentario}" required="true"/>
+                                        <p:commandButton value="Agregar" action="#{commentBean.registrarComentario(comentario.value)}" onclick="PF('agrComentDialog').hide();"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </p:dialog>
+                        </h:form>
                     </div>
                     <div class="col-md-1 col-xs-1 col-sm-1"></div>
                 </div> 
-            </div> 
-
+            </div>
         </div> 
     </h:body>
 </html>

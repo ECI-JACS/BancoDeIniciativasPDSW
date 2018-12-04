@@ -12,6 +12,8 @@ public class Vote {
     private int id;
     private Date voteDate;
     private int affinity;
+    private String userEmail;
+    private int iniciativaId;
     
     /**
      * Constructor vacío de Vote
@@ -24,11 +26,15 @@ public class Vote {
      * @param id
      * @param voteDate
      * @param affinity 
+     * @param userEmail 
+     * @param iniciativaId 
      */
-    public Vote(int id, Date voteDate, int affinity) {
+    public Vote(int id, Date voteDate, int affinity, String userEmail, int iniciativaId) {
         this.id = id;
         this.voteDate = voteDate;
         this.affinity = affinity;
+        this.userEmail = userEmail;
+        this.iniciativaId = iniciativaId;
     }
     
     public int getId() {
@@ -54,9 +60,25 @@ public class Vote {
     public void setAffinity(int affinity) {
         this.affinity = affinity;
     }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public int getIniciativaId() {
+        return iniciativaId;
+    }
+
+    public void setIniciativaId(int iniciativaId) {
+        this.iniciativaId = iniciativaId;
+    }
     
     @Override
     public String toString() {
-        return "Affinity{" + "id=" + id + ", voteDate=" + voteDate + ", affinity=" + affinity + '}';
+        return "Affinity{" + "id=" + id + ", voteDate=" + voteDate + ", affinity=" + affinity + ", userEmail=" + userEmail + ", iniciativaId=" + iniciativaId + "}";
     }
 }

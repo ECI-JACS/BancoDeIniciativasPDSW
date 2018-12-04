@@ -3,8 +3,9 @@ package edu.eci.pdsw.samples.entities;
 import java.sql.Date;
 
 /**
- * Esta clase representa los comentarios que los usuarios pueden dejar a una 
- * o varias iniciativas.
+ * Esta clase representa los comentarios que los usuarios pueden dejar a una o
+ * varias iniciativas.
+ *
  * @author ECI-JACS
  */
 public class Comment {
@@ -14,7 +15,6 @@ public class Comment {
     private Date commentDate;
     private String userEmail;
     private Initiative initiative;
-    
 
     public Comment() {
     }
@@ -50,26 +50,26 @@ public class Comment {
     public void setCommentDate(Date commentDate) {
         this.commentDate = commentDate;
     }
-    
+
     public String getUserEmail() {
-    	return userEmail;
+        return userEmail;
     }
-    
+
     public void setUserEmail(String userEmail) {
-    	this.userEmail = userEmail;
+        this.userEmail = userEmail;
     }
-    
+
     public Initiative getInitiative() {
-    	return initiative;
+        return initiative;
     }
-    
+
     public void setInitiative(Initiative initiative) {
-    	this.initiative = initiative;
+        this.initiative = initiative;
     }
 
     @Override
     public String toString() {
-        return "Interest{" + "id=" + id + ", description=" + description + ", commentDate=" + commentDate + ",usuario"+ userEmail +"}\n";
+        return "Interest{" + "id=" + id + ", description=" + description + ", commentDate=" + commentDate + ", usuario=" + userEmail + "}";
     }
 
 }

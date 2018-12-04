@@ -68,6 +68,7 @@ public class IniciativasBean extends BasePageBean {
     private boolean registrar;
     private List<Initiative> iniciativasRelacionadas;
     private int intentosRegistrar;
+    private Initiative selectedIniciativaRelacionada;
 
     @PostConstruct
     public void init() {
@@ -97,6 +98,7 @@ public class IniciativasBean extends BasePageBean {
         this.registrar = true;
         this.iniciativasRelacionadas = new ArrayList<>();
         this.intentosRegistrar = 0;
+        this.selectedIniciativaRelacionada = new Initiative();
     }
 
     public int getIniciativaId() {
@@ -138,14 +140,18 @@ public class IniciativasBean extends BasePageBean {
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Verifique", "--Iniciativa no creada--"));
             }
+        } catch (NullPointerException ex) {
+            System.out.println("No se ha seleccionado una iniciativa para ver sus relacionadas");
         }
     }
 
     /**
-     * Este método permite verificar qué iniciativas están relacionadas, dadas unas palabras clave. Si el porcentaje de 
-     * similitud es mayor o igual a 60%, entonces se puede considerar una iniciativa relacionada.
+     * Este método permite verificar qué iniciativas están relacionadas, dadas
+     * unas palabras clave. Si el porcentaje de similitud es mayor o igual a
+     * 60%, entonces se puede considerar una iniciativa relacionada.
+     *
      * @param palabrasClave
-     * @throws ExceptionServiciosBancoIniciativas 
+     * @throws ExceptionServiciosBancoIniciativas
      */
     public void verificarIniciativasRelacionadas(String palabrasClave) throws ExceptionServiciosBancoIniciativas {
         List<Initiative> iniciativasPosiblementeRelacionadas = serviciosBancoIniciativas.consultarIniciativasPorBusqueda(palabrasClave, "", null, 0, 0);
@@ -155,17 +161,20 @@ public class IniciativasBean extends BasePageBean {
         double porcentajeSimilitud = 0;
         int palabrasIguales = 0;
         for (Initiative i : iniciativasPosiblementeRelacionadas) {
-            palabrasClaveIniciativa = i.getKeyWords().split(",");
-            for (String p1 : palabrasClaveVerificar) {
-                for (String p2 : palabrasClaveIniciativa) {
-                    if (p1.equals(p2)) {
-                        palabrasIguales++;
+            if (i.getId() != selectedIniciativaRelacionada.getId()) {
+                palabrasClaveIniciativa = i.getKeyWords().split(",");
+                for (String p1 : palabrasClaveVerificar) {
+                    for (String p2 : palabrasClaveIniciativa) {
+                        if (p1.equals(p2)) {
+                            palabrasIguales++;
+                            break;
+                        }
                     }
                 }
-            }
-            porcentajeSimilitud = palabrasIguales * 100 / palabrasClaveIniciativa.length;
-            if (porcentajeSimilitud >= 60) {
-                iniciativasRelacionadasPre.add(i);
+                porcentajeSimilitud = palabrasIguales * 100 / palabrasClaveIniciativa.length;
+                if (porcentajeSimilitud >= 60) {
+                    iniciativasRelacionadasPre.add(i);
+                }
             }
         }
         this.iniciativasRelacionadas = iniciativasRelacionadasPre;
@@ -214,7 +223,7 @@ public class IniciativasBean extends BasePageBean {
         }
         return iniciativas;
     }
-    
+
     public List<Initiative> iniciativasUsuario() {
         List<Initiative> iniciativasUsuario = new ArrayList<>();
         HttpSession hs;
@@ -231,8 +240,6 @@ public class IniciativasBean extends BasePageBean {
     public List<Initiative> getIniciativas() {
         return iniciativas;
     }
-    
-    
 
     public void setIniciativas(List<Initiative> iniciativas) {
         this.iniciativas = iniciativas;
@@ -346,7 +353,6 @@ public class IniciativasBean extends BasePageBean {
 
         return Double.toString(porcentaje);
     }*/
-
     /**
      * Metodo para exportar reporte en excel
      *
@@ -371,7 +377,7 @@ public class IniciativasBean extends BasePageBean {
 
     /*######################################################################################*/
 
-    /*################################# GETTERS AND SETTERS ################################*/
+ /*################################# GETTERS AND SETTERS ################################*/
     public Initiative getSelectedIniciativa() {
         return this.selectedIniciativa;
     }
@@ -488,5 +494,13 @@ public class IniciativasBean extends BasePageBean {
     public void setIniciativasRelacionadas(List<Initiative> iniciativasRelacionadas) {
         this.iniciativasRelacionadas = iniciativasRelacionadas;
     }
-    
+
+    public Initiative getSelectedIniciativaRelacionada() {
+        return selectedIniciativaRelacionada;
+    }
+
+    public void setSelectedIniciativaRelacionada(Initiative selectedIniciativaRelacionada) {
+        this.selectedIniciativaRelacionada = selectedIniciativaRelacionada;
+    }
+
 }

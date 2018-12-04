@@ -56,37 +56,59 @@ public class LoginBean extends BasePageBean {
     
     /*######################################### Permisos para rol #########################################*/
     //Permitir modificar estado de las iniciativas 
-    public boolean permitirModificarEstadoIniciativas() throws IOException{ 
+    public boolean permitirModificarEstadoIniciativas() throws IOException {
+        boolean ver = false;
+        if (usuario == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");
+        }
+        else {
+            ver = usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;         
+        }
+        return ver;
+        /*
         try{
-            return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;         
+            ver = usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;         
         }catch(NullPointerException ex){
             //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
             FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");           
         }       
-        return usuario.getRole() == Role.ADMINISTRADOR || usuario.getRole() == Role.PMO;        
-        
+        return ver;*/
     }
     
     public boolean verIniciativasRelacionadas() throws IOException{ 
+        boolean ver = false;
+        if (usuario == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");
+        }
+        else {
+            ver = usuario.getRole() == Role.ADMINISTRADOR;          
+        }
+        return ver;
+        /*
         try{
-            return usuario.getRole() == Role.ADMINISTRADOR;          
+            ver = usuario.getRole() == Role.ADMINISTRADOR;          
         }catch(NullPointerException ex){
             //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
             FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");           
-        }        
-        return usuario.getRole() == Role.ADMINISTRADOR;
-        
+        }
+        return ver;*/
     }
     
      /*######################################### ################ #########################################*/
     public User getUsuario() throws IOException {
+        if (usuario == null){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
+            FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");
+        }
+        return usuario;
+        /*
         try{
             return usuario;            
         }catch(NullPointerException ex){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
             FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");           
         }
-        return usuario;
+        return usuario;*/
     }
 
     public void setUsuario(User usuario) {

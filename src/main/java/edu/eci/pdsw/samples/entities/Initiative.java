@@ -164,6 +164,6 @@ public class Initiative {
     
     @Override
     public String toString() {
-        return "Iniciative{" + "id=" + id + ", description=" + description + ", detail=" + detail + ", creationDate=" + creationDate + ", modificationDate=" + modificationDate + ", user=" + user + ", initiativeStatus=" + initiativeStatus + ", keyWords=" + keyWords  + ", votes=" + votes + ",\n comments=" + comments + '}';
+        return "Iniciative{" + "id=" + id + ", description=" + description + ", detail=" + detail + ", creationDate=" + creationDate + ", modificationDate=" + modificationDate + ", user=" + user + ", initiativeStatus=" + initiativeStatus + ", keyWords=" + keyWords  + ", votes=" + votes + ", comments=" + comments + '}';
     }
 }

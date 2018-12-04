@@ -5,8 +5,8 @@ import edu.eci.pdsw.samples.entities.Area;
 import edu.eci.pdsw.samples.entities.Comment;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
-import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
+import edu.eci.pdsw.samples.entities.Vote;
 import java.sql.Date;
 
 /**
@@ -82,6 +82,7 @@ public interface ServiciosBancoIniciativas {
     
     /**
      * Permite consultar todas las iniciativas existentes de un usuario
+     * @param email
      * @return
      * @throws ExceptionServiciosBancoIniciativas 
      */
@@ -171,4 +172,26 @@ public interface ServiciosBancoIniciativas {
      * @throws ExceptionServiciosBancoIniciativas 
      */
     public int consultarIdComentarios() throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Permite crear un voto de un usuario para una iniciativa.
+     * @param voto
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public void votar(Vote voto) throws ExceptionServiciosBancoIniciativas;
+    
+    /**
+     * Permite consultar el siguiente Id que tendrá un voto.
+     * @return
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public int consultarIdVotos() throws ExceptionServiciosBancoIniciativas;
+
+    /**
+     * Permite quitar un voto de un usuario para una iniciativa.
+     * @param email
+     * @param id
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public void quitarVoto(String email, int id) throws ExceptionServiciosBancoIniciativas;
 }

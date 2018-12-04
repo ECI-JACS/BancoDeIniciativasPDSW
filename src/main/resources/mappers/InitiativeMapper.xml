@@ -53,7 +53,9 @@
             c.user_email as cUserEmail,
             v.id as voteid,
             v.votedate as votedate,
-            v.affinity as voteaffinity
+            v.affinity as voteaffinity,
+            v.user_email as vUserEmail,
+            v.initiative_id as vIniciativaId
         FROM Initiative AS i
             LEFT JOIN "User" AS u ON (i.user_email = u.email)
             LEFT JOIN Area AS a ON (u.area_id = a.id)
@@ -84,9 +86,12 @@
             c.id as commentid,
             c.description as commentdescription,
             c.commentdate as commentdate,
+            c.user_email as cUserEmail,
             v.id as voteid,
             v.votedate as votedate,
-            v.affinity as voteaffinity
+            v.affinity as voteaffinity,
+            v.user_email as vUserEmail,
+            v.initiative_id as vIniciativaId
         FROM Initiative AS i
             LEFT JOIN "User" AS u ON (i.user_email = u.email)
             LEFT JOIN Area AS a ON (u.area_id = a.id)
@@ -116,9 +121,12 @@
             c.id as commentid,
             c.description as commentdescription,
             c.commentdate as commentdate,
+            c.user_email as cUserEmail,
             v.id as voteid,
             v.votedate as votedate,
-            v.affinity as voteaffinity
+            v.affinity as voteaffinity,
+            v.user_email as vUserEmail,
+            v.initiative_id as vIniciativaId
         FROM Initiative AS i
             LEFT JOIN "User" AS u ON (i.user_email = u.email)
             LEFT JOIN Area AS a ON (u.area_id = a.id)
@@ -180,9 +188,12 @@
             c.id as commentid,
             c.description as commentdescription,
             c.commentdate as commentdate,
+            c.user_email as cUserEmail,
             v.id as voteid,
             v.votedate as votedate,
-            v.affinity as voteaffinity
+            v.affinity as voteaffinity,
+            v.user_email as vUserEmail,
+            v.initiative_id as vIniciativaId
         FROM Initiative AS i
             LEFT JOIN "User" AS u ON (i.user_email = u.email)
             LEFT JOIN Area AS a ON (u.area_id = a.id)

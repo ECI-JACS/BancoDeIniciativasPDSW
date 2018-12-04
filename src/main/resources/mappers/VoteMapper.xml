@@ -9,6 +9,23 @@
         <id property='id' column='voteid'/>        
         <result property='voteDate' column='votedate'/>
         <result property='affinity' column='voteaffinity'/>
+        <result property='userEmail' column='vUserEmail'/>
+        <result property='iniciativaId' column='vIniciativaId'/>
     </resultMap>
+    
+    <resultMap type='java.lang.Integer' id='VoteIdResult'>     
+    </resultMap>
+    
+    <insert id='votar' parameterType='map'>
+        INSERT INTO Vote VALUES (#{voto.id}, #{voto.userEmail}, #{voto.voteDate}, #{voto.affinity}, #{voto.iniciativaId});
+    </insert>
+    
+    <select id='consultarIdVoto' parameterType='map' resultMap="VoteIdResult">
+        SELECT MAX(id)+1 AS id FROM Vote;
+    </select>
+    
+    <delete id='quitarVoto' parameterType='map'>
+        DELETE FROM Vote WHERE user_email = #{userEmail} AND initiative_id = #{idIniciativa};
+    </delete>
 
 </mapper>

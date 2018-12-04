@@ -14,10 +14,10 @@
         <link rel="stylesheet" media="screen" href="resources/css/estiloBasico.css"/>
         <meta charset="UTF-8" />
         <link rel="icon" type="image/png" href="resources/img/bombillo_icono.png"/>
-        <title>Commentarios</title>   
+        <title>Comentarios</title>   
         <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
     </h:head>
-    
+
     <h:body style="background-image: url('resources/img/fondo7.jpg'); background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #66999;">            
         <div id="encabezado_div_menu" class="encabezado_div_menu col-md-12 col-xs-12 col-sm-12 " display="block" style="background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-color: #66999;">      
             <img src="resources/img/bombillo.png" border="1" alt="Bombillo" width="auto" height="90%"/>
@@ -56,15 +56,46 @@
                     <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 10px;">
                         <div class="row">
                             <div class="col-md-4 col-xs-4 col-sm-4 "></div>
-                            <div class="col-md-4 col-xs-4 col-sm-4 "> 
-                                <p:dataTable id="comment_table" var="comment" value="#{commentBean.commentsIniciativa}">
-                                    <p:column headerText="ID">
-                                        <h:outputText value="#{comment.id}" />
-                                    </p:column>
-                                    <p:column headerText="content">
-                                        <h:outputText value="#{comment.description}" />
-                                    </p:column>
-                                </p:dataTable>
+                            <div class="col-md-4 col-xs-4 col-sm-4 ">
+                                <p:panelGrid columns="2">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Resumen Iniciativa" />
+                                    </f:facet>
+                                    <h:outputText value="Descripción:" />
+                                    <h:outputText value="#{commentBean.iniciativa.description}" />
+                                    <h:outputText value="Detalle:" />
+                                    <h:outputText value="#{commentBean.iniciativa.detail}" />
+                                    <h:outputText value="Proponente:" />
+                                    <h:outputText value="#{commentBean.iniciativa.user.names} #{commentBean.iniciativa.user.lastNames}" />
+                                    <h:outputText value="Estado:" />
+                                    <h:outputText value="#{commentBean.iniciativa.iniciativeStatus.description}" />
+                                    <h:outputText value="Palabras Clave:" />
+                                    <h:outputText value="#{commentBean.iniciativa.showKeyWords()}" />
+                                </p:panelGrid>
+                                <br/>
+                                <p:carousel value="#{commentBean.comentarios}" headerText="Comentarios" var="comentarios" numVisible="1" style="width:950px" circular="true" >
+                                    <p:outputLabel value="#{commentBean.establecerUsuarioComentario(comentarios.userEmail)}" style="visibility: hidden;" />
+                                    <h:panelGrid columns="3" style="width:100%">
+                                        <h:panelGrid>
+                                            <p:graphicImage value="resources/img/sinImagen.png" />
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <h:outputText value="Nombre:" />
+                                            <h:outputText value="#{commentBean.usuarioComentario.names} #{commentBean.usuarioComentario.lastNames}" />
+                                            <h:outputText value="Correo:" />
+                                            <h:outputText value="#{commentBean.usuarioComentario.email}" />
+                                            <h:outputText value="Rol:" />
+                                            <h:outputText value="#{commentBean.usuarioComentario.role}" />
+                                            <h:outputText value="Dependencia:" />
+                                            <h:outputText value="#{commentBean.usuarioComentario.area.name}" />
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <h:outputText value="Comentario:" />
+                                            <h:outputText value="#{comentarios.description}" />
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <p:outputLabel value="" style="visibility: hidden;" />
+                                </p:carousel>
                             </div>
                             <div class="col-md-4 col-xs-4 col-sm-4"></div> 
                         </div> 

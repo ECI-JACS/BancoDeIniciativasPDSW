@@ -67,7 +67,7 @@
                                 </p:selectOneMenu>
                                 <br/>
                                 <br/>
-                                <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.iniciativas}" selection="#{iniciativasBean.selectedIniciativa}" rowKey="#{iniciativa.id}" style="font-size: 17px;" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">                			
+                                <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.obtenerIniciativasDeServicios()}" selection="#{iniciativasBean.selectedIniciativa}" rowKey="#{iniciativa.id}" style="font-size: 17px;" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">                			
                                     <f:facet name="header">
                                         Listado de Iniciativas
                                     </f:facet>
