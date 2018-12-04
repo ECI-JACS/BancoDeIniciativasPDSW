@@ -153,11 +153,15 @@
         VALUES(#{iniSta.id}, #{iniSta.description});
     </insert>
     
-    <update id='updateInitiativeStatus' parameterType = 'map'>
+    <update id='updateInitiativeStatus' parameterType='map'>
         UPDATE Initiative
         SET initiativestatus_id = #{iniStat}, modificationdate = current_date
         WHERE id = #{id};        
-    </update>    
+    </update>  
+    
+    <update id='updateInitiative' parameterType='map'>
+        update initiative set description = #{descripcion}, detail = #{detalle}, keywords = string_to_array(#{palabrasClave},',') where id = #{id};        
+    </update>  
     
     <select id='consultarIniciativasPorBusqueda' parameterType='map' resultMap='InitiativeResult'>
         SELECT

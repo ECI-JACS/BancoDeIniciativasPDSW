@@ -127,6 +127,10 @@ public class MyBatisExample {
             System.out.println(serviciosBancoIniciativas.consultarIniciativa(4));
             System.out.println((serviciosBancoIniciativas.consultarIniciativasPorBusqueda("", "", null, 0, 0)).size());
             System.out.println(serviciosBancoIniciativas.consultarIdComentarios());
+            
+            serviciosBancoIniciativas.actualizarIniciativa(3, "ACTUALIZANDO", "ACTUALIZANDO", "iniciativa, prueba");
+            
+            
             List<Area> areas = serviciosBancoIniciativas.consultarAreas();
             for (int indice = 0; indice < areas.size(); indice++) {
                 System.out.println(areas.get(indice).toString());

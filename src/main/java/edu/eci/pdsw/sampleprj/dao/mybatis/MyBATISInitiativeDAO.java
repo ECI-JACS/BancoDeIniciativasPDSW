@@ -8,6 +8,7 @@ import edu.eci.pdsw.samples.entities.Comment;
 import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 import java.sql.Date;
+import java.time.LocalDate;
 
 import java.util.List;
 
@@ -62,6 +63,8 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
             throw new PersistenceException("Error al modifciar el estado de la iniciativa " + id, e);
         }
     }
+    
+  
 
     @Override
     public List<Initiative> loadInitiativeForSearch(String palabrasClave, String proponente, Date fechaPropuesta, int dependencia, int estado) throws PersistenceException {
@@ -116,4 +119,14 @@ public class MyBATISInitiativeDAO implements InitiativeDAO {
             throw new PersistenceException("Error al consultar el máximo id que tomará un comentario", e);
         }
     }
+
+    @Override
+    public void updateInitiative(int id, String descripcion, String detalle, String palabrasClave) throws PersistenceException {
+        try {            
+            initiativeMapper.updateInitiative(id, descripcion, detalle, palabrasClave);
+        } catch (PersistenceException e) {
+            throw new PersistenceException("Error al modifciar el estado de la iniciativa " + id, e);
+        }
+    }
 }
+    

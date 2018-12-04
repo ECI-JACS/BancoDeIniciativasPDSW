@@ -110,10 +110,7 @@
                                         <p:commandButton icon="ui-icon-search" ajax="false" style="margin-top: 27%;"/>
                                     </div> 
                                 </div>                      
-                                <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}" selection="#{asignarPerfilesBean.selectedUsuarios}" rowKey="#{usuario.email}" style="margin-top: 10px; margin-bottom: 10px;">                    			
-                                    <f:facet name="header">
-                                        Usuarios
-                                    </f:facet>
+                                <p:dataTable id="usuarios_table" var="usuario" value="#{asignarPerfilesBean.usuarios}" selection="#{asignarPerfilesBean.selectedUsuarios}" rowKey="#{usuario.email}" paginatorPosition="bottom"  style="font-size: 15px; margin-bottom: 20px; margin-top: 10px; padding: 0;" rows="5" paginator="true"  paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}">
                                     <p:column selectionMode="multiple" style="width: 3%; text-align:center"/>
                                     <p:column headerText="Nombres" style="width: 12%">
                                         <h:outputText value="#{usuario.names}" />

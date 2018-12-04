@@ -39,41 +39,55 @@
                         </div>
                         <div class="col-xs-8"> 
                             <style type="text/css">
-                                .ui-datatable input {
-                                    box-sizing: border-box;
-                                    width: 100%;
-                                    -webkit-box-shadow: none;
-                                    box-shadow: none !important;
+                                .ui-row-editor .ui-row-editor-pencil {
+                                    margin-left:8px;
                                 }
                             </style>
-
-                            <h:form id="incForm">
-                                <p:panel id="panelIniciativa">                                                                       
-                                    <p:commandButton class="btnmenu ui-button-text-only ui-button-text btnmenu ui-button" value="Inicio" style="width: 80%;height: 90%; background-image: url('resources/img/b.png'); background-size: 60%; background-position: 50% 50%; background-repeat: no-repeat;"  action="registroIniciativa">
-                                        <style type="text/css">                                            
-                                            .btnmenu {
-                                                background-color: #cce5ff;  
-                                                background: #cce5ff;
-                                                padding: 0;
-                                                color: white;
-                                                border: 0 solid white;
-                                                /*box-shadow: inset 0 0 35px rgba(255, 255, 255, 0);*/
-                                                /*outline: 1px solid;*/
-                                                /*outline-color: rgba(255, 255, 255, .5);*/
-                                                outline-offset: 10px;
-                                                /*text-shadow: none;*/
-                                                /*transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);*/
-                                            }
-                                            
-                                            .ui-button-text-only .ui-button-text {
-                                                text-align: center;
-                                                margin-top: 100%;
-                                            }
-                                        </style>
-                                    </p:commandButton>                                            
+                             <h:form id="form2">       
+                                <p:growl id="msgs" showDetail="true"/>
+                                <p:panel id="panelTabla"> 
+                                    <p:dataTable id="iniciativas_table" var="iniciativa" value="#{iniciativasBean.iniciativasUsuario()}" selectionMode="single" onRowClick="PF('iniciativaDialog').show()" style="font-size: 15px; margin-bottom: 40px; padding: 0;" rows="5" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+                                        <f:facet name="header">
+                                            Iniciativas
+                                        </f:facet>                                                                              
+                                        <p:column headerText="Id" style="width: 100px; text-align: center;">
+                                            <h:outputText value="#{iniciativa.id}" />
+                                        </p:column>
+                                        <p:column headerText="Descripción" >
+                                            <h:outputText value="#{iniciativa.description}" />
+                                        </p:column>
+                                        <p:column headerText="Detalle" >
+                                            <h:outputText value="#{iniciativa.detail}" />
+                                        </p:column>
+                                        <p:column headerText="Fecha Creación">
+                                            <h:outputText value="#{iniciativa.creationDate}" />
+                                        </p:column>
+                                        <p:column headerText="Fecha Modificación Estado">
+                                            <h:outputText value="#{iniciativa.modificationDate}" />
+                                        </p:column>
+                                        <p:column headerText="Estado Actual">
+                                            <h:outputText value="#{iniciativa.iniciativeStatus.description}" />
+                                        </p:column>
+                                        <p:column headerText="Palabras Clave">
+                                            <h:outputText value="#{iniciativa.showKeyWords()}" />
+                                        </p:column>
+                                    </p:dataTable>
                                 </p:panel>
-
                             </h:form>
+                            <p:dialog header="Iniciativa" widgetVar="iniciativaDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true" style="background: #dde5f7; font-size: 15px; padding: 5px;">
+                                <p:outputPanel id="datosIniciativa" rendered="#{not empty iniciativasBean.usuarioProponente}">
+                                    <h:panelGrid columns="2" >
+                                        <h:outputText value="Id" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.selectedIniciativa.id}"/>
+                                        <h:outputText value="Descripción: " style="font-weight: bold"/><h:outputText value="#{iniciativasBean.selectedIniciativa.description}"/>
+                                        <h:outputText value="Detalle: " style="font-weight: bold"/><h:outputText value="#{iniciativasBean.selectedIniciativa.detail}"/>
+                                        <h:outputText value="Fecha Creación: " style="font-weight: bold"/><h:outputText value="#{iniciativasBean.selectedIniciativa.creationDate}"/>
+                                        <h:outputText value="Fecha Modificación Estado: " style="font-weight: bold"/><h:outputText value="#{iniciativasBean.selectedIniciativa.modificationDate}"/>
+                                        <h:outputText value="Estado Actual: " style="font-weight: bold"/><h:outputText value="#{iniciativasBean.selectedIniciativa.description}"/>
+                                        <h:outputText value="Palabras Clave: " style="font-weight: bold"/><h:outputText value="#{iniciativasBean.selectedIniciativa.showKeyWords}"/>
+                                        <p:commandButton styleClass="button: " value="Volver" onclick="PF('proponenteDialog').hide();"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </p:dialog>
                         </div>
                         <div class="col-xs-4"> 
                         </div>    

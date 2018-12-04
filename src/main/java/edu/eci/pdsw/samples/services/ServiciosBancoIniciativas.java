@@ -64,6 +64,16 @@ public interface ServiciosBancoIniciativas {
      * @throws ExceptionServiciosBancoIniciativas 
      */
     public void registrarIniciativa(Initiative ini) throws ExceptionServiciosBancoIniciativas;
+            
+    /**
+     * Permite actualizar una iniciativa
+     * @param id
+     * @param descripcion
+     * @param detalle
+     * @param fechaM
+     * @throws ExceptionServiciosBancoIniciativas 
+     */
+    public void actualizarIniciativa(int id, String descripcion, String detalle, String palabrasClave) throws ExceptionServiciosBancoIniciativas;
     
     /**
      * Permite consultar una iniciativa
