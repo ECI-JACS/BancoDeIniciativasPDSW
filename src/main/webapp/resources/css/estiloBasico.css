@@ -178,6 +178,7 @@ label {
     border-top-right-radius: 10px;
     background: #095acf;
     color: white;
+    border-color: #d0fffe;
 }
 
 .ui-datatable .ui-datatable-footer {
@@ -207,6 +208,7 @@ tabla.ui-state-default, .ui-widget-content .ui-state-default{
 /*PERFIL*/
 #tabla_perfil .ui-datatable .ui-datatable-header {
     margin-top: 20px;
+    border-color: #d0fffe;
 }
 
 .ui-fieldset, .ui-fieldset .ui-fieldset-legend{

@@ -62,9 +62,14 @@ public class IniciativasBean extends BasePageBean {
     private Date fechaPropuesta;
     private String dependencia;
     private List<SelectItem> listaAreas;
-    private PieChartModel pieModel;
+    private List<String> meses;
+    private PieChartModel pieModelDep;
+    private PieChartModel pieModelFecha;
+    private String buttonEstdisticaFecha;
+    private boolean abrioEstadisticas; //variable paa inicializar boton de mesy año en estadisticas
     private boolean buscando;
     private HashMap<String, Integer> estadisticaXDependencias;
+    private HashMap<String, Integer> estadisticaXFecha;
     private ExcelOptions excelOpt;
     private List<String> listaPalabrasClave;
     private List<String> listaPalabrasClaveConsulta;
@@ -87,7 +92,7 @@ public class IniciativasBean extends BasePageBean {
             Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         inicializarVariables();
-        createPieModel();
+        createPieModelDependencias();
     }
 
     public void inicializarVariables() {
@@ -110,6 +115,10 @@ public class IniciativasBean extends BasePageBean {
         this.descripcionMiIniciativa = "";
         this.detalleMiIniciativa = "";
         this.selectedIniciativaRelacionada = new Initiative();
+        this.meses= Arrays.asList("","Enero", "Febrero", "Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        this.buttonEstdisticaFecha = "Año";
+        abrioEstadisticas= false;
+        
     }
 
     public int getIniciativaId() {
@@ -148,6 +157,8 @@ public class IniciativasBean extends BasePageBean {
             System.out.println("No se ha seleccionado una iniciativa para ver sus relacionadas");
         }
     }
+    
+    
     
     public String convertirPalabrasClaveEnString(){
         String palabrasClaveR = "";
@@ -327,15 +338,15 @@ public class IniciativasBean extends BasePageBean {
     }
 
     /*#################################### ESTADISTICAS ####################################*/
-    private void createPieModel() {
-        pieModel = new PieChartModel();
+    private void createPieModelDependencias() {
+        pieModelDep = new PieChartModel();
         HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();
         for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {
             //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
-            pieModel.set(dependenciaArea.getKey(), dependenciaArea.getValue());
+            pieModelDep.set(dependenciaArea.getKey(), dependenciaArea.getValue());
         }
-        pieModel.setLegendPosition("w");
-        pieModel.setShadow(false);
+        pieModelDep.setLegendPosition("w");
+        pieModelDep.setShadow(false);
     }
 
     public HashMap<String, Integer> calcularEstadisticasDependencias() {
@@ -355,6 +366,77 @@ public class IniciativasBean extends BasePageBean {
         }
         return estadisticaXDependencias;
 
+    }
+    
+    private void createPieModelFecha() {
+        pieModelFecha = new PieChartModel();        
+        if(buttonEstdisticaFecha.equals("Mes")){
+            HashMap<Integer, Integer> estadisticaXFecha = calcularEstadisticasAño();
+            for (Map.Entry<Integer, Integer> año : estadisticaXFecha.entrySet()) {
+                //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
+                pieModelFecha.set(año.getKey().toString(), año.getValue());
+            }
+            pieModelFecha.setLegendPosition("w");
+            pieModelFecha.setShadow(false); 
+        }else{           
+            HashMap<String, Integer> estadisticaXFecha = calcularEstadisticasMes();
+            for (Map.Entry<String, Integer> mes : estadisticaXFecha.entrySet()) {
+                //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
+                pieModelFecha.set(mes.getKey(), mes.getValue());
+            }
+            pieModelFecha.setLegendPosition("w");
+            pieModelFecha.setShadow(false);            
+        }
+    }   
+
+    public HashMap calcularEstadisticasFecha() {
+        if(buttonEstdisticaFecha.equals("Mes")) return calcularEstadisticasAño();
+        else return calcularEstadisticasMes();        
+    }     
+         
+    public HashMap<String, Integer> calcularEstadisticasMes() {
+        List<Initiative> iniciativas;
+        estadisticaXFecha = new HashMap<>();
+        iniciativas = obtenerIniciativasDeServicios();
+        String mes;
+        int cantidad = 0;
+        for (Initiative i : iniciativas) {
+            mes = meses.get((i.getCreationDate().getMonth()));
+            if (estadisticaXFecha.containsKey(mes)) {
+                cantidad = estadisticaXFecha.get(mes) + 1;
+            } else {
+                cantidad = 1;
+            }
+            estadisticaXFecha.put(mes, cantidad);
+        }
+        return estadisticaXFecha;
+    }
+    
+    public HashMap<Integer, Integer> calcularEstadisticasAño() {
+        List<Initiative> iniciativas;
+        HashMap<Integer, Integer> estadisticaXAño = new HashMap<>();
+        iniciativas = obtenerIniciativasDeServicios();
+        int año;
+        int cantidad = 0;
+        for (Initiative i : iniciativas) {
+            año = i.getCreationDate().getYear();
+            if (estadisticaXAño.containsKey(año)) {
+                cantidad = estadisticaXAño.get(año) + 1;
+            } else {
+                cantidad = 1;
+            }
+            estadisticaXAño.put(año, cantidad);
+        }
+        return estadisticaXAño;
+    }
+    
+    public List<String> dependenciasGrafica() {
+        List<String> dependencias = new ArrayList<>();
+        HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();
+        for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {
+            dependencias.add(dependenciaArea.getKey());            
+        }   
+        return dependencias;
     }
 
     /**
@@ -568,6 +650,25 @@ public class IniciativasBean extends BasePageBean {
     public Date getFechaPropuesta() {
         return fechaPropuesta;
     }
+    
+    public String getValueButtonEstadistica() {        
+        return buttonEstdisticaFecha;              
+    }
+    
+    public void estadisticas() {  
+        if(abrioEstadisticas){            
+            if(buttonEstdisticaFecha.equals("Mes"))buttonEstdisticaFecha="Año";
+            else buttonEstdisticaFecha="Mes";            
+        }
+        else{
+            abrioEstadisticas=true;
+        }
+    }
+    
+    public String getValueColumnaTabla() { 
+        if(buttonEstdisticaFecha.equals("Mes"))return "Año";
+        else return "Mes";   
+    }
 
     public void setFechaPropuesta(Date fechaPropuesta) {
         this.fechaPropuesta = fechaPropuesta;
@@ -581,9 +682,14 @@ public class IniciativasBean extends BasePageBean {
         this.dependencia = dependencia;
     }
 
-    public PieChartModel getPieModel() {
-        createPieModel();
-        return pieModel;
+    public PieChartModel getPieModelDep() {
+        createPieModelDependencias();
+        return pieModelDep;
+    }
+    
+    public PieChartModel getPieModelFecha() {
+        createPieModelFecha();
+        return pieModelFecha;
     }
 
     public User getUsuarioProponente() {
