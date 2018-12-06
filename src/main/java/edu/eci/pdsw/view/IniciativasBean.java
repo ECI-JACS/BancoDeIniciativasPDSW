@@ -66,10 +66,12 @@ public class IniciativasBean extends BasePageBean {
     private List<String> meses;
     private PieChartModel pieModelDep;
     private PieChartModel pieModelFecha;
+    private PieChartModel pieModelEstado;
     private String buttonEstdisticaFecha;
     private boolean buscando;
     private HashMap<String, Integer> estadisticaXDependencias;
     private HashMap<String, Integer> estadisticaXFecha;
+    private HashMap<String, Integer> estadisticaXEstado;
     private ExcelOptions excelOpt;
     private List<String> listaPalabrasClave;
     private List<String> listaPalabrasClaveConsulta;
@@ -427,6 +429,36 @@ public class IniciativasBean extends BasePageBean {
         }
         return estadisticaXAño;
     }
+    
+    private void createPieModelEstado() {
+        pieModelEstado = new PieChartModel();
+        HashMap<String, Integer> estadisticaXEstado = calcularEstadisticasEstado();
+        for (Map.Entry<String, Integer> estado : estadisticaXEstado.entrySet()) {
+            //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
+            pieModelEstado.set(estado.getKey(), estado.getValue());
+        }
+        pieModelEstado.setLegendPosition("w");
+        pieModelEstado.setShadow(false);
+    }
+    
+    public HashMap<String, Integer> calcularEstadisticasEstado() {
+        List<Initiative> iniciativas;
+        estadisticaXEstado = new HashMap<>();
+        iniciativas = obtenerIniciativasDeServicios();
+        String estado;
+        int cantidad = 0;
+        for (Initiative i : iniciativas) {
+            estado = i.getIniciativeStatus().getDescription();
+            if (estadisticaXEstado.containsKey(estado)) {
+                cantidad = estadisticaXEstado.get(estado) + 1;
+            } else {
+                cantidad = 1;
+            }
+            estadisticaXEstado.put(estado, cantidad);
+        }
+        return estadisticaXEstado;
+    }    
+    
 
     public List<String> dependenciasGrafica() {
         List<String> dependencias = new ArrayList<>();
@@ -693,6 +725,10 @@ public class IniciativasBean extends BasePageBean {
     public PieChartModel getPieModelFecha() {
         createPieModelFecha();
         return pieModelFecha;
+    }
+    public PieChartModel getPieModelEstado() {
+        createPieModelEstado();
+        return pieModelEstado;
     }
 
     public User getUsuarioProponente() {

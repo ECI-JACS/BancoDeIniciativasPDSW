@@ -170,7 +170,7 @@
                             </p:dataTable>
                         </p:panel>
                     </h:form>
-                    <p:dialog header="Usuario proponente" widgetVar="proponenteDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true">
+                    <p:dialog class="d" header="Usuario proponente" widgetVar="proponenteDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true" style="font-size: 17px;">
                         <p:outputPanel id="datosProponente" rendered="#{not empty iniciativasBean.usuarioProponente}">
                             <h:panelGrid columns="2" >
                                 <h:outputText value="Nombres:" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.usuarioProponente.names}"/>
@@ -185,7 +185,7 @@
                         </p:outputPanel>
                     </p:dialog>
                     <h:form>
-                        <p:dialog header="Agregar Comentario" widgetVar="agrComentDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true">
+                        <p:dialog  class="d" header="Agregar Comentario" widgetVar="agrComentDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true" style="font-size: 17px;">
                             <p:outputPanel id="datosAgregarComent">
                                 <h:panelGrid columns="2" >
                                     <h:outputLabel for="comentarioUsuario" value="Comentario:" style="font-weight: bold"/>
