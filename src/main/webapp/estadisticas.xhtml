@@ -26,10 +26,8 @@
             <p:commandButton class="btn btnsalir" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>           
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
         </div> 
-        <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">      
-
+        <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">    
             <br></br>
-
             <div id="menu1" class="row">
                 <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                 <div class="row col-md-6 col-xs-6 col-sm-6 ">  
@@ -75,11 +73,11 @@
                                             </h:panelGrid>                                    
                                         </div>                                
                                         <div id="div_grafica" style="padding: 0; max-width: 100%; ">
-                                            <p:dataTable id="tabla_estadistivas" var="dependencia" value="#{iniciativasBean.calcularEstadisticasDependencias()}" style="font-size: 15px; margin-bottom:15px; padding: 0; margin-top: 15px; " paginatorTemplate="{Exporters}" paginator="true" >>
+                                            <p:dataTable id="estadisticasDep_t" var="dependencia" value="#{iniciativasBean.calcularEstadisticasDependencias()}" style="font-size: 15px; margin-bottom:15px; padding: 0; margin-top: 15px; " paginatorTemplate="{Exporters}" paginator="true" >>
                                                 <f:facet name="header">                                                    
                                                     <h:commandLink id="excel">
                                                         <p:graphicImage url="resources/img/excel.png" style="width: 45px; height: 45px; border: white"/>
-                                                        <p:dataExporter type="xls" target="tabla_estadistivas" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
+                                                        <p:dataExporter type="xls" target="estadisticasDep_t" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
                                                     </h:commandLink>
                                                 </f:facet>
                                                 <p:column headerText="Area" >
@@ -87,12 +85,7 @@
                                                 </p:column>
                                                 <p:column headerText="Cantidad">
                                                     <h:outputText value="#{dependencia.value}" />
-                                                </p:column> 
-                                                <!--
-                                                <p:column headerText="Porcentaje">
-                                                    <h:outputText value="#{iniciativasBean.calcularPorcentaje(dependencia.key)}" />
-                                                </p:column>  
-                                                -->
+                                                </p:column>
                                             </p:dataTable>                                    
                                         </div>
                                     </p:tab>
@@ -114,6 +107,30 @@
                                                 <h:outputText value="#{fecha.value}" />
                                             </p:column>                                             
                                         </p:dataTable>                               
+                                    </p:tab>
+                                    <p:tab id="estados" title="Estados" >
+                                        <div id="div_grafica" style="padding: 0; max-width: 100%;">
+                                            <h:panelGrid columns="" columnClasses="left,right" style="width:100%">
+                                                <p:chart type="pie" model="#{iniciativasBean.pieModelEstado}" style="width:100%; height:available; padding: 0"  >
+                                                </p:chart>
+                                            </h:panelGrid>                                    
+                                        </div>                                
+                                        <div id="div_grafica" style="padding: 0; max-width: 100%; ">
+                                            <p:dataTable id="estadisticasEstado_t" var="estado" value="#{iniciativasBean.calcularEstadisticasEstado()}" style="font-size: 15px; margin-bottom:15px; padding: 0; margin-top: 15px; " paginatorTemplate="{Exporters}" paginator="true" >>
+                                                <f:facet name="header">                                                    
+                                                    <h:commandLink id="excel">
+                                                        <p:graphicImage url="resources/img/excel.png" style="width: 45px; height: 45px; border: white"/>
+                                                        <p:dataExporter type="xls" target="estadisticasEstado_t" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
+                                                    </h:commandLink>
+                                                </f:facet>
+                                                <p:column headerText="Estado" >
+                                                    <h:outputText value="#{estado.key}" />
+                                                </p:column>
+                                                <p:column headerText="Cantidad">
+                                                    <h:outputText value="#{estado.value}" />
+                                                </p:column>
+                                            </p:dataTable>                                    
+                                        </div>
                                     </p:tab>
                                 </p:tabView>
                             </p:panel>

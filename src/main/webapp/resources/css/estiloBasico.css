@@ -240,3 +240,48 @@ tabla.ui-state-default, .ui-widget-content .ui-state-default{
     font-size: 15px;
 }
 
+td.ui-panelgrid-cell.ui-widget-header {
+    color: white;
+    background: #01389d;
+    border-top-left-radius: 17px;
+    border-top-right-radius: 8px;
+}
+
+.ui-carousel .ui-carousel-header {
+    margin: 0;
+    overflow: -webkit-paged-x;
+    /* padding: 2px; */
+    padding-top: 7px;
+    /* padding-bottom: 8px; */
+    padding-right: 5px;
+    padding-left: 10px;
+    background: #01389d;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/*DIALOGO*/
+d.ui-widget .ui-widget {    
+    padding: 4px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-color: #a4dfff;
+    font-size: 17px;
+    box-shadow: azure;
+}
+
+.ui-dialog .ui-dialog-content {
+    position: static;
+    border: 0;
+    padding: 5px;
+    background: #dcecffd4;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+    cursor: move;
+    border-radius: 42px;
+    background: #5580ab;
+    color: white;
+}
+
