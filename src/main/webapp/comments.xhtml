@@ -26,13 +26,14 @@
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
         </div> 
         <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">      
-            <h:form >                    
-                <br></br>
-                <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="position: absolute; ">
-                    <div id="menu1" class="row">
-                        <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                        <div class="col-md-6 col-xs-6 col-sm-6 ">                            
-                            <p:menubar class="menu ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow" style="text-align: center; width: 55%; float: start; margin-left: 25%;" >
+            <br></br>
+            <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="position: absolute; ">
+                <div id="menu1" class="row">
+                    <div class="col-md-3 col-xs-3 col-sm-3 "></div>
+                    <div class="row col-md-6 col-xs-6 col-sm-6 ">  
+                        <div class="col-md-2 col-xs-2 col-sm-2"/> 
+                        <div class="col-md-8 col-xs-8 col-sm-8 " style="width: auto; padding: 0;">
+                            <p:menubar class="menu ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow" style="text-align: center; align-self: center" >                                
                                 <p:menuitem value="Home" outcome="menu" icon="ui-icon-home"/>
                                 <p:submenu label="Perfil" icon="ui-icon-contact">
                                     <p:menuitem value="Cuenta" outcome="perfil" icon="ui-icon-radio-off" />
@@ -47,61 +48,59 @@
                                 </p:submenu>
                                 <p:submenu label="Usuarios" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" icon="ui-icon-person">
                                     <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="ui-icon-radio-off"/>
-                                </p:submenu>                                      
+                                </p:submenu>  
+
                             </p:menubar>
                         </div>
-                        <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                    </div> 
-                    <br></br>   
-                    <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 10px;">
-                        <div class="row">
-                            <div class="col-md-4 col-xs-4 col-sm-4 "></div>
-                            <div class="col-md-4 col-xs-4 col-sm-4 ">
-                                <p:panelGrid columns="2">
-                                    <f:facet name="header">
-                                        <p:outputLabel value="Resumen Iniciativa" />
-                                    </f:facet>
-                                    <h:outputText value="Descripción:" />
-                                    <h:outputText value="#{commentBean.iniciativa.description}" />
-                                    <h:outputText value="Detalle:" />
-                                    <h:outputText value="#{commentBean.iniciativa.detail}" />
-                                    <h:outputText value="Proponente:" />
-                                    <h:outputText value="#{commentBean.iniciativa.user.names} #{commentBean.iniciativa.user.lastNames}" />
-                                    <h:outputText value="Estado:" />
-                                    <h:outputText value="#{commentBean.iniciativa.iniciativeStatus.description}" />
-                                    <h:outputText value="Palabras Clave:" />
-                                    <h:outputText value="#{commentBean.iniciativa.showKeyWords()}" />
-                                </p:panelGrid>
-                                <br/>
-                                <p:carousel value="#{commentBean.comentarios}" headerText="Comentarios" var="comentarios" numVisible="1" style="width:950px" circular="true" >
-                                    <p:outputLabel value="#{commentBean.establecerUsuarioComentario(comentarios.userEmail)}" style="visibility: hidden;" />
-                                    <h:panelGrid columns="3" style="width:100%">
-                                        <h:panelGrid>
-                                            <p:graphicImage value="resources/img/sinImagen.png" />
-                                        </h:panelGrid>
-                                        <h:panelGrid columns="2">
-                                            <h:outputText value="Nombre:" />
-                                            <h:outputText value="#{commentBean.usuarioComentario.names} #{commentBean.usuarioComentario.lastNames}" />
-                                            <h:outputText value="Correo:" />
-                                            <h:outputText value="#{commentBean.usuarioComentario.email}" />
-                                            <h:outputText value="Rol:" />
-                                            <h:outputText value="#{commentBean.usuarioComentario.role}" />
-                                            <h:outputText value="Dependencia:" />
-                                            <h:outputText value="#{commentBean.usuarioComentario.area.name}" />
-                                        </h:panelGrid>
-                                        <h:panelGrid columns="2">
-                                            <h:outputText value="Comentario:" />
-                                            <h:outputText value="#{comentarios.description}" />
-                                        </h:panelGrid>
-                                    </h:panelGrid>
-                                    <p:outputLabel value="" style="visibility: hidden;" />
-                                </p:carousel>
-                            </div>
-                            <div class="col-md-4 col-xs-4 col-sm-4"></div> 
-                        </div> 
-                    </div> 
+                        <div class="col-md-2 col-xs-2 col-sm-2"/> 
+                    </div>
+                    <div class="col-md-3 col-xs-3 col-sm-3 "></div>
                 </div> 
-            </h:form>
+                <br></br> 
+                <div class="row col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px; padding-left: 15%; padding-right: 15%">
+                    <p:panel id="panelIniciativa" style="padding: 0;" >
+                        <p:panelGrid columns="2" >
+                            <f:facet name="header">
+                                <p:outputLabel value="Resumen Iniciativa" />
+                            </f:facet>
+                            <h:outputText value="Descripción:" />
+                            <h:outputText value="#{commentBean.iniciativa.description}" />
+                            <h:outputText value="Detalle:" />
+                            <h:outputText value="#{commentBean.iniciativa.detail}" />
+                            <h:outputText value="Proponente:" />
+                            <h:outputText value="#{commentBean.iniciativa.user.names} #{commentBean.iniciativa.user.lastNames}" />
+                            <h:outputText value="Estado:" />
+                            <h:outputText value="#{commentBean.iniciativa.iniciativeStatus.description}" />
+                            <h:outputText value="Palabras Clave:" />
+                            <h:outputText value="#{commentBean.iniciativa.showKeyWords()}" />
+                        </p:panelGrid>
+                        <br/>
+                        <p:carousel value="#{commentBean.comentarios}" headerText="Comentarios" var="comentarios" numVisible="1" style="width:950px" circular="true" >
+                            <p:outputLabel value="#{commentBean.establecerUsuarioComentario(comentarios.userEmail)}" style="visibility: hidden;" />
+                            <h:panelGrid columns="3" style="width:100%">
+                                <h:panelGrid>
+                                    <p:graphicImage value="resources/img/sinImagen.png" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Nombre:" />
+                                    <h:outputText value="#{commentBean.usuarioComentario.names} #{commentBean.usuarioComentario.lastNames}" />
+                                    <h:outputText value="Correo:" />
+                                    <h:outputText value="#{commentBean.usuarioComentario.email}" />
+                                    <h:outputText value="Rol:" />
+                                    <h:outputText value="#{commentBean.usuarioComentario.role}" />
+                                    <h:outputText value="Dependencia:" />
+                                    <h:outputText value="#{commentBean.usuarioComentario.area.name}" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Comentario:" />
+                                    <h:outputText value="#{comentarios.description}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <p:outputLabel value="" style="visibility: hidden;" />
+                        </p:carousel>
+                    </p:panel>
+                </div>
+            </div>          
         </div> 
     </h:body>
 </html>
