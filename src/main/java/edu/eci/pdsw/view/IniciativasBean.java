@@ -66,7 +66,6 @@ public class IniciativasBean extends BasePageBean {
     private PieChartModel pieModelDep;
     private PieChartModel pieModelFecha;
     private String buttonEstdisticaFecha;
-    private boolean abrioEstadisticas; //variable paa inicializar boton de mesy año en estadisticas
     private boolean buscando;
     private HashMap<String, Integer> estadisticaXDependencias;
     private HashMap<String, Integer> estadisticaXFecha;
@@ -115,10 +114,8 @@ public class IniciativasBean extends BasePageBean {
         this.descripcionMiIniciativa = "";
         this.detalleMiIniciativa = "";
         this.selectedIniciativaRelacionada = new Initiative();
-        this.meses= Arrays.asList("","Enero", "Febrero", "Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        this.buttonEstdisticaFecha = "Año";
-        abrioEstadisticas= false;
-        
+        this.meses= Arrays.asList("Enero", "Febrero", "Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        this.buttonEstdisticaFecha = "Año";                
     }
 
     public int getIniciativaId() {
@@ -419,7 +416,7 @@ public class IniciativasBean extends BasePageBean {
         int año;
         int cantidad = 0;
         for (Initiative i : iniciativas) {
-            año = i.getCreationDate().getYear();
+            año = i.getCreationDate().getYear() + 1900;
             if (estadisticaXAño.containsKey(año)) {
                 cantidad = estadisticaXAño.get(año) + 1;
             } else {
@@ -655,14 +652,10 @@ public class IniciativasBean extends BasePageBean {
         return buttonEstdisticaFecha;              
     }
     
-    public void estadisticas() {  
-        if(abrioEstadisticas){            
-            if(buttonEstdisticaFecha.equals("Mes"))buttonEstdisticaFecha="Año";
-            else buttonEstdisticaFecha="Mes";            
-        }
-        else{
-            abrioEstadisticas=true;
-        }
+    public void estadisticas() {        
+        if(buttonEstdisticaFecha.equals("Mes"))buttonEstdisticaFecha="Año";
+        else buttonEstdisticaFecha="Mes";            
+        
     }
     
     public String getValueColumnaTabla() { 

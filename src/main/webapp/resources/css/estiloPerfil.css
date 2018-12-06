@@ -19,6 +19,27 @@ html {
     padding: 0; padding-left: 2%; height: 50px; color: snow; background-color: #1d3192; text-align: left; font-size: 30px;  font-style: oblique;
 }
 
+.ui-men{    
+    padding: 0;
+    font-size: 17.2px;
+    font-style: normal;
+    float: none !important;
+    display: inline-block; 
+    border-color: #095acf;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-list {
+    padding: .4em;
+    font-size: 16px;
+    background: #ddeaf9;
+    border-color: #acedff;
+}
+
+.ui-menu .ui-menu-list .ui-menuitem{
+    float: none !important;
+    display: inline-block;    
+}
+
 .ui-icon-csv {
     background-image: url(resources/img/menu2.png);
 }

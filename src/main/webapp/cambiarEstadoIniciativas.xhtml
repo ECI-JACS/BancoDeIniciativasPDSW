@@ -26,90 +26,88 @@
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
         </div> 
         <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">      
-
             <br></br>
             <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="position: absolute; ">
-
                 <div id="menu1" class="row">
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                    <div class="col-md-6 col-xs-6 col-sm-6 ">                            
-                        <p:menubar class="menu ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow" style="text-align: center; width: 55%; float: start; margin-left: 25%;" >
-                            <p:menuitem value="Home" outcome="menu" icon="ui-icon-home"/>
-                            <p:submenu label="Perfil" icon="ui-icon-contact">
-                                <p:menuitem value="Cuenta" outcome="perfil" icon="ui-icon-radio-off" />
-                                <p:menuitem value="Mis Iniciativas" outcome="iniciativasUsuario" icon="ui-icon-radio-off" />
-                            </p:submenu>
-                            <p:submenu label="Iniciativas" icon="ui-icon-script">
-                                <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off"/>
-                                <p:menuitem value="Ver Relacionadas" outcome="iniciativasRelacionadas" icon="ui-icon-radio-off" rendered="#{loginBean.verIniciativasRelacionadas()}"/>
-                                <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="ui-icon-radio-off"/>
-                                <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="ui-icon-radio-off" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" />
-                                <p:menuitem value="Estadísticas" outcome="estadisticas" icon="ui-icon-radio-off"/>
-                            </p:submenu>
-                            <p:submenu label="Usuarios" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" icon="ui-icon-person">
-                                <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="ui-icon-radio-off"/>
-                            </p:submenu>                                      
-                        </p:menubar>
+                    <div class="row col-md-6 col-xs-6 col-sm-6 ">  
+                        <div class="col-md-2 col-xs-2 col-sm-2"/> 
+                        <div class="col-md-8 col-xs-8 col-sm-8 " style="width: 100%">
+                            <p:menubar class="menu ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow" style="text-align: center; align-self: center" >                                
+                                <p:menuitem value="Home" outcome="menu" icon="ui-icon-home"/>
+                                <p:submenu label="Perfil" icon="ui-icon-contact">
+                                    <p:menuitem value="Cuenta" outcome="perfil" icon="ui-icon-radio-off" />
+                                    <p:menuitem value="Mis Iniciativas" outcome="iniciativasUsuario" icon="ui-icon-radio-off" />
+                                </p:submenu>
+                                <p:submenu label="Iniciativas" icon="ui-icon-script">
+                                    <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off"/>
+                                    <p:menuitem value="Ver Relacionadas" outcome="iniciativasRelacionadas" icon="ui-icon-radio-off" rendered="#{loginBean.verIniciativasRelacionadas()}"/>
+                                    <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="ui-icon-radio-off"/>
+                                    <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="ui-icon-radio-off" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" />
+                                    <p:menuitem value="Estadísticas" outcome="estadisticas" icon="ui-icon-radio-off"/>
+                                </p:submenu>
+                                <p:submenu label="Usuarios" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" icon="ui-icon-person">
+                                    <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="ui-icon-radio-off"/>
+                                </p:submenu>  
+
+                            </p:menubar>
+                        </div>
+                        <div class="col-md-2 col-xs-2 col-sm-2"/> 
                     </div>
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                </div>
-
-                <br></br>  
-                <div class="row">
-                    <div class="col-md-1 col-xs-1 col-sm-1"></div>
-                    <div class="col-md-10 col-xs-10 col-sm-10">
-                        <h3 style="color: white">Actualizar Estado de Iniciativas</h3> 
-                        <h:form id="iniciativasForm">
-                            <p:panel id="panelIniciativa" style="margin-bottom: 40px;">            
-                                <p:selectOneMenu id="estadosIniciativa_select" value="#{iniciativasBean.idEstado}" >
-                                    <f:selectItem itemLabel="---- Seleccionar Estado ----" itemValue=""/>
-                                    <f:selectItems value="#{iniciativasBean.estados}"/>
-                                </p:selectOneMenu>
-                                <br/>
-                                <br/>
-                                <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.obtenerIniciativasDeServicios()}" selection="#{iniciativasBean.selectedIniciativa}" rowKey="#{iniciativa.id}" style="font-size: 17px;" rows="5" paginator="true" paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink} {Exporters}">
-                                    <p:column selectionMode="single" style="width: 3%; text-align:center"/>
-                                    <p:column headerText="Id" style="width: 3%;">
-                                        <h:outputText value="#{iniciativa.id}" />
-                                    </p:column>
-                                    <p:column headerText="Descripción" style="width: 10%;">
-                                        <h:outputText value="#{iniciativa.description}" />
-                                    </p:column>
-                                    <p:column headerText="Detalle">
-                                        <h:outputText value="#{iniciativa.detail}" style="width: 15%;"/>
-                                    </p:column>
-                                    <p:column headerText="Fecha Creación" style="width: 10%;">
-                                        <h:outputText value="#{iniciativa.creationDate}" />
-                                    </p:column>
-                                    <p:column headerText="Fecha Modificación Estado" style="width: 10%;">
-                                        <h:outputText value="#{iniciativa.modificationDate}" />
-                                    </p:column>
-                                    <p:column headerText="Usuario">
-                                        <h:outputText value="Nombre: " style="font-weight:bold"/>
-                                        <h:outputText value="#{iniciativa.user.names}"/>
-                                        <h:outputText value=" "/>
-                                        <h:outputText value="#{iniciativa.user.lastNames}"/><br/>
-                                        <h:outputText value="Carnet: " style="font-weight:bold"/>
-                                        <h:outputText value="#{iniciativa.user.code}" /><br/>
-                                        <h:outputText value="Email: " style="font-weight:bold"/>
-                                        <h:outputText value="#{iniciativa.user.email}" /><br/>
-                                        <h:outputText value="Dependencia: " style="font-weight:bold"/>
-                                        <h:outputText value="#{iniciativa.user.area.name}"/>
-                                    </p:column>
-                                    <p:column headerText="Estado Actual" style="width: 10%;">
-                                        <h:outputText value="#{iniciativa.iniciativeStatus.description}" />
-                                    </p:column>
-                                    <p:column headerText="Palabras Clave" style="width: 10%;">
-                                        <h:outputText value="#{iniciativa.showKeyWords()}" />
-                                    </p:column>
-                                    <f:facet name="footer">
-                                        <p:commandButton id="cambiarEstadoIniciativa" value="Cambiar estado" ajax="false" update="iniciativasForm" actionListener="#{iniciativasBean.updateEstadoIniciativa()}"/>
-                                    </f:facet>
-                                </p:dataTable>
-                            </p:panel>
-                        </h:form>
-                    </div>
-                    <div class="col-md-1 col-xs-1 col-sm-1"></div>
+                </div> 
+                <br></br> 
+                <div class="row col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px; padding-left: 5%; padding-right: 5%">
+                    <h3 style="color: white">Actualizar Estado de Iniciativas</h3> 
+                    <h:form id="iniciativasForm">
+                        <p:panel id="panelIniciativa" style="margin-bottom: 20px;">            
+                            <p:selectOneMenu id="estadosIniciativa_select" value="#{iniciativasBean.idEstado}" class="selectioOne">
+                                <f:selectItem itemLabel="---- Seleccionar Estado ----" itemValue=""/>
+                                <f:selectItems value="#{iniciativasBean.estados}"/>
+                            </p:selectOneMenu>
+                            <br/>
+                            <br/>
+                            <p:dataTable id="iniciativas_p_table" var="iniciativa" value="#{iniciativasBean.obtenerIniciativasDeServicios()}" selection="#{iniciativasBean.selectedIniciativa}" rowKey="#{iniciativa.id}" paginatorPosition="bottom"  style="font-size: 15px; margin-bottom: 10px; margin-top: 0; padding: 0;" rows="5" paginator="true"  paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}">
+                                <p:column selectionMode="single" style="width: 3%; text-align:center"/>
+                                <p:column headerText="Id" style="width: 3%;">
+                                    <h:outputText value="#{iniciativa.id}" />
+                                </p:column>
+                                <p:column headerText="Descripción" style="width: 10%;">
+                                    <h:outputText value="#{iniciativa.description}" />
+                                </p:column>
+                                <p:column headerText="Detalle">
+                                    <h:outputText value="#{iniciativa.detail}" style="width: 15%;"/>
+                                </p:column>
+                                <p:column headerText="Fecha Creación" style="width: 10%;">
+                                    <h:outputText value="#{iniciativa.creationDate}" />
+                                </p:column>
+                                <p:column headerText="Fecha Modificación Estado" style="width: 10%;">
+                                    <h:outputText value="#{iniciativa.modificationDate}" />
+                                </p:column>
+                                <p:column headerText="Usuario">
+                                    <h:outputText value="Nombre: " style="font-weight:bold"/>
+                                    <h:outputText value="#{iniciativa.user.names}"/>
+                                    <h:outputText value=" "/>
+                                    <h:outputText value="#{iniciativa.user.lastNames}"/><br/>
+                                    <h:outputText value="Carnet: " style="font-weight:bold"/>
+                                    <h:outputText value="#{iniciativa.user.code}" /><br/>
+                                    <h:outputText value="Email: " style="font-weight:bold"/>
+                                    <h:outputText value="#{iniciativa.user.email}" /><br/>
+                                    <h:outputText value="Dependencia: " style="font-weight:bold"/>
+                                    <h:outputText value="#{iniciativa.user.area.name}"/>
+                                </p:column>
+                                <p:column headerText="Estado Actual" style="width: 10%;">
+                                    <h:outputText value="#{iniciativa.iniciativeStatus.description}" />
+                                </p:column>
+                                <p:column headerText="Palabras Clave" style="width: 10%;">
+                                    <h:outputText value="#{iniciativa.showKeyWords()}" />
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="cambiarEstadoIniciativa" value="Cambiar estado" ajax="false" update="iniciativasForm" actionListener="#{iniciativasBean.updateEstadoIniciativa()}"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
                 </div> 
             </div> 
         </div> 

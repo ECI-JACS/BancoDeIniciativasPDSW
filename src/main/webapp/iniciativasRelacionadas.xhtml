@@ -25,39 +25,41 @@
             <p:commandButton class="btn btnsalir" value="Salir" style=" padding: 0; text-align: center; float: right; height:60%; margin-right: 0.5%; margin-top: 0.5%;" actionListener="#{loginBean.logOut()}"/>           
             <p:outputLabel value="#{loginBean.usuario.role} - #{loginBean.usuario.names} #{loginBean.usuario.lastNames}" style="padding: 0; float: right; margin: 1%; font-size: 50%; margin-top: 0.7%; background-size: cover;" /> 
         </div> 
-        <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12" style="padding: 0; width: 100%;">      
+        <div id="menu" class="fondo col-md-12 col-xs-12 col-sm-12">      
             <br></br>
-            <h:form >  
+            <div class="titulo_div col-md-12 col-xs-12 col-sm-12 " style="position: absolute; ">
                 <div id="menu1" class="row">
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                    <div class="col-md-6 col-xs-6 col-sm-6 ">                            
-                        <p:menubar class="menu ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow" style="text-align: center; width: 55%; float: start; margin-left: 25%;" >
-                            <p:menuitem value="Home" outcome="menu" icon="ui-icon-home"/>
-                            <p:submenu label="Perfil" icon="ui-icon-contact">
-                                <p:menuitem value="Cuenta" outcome="perfil" icon="ui-icon-radio-off" />
-                                <p:menuitem value="Mis Iniciativas" outcome="iniciativasUsuario" icon="ui-icon-radio-off" />
-                            </p:submenu>
-                            <p:submenu label="Iniciativas" icon="ui-icon-script">
-                                <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off"/>
-                                <p:menuitem value="Ver Relacionadas" outcome="iniciativasRelacionadas" icon="ui-icon-radio-off" rendered="#{loginBean.verIniciativasRelacionadas()}"/>
-                                <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="ui-icon-radio-off"/>
-                                <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="ui-icon-radio-off" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" />
-                                <p:menuitem value="Estadísticas" outcome="estadisticas" icon="ui-icon-radio-off"/>
-                            </p:submenu>
-                            <p:submenu label="Usuarios" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" icon="ui-icon-person">
-                                <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="ui-icon-radio-off"/>
-                            </p:submenu>                                      
-                        </p:menubar>
+                    <div class="row col-md-6 col-xs-6 col-sm-6 ">  
+                        <div class="col-md-2 col-xs-2 col-sm-2"/> 
+                        <div class="col-md-8 col-xs-8 col-sm-8 " style="width: 100%">
+                            <p:menubar class="menu ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow" style="text-align: center; align-self: center" >                                
+                                <p:menuitem value="Home" outcome="menu" icon="ui-icon-home"/>
+                                <p:submenu label="Perfil" icon="ui-icon-contact">
+                                    <p:menuitem value="Cuenta" outcome="perfil" icon="ui-icon-radio-off" />
+                                    <p:menuitem value="Mis Iniciativas" outcome="iniciativasUsuario" icon="ui-icon-radio-off" />
+                                </p:submenu>
+                                <p:submenu label="Iniciativas" icon="ui-icon-script">
+                                    <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off"/>
+                                    <p:menuitem value="Ver Relacionadas" outcome="iniciativasRelacionadas" icon="ui-icon-radio-off" rendered="#{loginBean.verIniciativasRelacionadas()}"/>
+                                    <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="ui-icon-radio-off"/>
+                                    <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="ui-icon-radio-off" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" />
+                                    <p:menuitem value="Estadísticas" outcome="estadisticas" icon="ui-icon-radio-off"/>
+                                </p:submenu>
+                                <p:submenu label="Usuarios" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" icon="ui-icon-person">
+                                    <p:menuitem value="Asignar Perfil" outcome="asignarPerfiles" icon="ui-icon-radio-off"/>
+                                </p:submenu>  
+
+                            </p:menubar>
+                        </div>
+                        <div class="col-md-2 col-xs-2 col-sm-2"/> 
                     </div>
                     <div class="col-md-3 col-xs-3 col-sm-3 "></div>
-                </div>  
-            </h:form>
-            <br></br>  
-            <div class="row">
-                <div class="col-md-1 col-xs-1 col-sm-1"></div>
-                <div class="col-md-10 col-xs-10 col-sm-10">
+                </div> 
+                <br></br> 
+                <div class="row col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 20px; padding-left: 5%; padding-right: 5%">
                     <h3 style="color: white">Iniciativas Relacionadas</h3>
-                    <p:panel id="panelIniciativa">
+                    <p:panel id="panelIniciativa" style="margin-bottom: 40px;">
                         <h:form id="incRelForm">
                             <p:dataTable id="iniciativas_p_table" class="ui-datatable ui-widget-content" var="iniciativa" value="#{iniciativasBean.obtenerIniciativasDeServicios()}" selection="#{iniciativasBean.selectedIniciativa}" rowKey="#{iniciativa.id}" paginatorPosition="bottom"  style="font-size: 15px; margin-bottom: 10px; margin-top: 10px; padding: 0;" rows="5" paginator="true"  paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}">
                                 <p:column headerText="Id" style="width: 60px; text-align: center;">
@@ -93,7 +95,7 @@
                                 </p:column>
                             </p:dataTable>
                         </h:form>
-                        <p:dialog header="Usuario proponente" widgetVar="proponenteDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true">
+                        <p:dialog class="dia" header="Usuario proponente" widgetVar="proponenteDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true" style="max-width: 55%; border-radius: 20px;">
                             <p:outputPanel id="datosProponente" rendered="#{not empty iniciativasBean.usuarioProponente}">
                                 <h:panelGrid columns="2" >
                                     <h:outputText value="Nombres:" style="font-weight: bold"/><h:outputText value="#{iniciativasBean.usuarioProponente.names}"/>
@@ -107,7 +109,7 @@
                                 </h:panelGrid>
                             </p:outputPanel>
                         </p:dialog>
-                        <p:dialog header="Iniciativas Relacionadas" widgetVar="iniRelDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true">
+                        <p:dialog class="dia " header="Iniciativas Relacionadas" widgetVar="iniRelDialog" closable="true" showEffect="slide" hideEffect="fold" modal="true" style="max-width: 55%; border-radius: 20px; ">
                             <p:dataTable id="iniRelacionadas" var="iniciativa" value="#{iniciativasBean.iniciativasRelacionadas}" emptyMessage="No hay iniciativas relacionadas.">
                                 <p:column headerText="Id">
                                     <h:outputText value="#{iniciativa.id}"/>
@@ -128,7 +130,6 @@
                         </p:dialog>
                     </p:panel>
                 </div>
-                <div class="col-md-1 col-xs-1 col-sm-1"></div>
             </div> 
         </div> 
     </h:body>
