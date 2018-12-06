@@ -37,6 +37,7 @@ import org.primefaces.model.chart.PieChartModel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -85,8 +86,8 @@ public class IniciativasBean extends BasePageBean {
     @PostConstruct
     public void init() {
         super.init();
-        try {            
-            iniciativas = serviciosBancoIniciativas.consultarIniciativas();           
+        try {
+            iniciativas = serviciosBancoIniciativas.consultarIniciativas();
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,8 +115,8 @@ public class IniciativasBean extends BasePageBean {
         this.descripcionMiIniciativa = "";
         this.detalleMiIniciativa = "";
         this.selectedIniciativaRelacionada = new Initiative();
-        this.meses= Arrays.asList("Enero", "Febrero", "Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        this.buttonEstdisticaFecha = "Año";                
+        this.meses = Arrays.asList("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+        this.buttonEstdisticaFecha = "Año";
     }
 
     public int getIniciativaId() {
@@ -133,7 +134,7 @@ public class IniciativasBean extends BasePageBean {
         try {
             hs = LoginSession.getSession();
             User usuario = (User) hs.getAttribute("usuario");
-            int id = serviciosBancoIniciativas.consultarIdIniciativa(); 
+            int id = serviciosBancoIniciativas.consultarIdIniciativa();
             String palabrasClaveR = convertirPalabrasClaveEnString();
             this.verificarIniciativasRelacionadas(palabrasClaveR);
             if (!this.iniciativasRelacionadas.isEmpty() && intentosRegistrar < 1) {
@@ -154,10 +155,8 @@ public class IniciativasBean extends BasePageBean {
             System.out.println("No se ha seleccionado una iniciativa para ver sus relacionadas");
         }
     }
-    
-    
-    
-    public String convertirPalabrasClaveEnString(){
+
+    public String convertirPalabrasClaveEnString() {
         String palabrasClaveR = "";
         for (String palabra : listaPalabrasClave) {
             if (palabrasClaveR.isEmpty()) {
@@ -168,7 +167,6 @@ public class IniciativasBean extends BasePageBean {
         }
         return palabrasClaveR;
     }
-        
 
     /**
      * Este método permite verificar qué iniciativas están relacionadas, dadas
@@ -251,7 +249,7 @@ public class IniciativasBean extends BasePageBean {
 
     public List<Initiative> iniciativasUsuario() {
         List<Initiative> iniciativasUsuario = new ArrayList<>();
-        HttpSession hs;        
+        HttpSession hs;
         try {
             hs = LoginSession.getSession();
             User usuario = (User) hs.getAttribute("usuario");
@@ -364,33 +362,36 @@ public class IniciativasBean extends BasePageBean {
         return estadisticaXDependencias;
 
     }
-    
+
     private void createPieModelFecha() {
-        pieModelFecha = new PieChartModel();        
-        if(buttonEstdisticaFecha.equals("Mes")){
+        pieModelFecha = new PieChartModel();
+        if (buttonEstdisticaFecha.equals("Mes")) {
             HashMap<Integer, Integer> estadisticaXFecha = calcularEstadisticasAño();
             for (Map.Entry<Integer, Integer> año : estadisticaXFecha.entrySet()) {
                 //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
                 pieModelFecha.set(año.getKey().toString(), año.getValue());
             }
             pieModelFecha.setLegendPosition("w");
-            pieModelFecha.setShadow(false); 
-        }else{           
+            pieModelFecha.setShadow(false);
+        } else {
             HashMap<String, Integer> estadisticaXFecha = calcularEstadisticasMes();
             for (Map.Entry<String, Integer> mes : estadisticaXFecha.entrySet()) {
                 //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
                 pieModelFecha.set(mes.getKey(), mes.getValue());
             }
             pieModelFecha.setLegendPosition("w");
-            pieModelFecha.setShadow(false);            
+            pieModelFecha.setShadow(false);
         }
-    }   
+    }
 
     public HashMap calcularEstadisticasFecha() {
-        if(buttonEstdisticaFecha.equals("Mes")) return calcularEstadisticasAño();
-        else return calcularEstadisticasMes();        
-    }     
-         
+        if (buttonEstdisticaFecha.equals("Mes")) {
+            return calcularEstadisticasAño();
+        } else {
+            return calcularEstadisticasMes();
+        }
+    }
+
     public HashMap<String, Integer> calcularEstadisticasMes() {
         List<Initiative> iniciativas;
         estadisticaXFecha = new HashMap<>();
@@ -408,7 +409,7 @@ public class IniciativasBean extends BasePageBean {
         }
         return estadisticaXFecha;
     }
-    
+
     public HashMap<Integer, Integer> calcularEstadisticasAño() {
         List<Initiative> iniciativas;
         HashMap<Integer, Integer> estadisticaXAño = new HashMap<>();
@@ -426,13 +427,13 @@ public class IniciativasBean extends BasePageBean {
         }
         return estadisticaXAño;
     }
-    
+
     public List<String> dependenciasGrafica() {
         List<String> dependencias = new ArrayList<>();
         HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();
         for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {
-            dependencias.add(dependenciaArea.getKey());            
-        }   
+            dependencias.add(dependenciaArea.getKey());
+        }
         return dependencias;
     }
 
@@ -471,85 +472,88 @@ public class IniciativasBean extends BasePageBean {
         }
     }
 
-    /*############################## Editar Mis Iniciativas ########################################################*/  
-    public boolean permisoParaEditarIniciativa() throws IOException{ 
-        boolean permiso=false;
-        try{
+    /*############################## Editar Mis Iniciativas ########################################################*/
+    public boolean permisoParaEditarIniciativa() throws IOException {
+        boolean permiso = false;
+        try {
             System.out.println("Entrooooooooooooooo");
             permiso = selectedMiIniciativa.getIniciativeStatus().getDescription().equals("En espera de revisión");
-        }catch(NullPointerException ex){
-            return false;         
-        }       
-        return permiso;          
+        } catch (NullPointerException ex) {
+            return false;
+        }
+        return permiso;
     }
-    
-    public boolean mostrarBotonAgregar(String palabraI) { 
-        boolean permiso=false;
-        if(!palabraI.equals("")) permiso=true;
-        return permiso;          
+
+    public boolean mostrarBotonAgregar(String palabraI) {
+        boolean permiso = false;
+        if (!palabraI.equals("")) {
+            permiso = true;
+        }
+        return permiso;
     }
-    
+
     public void cargarPalabrasClaveEnTabla() {
         listaPalabrasClave.clear();
         List<String> palabras = new ArrayList<String>(Arrays.asList(selectedMiIniciativa.showKeyWords().split(", ")));
-        for(String a: palabras){
+        for (String a : palabras) {
             listaPalabrasClave.add(a);
-            System.out.println("PALABRAS INICIALES A : "+a);
-        }  
-        System.out.println("PALABRAS INICIALESSSSSSS: "+listaPalabrasClave);
+            System.out.println("PALABRAS INICIALES A : " + a);
+        }
+        System.out.println("PALABRAS INICIALESSSSSSS: " + listaPalabrasClave);
     }
-    
-    public void actualizarIniciativa(String descripcion, String detalle) {        
+
+    public void actualizarIniciativa(String descripcion, String detalle) {
         try {
             System.out.println("Voy a actualizar");
-            System.out.println("id="+selectedMiIniciativa.getId()+",description="+descripcion+",detalle="+detalle);
+            System.out.println("id=" + selectedMiIniciativa.getId() + ",description=" + descripcion + ",detalle=" + detalle);
             serviciosBancoIniciativas.actualizarIniciativa(this.selectedMiIniciativa.getId(), descripcion, detalle, convertirPalabrasClaveEnString());
         } catch (ExceptionServiciosBancoIniciativas ex) {
             Logger.getLogger(IniciativasBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage("Iniciativa Selectd", Integer.toString(((Initiative) event.getObject()).getId()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
-    }    
-    
+    }
+
     public void onRowEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Iniciativa Editada", Integer.toString(((Initiative) event.getObject()).getId()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     
+
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edición Cancelada", Integer.toString(((Initiative) event.getObject()).getId()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-         
-        if(newValue != null && !newValue.equals(oldValue)) {
+
+        if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+
     /*################################# GETTERS AND SETTERS ################################*/
-    /*######################################################################################*/
+ /*######################################################################################*/
 
  /*################################# GETTERS AND SETTERS ################################*/
     public Initiative getSelectedIniciativa() {
-        System.out.println("2################## Se guardo esta iniciativa: "+selectedMiIniciativa.getId());
+        System.out.println("2################## Se guardo esta iniciativa: " + selectedMiIniciativa.getId());
         return this.selectedIniciativa;
     }
 
     public void setSelectedIniciativa(Initiative selectedIniciativa) {
-        this.selectedIniciativa = selectedIniciativa;        
+        this.selectedIniciativa = selectedIniciativa;
     }
-    
-    public Initiative getSelectedMiIniciativa() {     
-        return this.selectedMiIniciativa;        
+
+    public Initiative getSelectedMiIniciativa() {
+        return this.selectedMiIniciativa;
     }
-    
+
     public String getDescripcionMiIniciativa() {
         return descripcionMiIniciativa;
     }
@@ -557,23 +561,23 @@ public class IniciativasBean extends BasePageBean {
     public String getDetalleMiIniciativa() {
         return detalleMiIniciativa;
     }
-    
+
     public void setDescripcionMiIniciativa(String descripcionMiIniciativa) {
-        this.descripcionMiIniciativa=descripcionMiIniciativa;
+        this.descripcionMiIniciativa = descripcionMiIniciativa;
     }
 
     public void setDetalleMiIniciativa(String detalleMiIniciativa) {
-        this.detalleMiIniciativa=detalleMiIniciativa;
+        this.detalleMiIniciativa = detalleMiIniciativa;
     }
 
     public void setSelectedMiIniciativa(Initiative selectedMiIniciativa) {
-        System.out.println("################## Set MI INICIATIVA: "+selectedMiIniciativa.getId());
-        System.out.println("################## Set MI INICIATIVA: "+selectedMiIniciativa.getDetail());
-        this.selectedMiIniciativa = selectedMiIniciativa;   
+        System.out.println("################## Set MI INICIATIVA: " + selectedMiIniciativa.getId());
+        System.out.println("################## Set MI INICIATIVA: " + selectedMiIniciativa.getDetail());
+        this.selectedMiIniciativa = selectedMiIniciativa;
         this.descripcionMiIniciativa = selectedMiIniciativa.getDescription();
         this.detalleMiIniciativa = selectedMiIniciativa.getDetail();
-    }    
-    
+    }
+
     public String getIdEstado() {
         return idEstado;
     }
@@ -583,10 +587,10 @@ public class IniciativasBean extends BasePageBean {
     }
 
     public void agregarPalabra(String palabraI) {
-        System.out.println("1 ################### agregar : "+listaPalabrasClave.toString());
+        System.out.println("1 ################### agregar : " + listaPalabrasClave.toString());
         listaPalabrasClave.add(palabraI);
-        System.out.println("2 ################### agregar palabra: "+palabraI);
-        System.out.println("3 ################### agregar Lista: "+listaPalabrasClave.toString());
+        System.out.println("2 ################### agregar palabra: " + palabraI);
+        System.out.println("3 ################### agregar Lista: " + listaPalabrasClave.toString());
     }
 
     public void agregarPalabraConsulta(String palabraI) {
@@ -594,10 +598,10 @@ public class IniciativasBean extends BasePageBean {
     }
 
     public void eliminarPalabras() {
-        System.out.println("1 ################### eliminar: "+listaPalabrasClave.toString());
+        System.out.println("1 ################### eliminar: " + listaPalabrasClave.toString());
         listaPalabrasClave.remove(listaPalabrasClave.indexOf(selectedPalabra));
-        System.out.println("2 ################### eliminar Palabra: "+selectedPalabra);
-        System.out.println("3 ################### eliminar Lista: "+listaPalabrasClave.toString());
+        System.out.println("2 ################### eliminar Palabra: " + selectedPalabra);
+        System.out.println("3 ################### eliminar Lista: " + listaPalabrasClave.toString());
     }
 
     public void eliminarPalabrasConsulta() {
@@ -647,20 +651,26 @@ public class IniciativasBean extends BasePageBean {
     public Date getFechaPropuesta() {
         return fechaPropuesta;
     }
-    
-    public String getValueButtonEstadistica() {        
-        return buttonEstdisticaFecha;              
+
+    public String getValueButtonEstadistica() {
+        return buttonEstdisticaFecha;
     }
-    
-    public void estadisticas() {        
-        if(buttonEstdisticaFecha.equals("Mes"))buttonEstdisticaFecha="Año";
-        else buttonEstdisticaFecha="Mes";            
-        
+
+    public void estadisticas() {
+        if (buttonEstdisticaFecha.equals("Mes")) {
+            buttonEstdisticaFecha = "Año";
+        } else {
+            buttonEstdisticaFecha = "Mes";
+        }
+
     }
-    
-    public String getValueColumnaTabla() { 
-        if(buttonEstdisticaFecha.equals("Mes"))return "Año";
-        else return "Mes";   
+
+    public String getValueColumnaTabla() {
+        if (buttonEstdisticaFecha.equals("Mes")) {
+            return "Año";
+        } else {
+            return "Mes";
+        }
     }
 
     public void setFechaPropuesta(Date fechaPropuesta) {
@@ -679,7 +689,7 @@ public class IniciativasBean extends BasePageBean {
         createPieModelDependencias();
         return pieModelDep;
     }
-    
+
     public PieChartModel getPieModelFecha() {
         createPieModelFecha();
         return pieModelFecha;
@@ -717,4 +727,9 @@ public class IniciativasBean extends BasePageBean {
         this.selectedIniciativaRelacionada = selectedIniciativaRelacionada;
     }
 
+    /*#################################### Wizard ##################################*/
+
+    public String onFlowProcess(FlowEvent event) {
+        return event.getNewStep();
+    }
 }

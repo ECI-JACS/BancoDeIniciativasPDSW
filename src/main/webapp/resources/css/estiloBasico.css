@@ -240,3 +240,10 @@ tabla.ui-state-default, .ui-widget-content .ui-state-default{
     font-size: 15px;
 }
 
+.ui-panel .ui-panel-titlebar {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #0443a9;
+    color: white;
+    padding: .5em 1em .3em;
+}
