@@ -93,7 +93,13 @@ public class User {
     }
     
     public boolean equals(User user) {
-    	return (this.email.equals(user.email))&&(this.code==user.code);
+    	return this.names.equals(user.names) &&
+    			this.lastNames.equals(user.lastNames) &&
+    			this.email.equals(user.email) &&
+    			this.code == user.code &&
+    			this.status.equals(user.status) &&
+    			this.area.equals(user.area) &&
+    			this.role.equals(user.role);
     	
     }
     

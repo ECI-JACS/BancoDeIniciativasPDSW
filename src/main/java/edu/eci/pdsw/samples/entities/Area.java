@@ -41,6 +41,11 @@ public class Area {
         this.name = name;
     }
 
+    public boolean equals(Area area){
+    	return this.id == area.id &&
+    			this.name.equals(area.name);
+    }
+    
     @Override
     public String toString() {
         return "Area{" + "id=" + id + ", name=" + name + "}";
