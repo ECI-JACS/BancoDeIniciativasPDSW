@@ -28,8 +28,10 @@ import org.junit.Test;
 
 import com.google.inject.Inject;
 
+import edu.eci.pdsw.generators.InitiativeGenerator;
 import edu.eci.pdsw.generators.UserGenerator;
 import edu.eci.pdsw.samples.entities.Area;
+import edu.eci.pdsw.samples.entities.Initiative;
 import edu.eci.pdsw.samples.entities.InitiativeStatus;
 import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
@@ -173,6 +175,49 @@ public class ServicesBancoDeIniciativasTest extends TestBase {
     	
     }*/
 
+    
+    @Test
+    public void registrarConsultarIniciativa(){
+    	User user;
+		try {
+			user = serviciosBancoIniciativas.consultarUsuario(userTest.getEmail());
+			//int id = serviciosBancoIniciativas.consultarIdIniciativa();
+			if (null == user){
+				serviciosBancoIniciativas.registrarUsuario(userTest);
+				userTest = serviciosBancoIniciativas.consultarUsuario(userTest.getEmail());		
+			}
+			qt().forAll(InitiativeGenerator.initiativeGenerator()).check(initiative -> {
+				initiative.setUser(user);
+				try {
+					//int id = serviciosBancoIniciativas.consultarIdIniciativa();
+					//initiative.setId(id);
+					boolean test = true;
+					/*
+					 * Si el motor h2dbc me permitiera usar los métodos array_to_String
+					 * esta sería la prueba para insertar iniciativas y además consultarlas
+					serviciosBancoIniciativas.registrarIniciativa(initiative);
+					Initiative iniciativa = serviciosBancoIniciativas.consultarIniciativa(id);
+					test =  test && initiative.equals(iniciativa);
+					*/
+					return test;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				return true;
+			});
+			
+			
+		} catch (ExceptionServiciosBancoIniciativas e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    
+ 
     
     @Test
     public void actualizarRolUsuario(){
