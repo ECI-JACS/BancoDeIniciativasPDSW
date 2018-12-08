@@ -42,7 +42,7 @@
                                 <p:menuitem value="Mis Iniciativas" outcome="iniciativasUsuario" icon="ui-icon-radio-off" />
                             </p:submenu>
                             <p:submenu label="Iniciativas" icon="ui-icon-script">
-                                <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off"/>
+                                <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off" rendered="#{loginBean.permisoCrearIniciativas()}"/>
                                 <p:menuitem value="Ver Relacionadas" outcome="iniciativasRelacionadas" icon="ui-icon-radio-off" rendered="#{loginBean.verIniciativasRelacionadas()}"/>
                                 <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="ui-icon-radio-off"/>
                                 <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="ui-icon-radio-off" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" />
@@ -75,26 +75,22 @@
                                                     new Chart(document.getElementById("pie-chart"), {
                                                         type: 'pie',
                                                         data: {
-                                                            labels: #{iniciativasBean.dependenciasGraficaLabels()},
-                                                            datasets: [{
-                                                                    backgroundColor: ["#9254cc8a","#56ebcb7d", "#fc657b87", "#3e95cdba", "#ffb65f7d"],
-                                                                    data: #{iniciativasBean.dependenciasGraficaDatos()}
-                                                                }]
+                                                          labels: #{iniciativasBean.estadosGraficaLabels()},
+                                                          datasets: [{
+                                                            label: "Cantidad",
+                                                            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                                                            data: #{iniciativasBean.estadosGraficaDatos()}
+                                                          }]
                                                         },
                                                         options: {
-                                                            title: {
-                                                                display: true,
-                                                                text: 'Estadísticas por Dependencias'
-                                                            }
+                                                          title: {
+                                                            display: true,
+                                                            text: 'Estadísticas por Dependencias'
+                                                          }
                                                         }
                                                     });
-                                                </script>
-                                                <p:commandButton type="button" value="Export" icon="pi pi-home" onclick="exportChart()"/>
-
-                                                <p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
-                                                    <p:outputPanel id="output" layout="block" style="width:500px;height:300px"/>
-                                                </p:dialog>
-
+                                                 
+                                                </script>                                                
                                             </h:panelGrid>                                    
                                         </div>                                
                                         <div id="div_grafica" style="padding: 0; max-width: 100%; ">
@@ -125,9 +121,9 @@
                                                         data: {
                                                             labels: #{iniciativasBean.fechaGraficaLabels()},
                                                             datasets: [
-                                                                {
-                                                                    label: "Population (millions)",
-                                                                    backgroundColor: ["#9254cc8a","#56ebcb7d", "#fc657b87", "#3e95cdba", "#ffb65f7d"],
+                                                                {    
+                                                                    label: "Cantidad",
+                                                                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
                                                                     data: #{iniciativasBean.fechaGraficaDatos()}
                                                                 }
                                                             ]
@@ -166,12 +162,12 @@
                                                 <script>
                                                     new Chart(document.getElementById("bar-chart"), {
                                                         type: 'bar',
-                                                        data: {
+                                                        data: {                                                            
                                                             labels: #{iniciativasBean.estadosGraficaLabels()},
                                                             datasets: [
-                                                                {
-                                                                    label: "Population (millions)",
-                                                                    backgroundColor: ["#9254cc8a","#56ebcb7d", "#fc657b87", "#3e95cdba", "#ffb65f7d"],
+                                                                {       
+                                                                    label: "Cantidad",
+                                                                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
                                                                     data: #{iniciativasBean.estadosGraficaDatos()}
                                                                 }
                                                             ]
