@@ -30,6 +30,7 @@ import com.google.inject.Inject;
 
 import edu.eci.pdsw.generators.UserGenerator;
 import edu.eci.pdsw.samples.entities.Area;
+import edu.eci.pdsw.samples.entities.InitiativeStatus;
 import edu.eci.pdsw.samples.entities.Role;
 import edu.eci.pdsw.samples.entities.User;
 import edu.eci.pdsw.samples.entities.UserStatus;
@@ -68,6 +69,61 @@ public class ServicesBancoDeIniciativasTest extends TestBase {
 	    	System.out.println("resultado: " + test);
 	    	assertTrue(test);
 	    			
+		} catch (ExceptionServiciosBancoIniciativas e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }
+    
+    
+    @Test 
+    public void consultarRegistrarEstadoIniciativa(){
+    	System.out.println("consultarEstadIniciativa");
+    	InitiativeStatus iniStatus1 = new InitiativeStatus(1, "Prueba1");
+    	InitiativeStatus iniStatus2 = new InitiativeStatus(2, "Prueba2");
+    	InitiativeStatus iniStatus3 = new InitiativeStatus(3, "Prueba3");
+    	InitiativeStatus iniStatus4 = new InitiativeStatus(4, "Prueba4");
+    	InitiativeStatus iniStatus5 = new InitiativeStatus(5, "Prueba5");
+    	try {
+    		boolean test = true;
+			serviciosBancoIniciativas.registrarEstadoIniciativa(iniStatus1);
+			test = test && serviciosBancoIniciativas.consultarEstadoIniciativas(1).equals(iniStatus1);
+			serviciosBancoIniciativas.registrarEstadoIniciativa(iniStatus2);
+			test = test && serviciosBancoIniciativas.consultarEstadoIniciativas(2).equals(iniStatus2);
+			serviciosBancoIniciativas.registrarEstadoIniciativa(iniStatus3);
+			test = test && serviciosBancoIniciativas.consultarEstadoIniciativas(3).equals(iniStatus3);
+			serviciosBancoIniciativas.registrarEstadoIniciativa(iniStatus4);
+			test = test && serviciosBancoIniciativas.consultarEstadoIniciativas(4).equals(iniStatus4);
+			serviciosBancoIniciativas.registrarEstadoIniciativa(iniStatus5);
+			test = test && serviciosBancoIniciativas.consultarEstadoIniciativas(5).equals(iniStatus5);
+			System.out.println(test);
+			assertTrue(test);
+			
+		} catch (ExceptionServiciosBancoIniciativas e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+    }
+    
+    @Test
+    public void consultarEstados(){
+    	System.out.println("consultarEstadIniciativa");
+    	InitiativeStatus iniStatus6 = new InitiativeStatus(6, "Prueba6");
+    	InitiativeStatus iniStatus7 = new InitiativeStatus(7, "Prueba7");
+    	try {
+			List<InitiativeStatus> estadosActuales = serviciosBancoIniciativas.consultarEstadosIniciativas();
+			estadosActuales.add(iniStatus6);
+			estadosActuales.add(iniStatus7);
+			serviciosBancoIniciativas.registrarEstadoIniciativa(iniStatus6);
+			serviciosBancoIniciativas.registrarEstadoIniciativa(iniStatus7);
+			List<InitiativeStatus> estadosNuevos = serviciosBancoIniciativas.consultarEstadosIniciativas();
+			boolean test = true;
+			for(int i = 0; i < estadosActuales.size(); i++){
+				test = test && estadosActuales.get(i).equals(estadosNuevos.get(i));
+			}
+			System.out.println(test);
+			assertTrue(test);
 		} catch (ExceptionServiciosBancoIniciativas e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

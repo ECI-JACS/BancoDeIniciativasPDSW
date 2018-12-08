@@ -83,15 +83,18 @@ public class LoginBean extends BasePageBean {
         else {
             ver = usuario.getRole() == Role.ADMINISTRADOR;          
         }
-        return ver;
-        /*
-        try{
-            ver = usuario.getRole() == Role.ADMINISTRADOR;          
-        }catch(NullPointerException ex){
-            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe iniciar sesión.", "Inicie Sesión"));
-            FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");           
+        return ver;        
+    }
+    
+    public boolean permisoCrearIniciativas() throws IOException{ 
+        boolean permiso = false;
+        if (usuario == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("inicio.xhtml");
         }
-        return ver;*/
+        else {
+            permiso = usuario.getRole() != Role.PUBLICO;          
+        }
+        return permiso;        
     }
     
      /*######################################### ################ #########################################*/
