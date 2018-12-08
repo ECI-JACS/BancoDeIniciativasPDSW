@@ -13,8 +13,10 @@
 	- Julián Steven Bojacá Ovalle
 - Product owner
 	- Francisco Jose Chaves Alonso
-- Client
+	- Santiago Andrés Alzate Serna
+- Client 
 	- Jorge Eduardo Acero Baracaldo
+
 ---
 ### Profesor: Francisco Jose Chaves Alonso
 ### Descripción del producto
@@ -28,6 +30,10 @@ realización de los proyectos sino una aplicación práctica de los conocimiento
 aprendizaje colaborativo.
 
 ## Funcionalidades
+###NOTA: Para poder ingresar y probar la plataforma, existe un usuario administrador, este es:
+- Usuario: admin@escuelaing.edu.co
+- Contraseña: 1234567
+
 Ahora se hará descripción de las funcionalidades de la aplicación detalladamente:
 **Página de inicio:**
 
@@ -123,20 +129,63 @@ Para cada una de las estadísticas se puede importar un archivo excel.
 >  -  **Modelo E-R:**
 >  - **Diagrama de clases:**
 >  -  **Descripción de la arquitectura (capas) y del Stack de tecnologías utilizado:**
-	>  **_PrimeFaces:_**
+	> **_PrimeFaces:_**
 	> **_Postgres SQL:_**
 >  -   **Heroku:** [Banco de Iniciativas](https://bancodeiniciativaspdsw.herokuapp.com/)
 ## Descripción del proceso:   
-> -   **Metodología:**
+> - **Metodología:** La metodología usada fue **SCRUM**, la cual es un principio ágil que nos permitió darle mucho más valor a nuestro proyecto en el tiempo justo. De esta manera logramos organizarnos, dividir el trabajo en 3 sprints y la mayoría del tiempo trabajamos en parejas para un rendimiento mayor.
+Cuando tuvimos dificultades, acudiamos a algún integrante que sabíamos que tenía un mayor conocimiento en el tema. Además nos asesoramos con el cliente en detalles en los que teníamos duda, que en este caso era perteneciente a la unidad de proyectos de la Escuela Colombiana de Ingeniería Julio Garavito.
+  
 > - **Trello:**  [2018-2-PROYPDSW-ECI-JACS](https://trello.com/b/E69qw4fG/2018-2-proypdsw-eci-jacs)
-> - **Release-burndown chart:**
+> - **Release-burndown chart:** ![Release-burndown chart](/images/Release-BurndownChart.PNG)
 > - **Sprints:**
-	> *- Sprint 1:*
-	> *- Sprint 2:*
-	> *- Sprint 3:*
-> - **Sprint-backlog:**
-> - **Sprint-burndown chart:**
+	> **- Sprint 1:**
+	> 
+	> **Sprint-backlog:** 
+	> 
+	> ![BacklogSprint1](/images/BacklogSprint1.PNG)
+	> 
+	> **Sprint-burndown chart:**
+	> 
+	> ![BurndownTable-Sprint1](/images/BurndownTable-Sprint1.PNG)
+	> 
+	> ![BurndownGraphic-Sprint1](/images/BurndownGraphic-Sprint1.PNG)
+	> 
+	> Para este sprint, nosotros realizamos todas las historias de usuario, pero la funcionalidad de la autenticación de usuario no estaba correcta, además que no existía seguridad, pues así un usuario no se hubiera autenticado, se podía entrar a las páginas, seleccionar las iniciativas, crear iniciativas, entre otros.
+	> 
+	> **- Sprint 2:**
+	> 
+	> **Sprint-backlog:** 
+	> 
+	> ![BacklogSprint2](/images/BacklogSprint2.PNG)
+	> 
+	> **Sprint-burndown chart:**
+	> 
+	> ![BurndownTable-Sprint2](/images/BurndownTable-Sprint2.PNG)
+	> 
+	> ![BurndownGraphic-Sprint2](/images/BurndownGraphic-Sprint2.PNG)
+	> 
+	> En este sprint, logramos también realizar todas las historias de usuario y además corregir la autenticación de los usuarios y mejoramos la seguridad para que sólo quien acceda y dependiendo del rol pudiera realizar ciertas actividades. Aquí hicimos cambios bastantes grandes al diseño.
+	> 
+	> **- Sprint 3:**
+	> 
+	> ![BacklogSprint3](/images/BacklogSprint3.PNG)
+	> 
+	> **Sprint-burndown chart:**
+	> 
+	> ![BurndownTable-Sprint3](/images/BurndownTable-Sprint3.PNG)
+	> 
+	> ![BurndownGraphic-Sprint3](/images/BurndownGraphic-Sprint3.PNG)
+	> 
+	> En este sprint logramos terminar todas las historias de usuario, corregir las vistas, mejorar el diseño, mejorar las estadísticas, entre otros aspectos, para que la plataforma quedara lo más completa posible.
+
 > - **Reporte de pruebas:**
+> ![Pruebas](/images/Pruebas.PNG)
+> - Algunas de las pruebas que realizamos son:
+> ![Prueba1](/images/Prueba1.PNG)
+> ![Prueba2](/images/Prueba2.PNG)
+> ![Prueba3](/images/Prueba3.PNG)  
 
 CircleCI: [![CircleCI](https://circleci.com/gh/ECI-JACS/BancoDeIniciativasPDSW.svg?style=svg)](https://circleci.com/gh/ECI-JACS/BancoDeIniciativasPDSW)
+
 Codacy: [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ec7f18d2708945ebbf7ec467f078f8f7)](https://www.codacy.com/app/CarlosCL98/BancoDeIniciativasPDSW?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ECI-JACS/BancoDeIniciativasPDSW&amp;utm_campaign=Badge_Grade)
