@@ -61,6 +61,7 @@ html {
 }
 
 .ui-menu .ui-menu-parent .ui-menu-child {
+    font-size: medium;
     background-color: #cce5ffde;
 }
 

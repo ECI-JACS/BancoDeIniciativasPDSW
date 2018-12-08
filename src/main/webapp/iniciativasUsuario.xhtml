@@ -41,7 +41,7 @@
                                     <p:menuitem value="Mis Iniciativas" outcome="iniciativasUsuario" icon="ui-icon-radio-off" />
                                 </p:submenu>
                                 <p:submenu label="Iniciativas" icon="ui-icon-script">
-                                    <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off"/>
+                                    <p:menuitem value="Crear" outcome="registroIniciativa" icon="ui-icon-radio-off" rendered="#{loginBean.permisoCrearIniciativas()}"/>
                                     <p:menuitem value="Ver Relacionadas" outcome="iniciativasRelacionadas" icon="ui-icon-radio-off" rendered="#{loginBean.verIniciativasRelacionadas()}"/>
                                     <p:menuitem value="Consultar" outcome="consultarIniciativa" icon="ui-icon-radio-off"/>
                                     <p:menuitem value="Cambiar Estado" outcome="cambiarEstadoIniciativas" icon="ui-icon-radio-off" rendered="#{loginBean.permitirModificarEstadoIniciativas()}" />
