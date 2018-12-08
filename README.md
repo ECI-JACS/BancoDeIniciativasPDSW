@@ -31,20 +31,20 @@ aprendizaje colaborativo.
 Ahora se hará descripción de las funcionalidades de la aplicación detalladamente:
 **Página de inicio:**
 
-![Pantalla De Inicio](/images/PantallaInicio.PNG)
+![Pantalla De Inicio](/images/PantallaInicio.png)
   
 Esta es la página de inicio. En esta ventana el usuario cuenta con dos opciones, registrarse y iniciar sesión. En iniciar sesión los campos deben ser obligatorios y coincidir con un usuario existente, de lo contrario no podrá ingresar a la página:
 
-![Imagen 1](/images/PantallaInicioLoginIncorrecto.PNG) 
+![Imagen 1](/images/PantallaInicioLoginIncorrecto.png) 
 
-![Imagen 2](/images/PantallaInicioCamposRequeridos.PNG)
+![Imagen 2](/images/PantallaInicioCamposRequeridos.png)
 
 En la imagen 1, se intentó acceder con un usuario y contraseña incorrectos. en la imagen 2 se intentó acceder sin llenar los campos.
 
 **Página de registro:**
 En la ventana de registro se pide la información necesaria para poder crear un usuario, esta información consiste en nombre, apellido, correo, carné y área a la que pertenece el usuario.
 
-![Pantalla De Registro](/images/PantallaDeRegistro.PNG)
+![Pantalla De Registro](/images/PantallaDeRegistro.png)
 
 Todos los campos de registro son requeridos, de lo contrario el usuario no se podrá registrar. Una vez se registre, el usuario podrá acceder a la página ingresando el correo en el campo de usuario y como contraseña será su carné.
 
@@ -52,9 +52,9 @@ Todos los campos de registro son requeridos, de lo contrario el usuario no se po
 
 A este menú se accede cuando el usuario inicia sesión. también si hace click sobre la opción de "home" o sobre el logo de la casa. En el menú principal se puede ver la información del usuario que a accedido a la página en la parte superior derecha de la pantalla, a la vez que se ve un botón de salida, que hará que el usuario finalice sesión.
 
-![Usuario Proponente](/images/PantallaMenuPrincipal.PNG)
+![Usuario Proponente](/images/PantallaMenuPrincipal.png)
 
-![Usuario Administrador](/images/MenuOpcionesAdministrador.PNG)
+![Usuario Administrador](/images/MenuOpcionesAdministrador.png)
 
 Dependiendo del tipo de rol que maneje el usuario que inicie sesión, este manejará más o menos opciones. En la primera imagen se ve el menú de un usuario proponente y en la segunda imagen se ve el menú de un administrador. El administrador tiene más opciones y permisos que el proponente.
 
@@ -65,15 +65,15 @@ Cualquier usuario puede consultar su información personal en las opción que di
 
 Como se ve en la imagen, la opción de perfil, nos permite acceder a la información de la cuenta, y la información de mis iniciativa. Si seleccionamos la opción que dice cuenta, se mostrará la información del usuario (nombre, apellido, correo, carné, rol, dependencia y estado).
 
-![Cuenta](/images/PerfilOpcionCuenta.PNG)
+![Cuenta](/images/PerfilOpcionCuenta.png)
 
 Si seleccionamos la opción de "Mis Iniciativas", se mostrarán las iniciativas que haya propuesto el usuario como la información de cada una (id, descripción, detalle, fecha de creación, fecha de modificación de estado, estado actual y palabras clave):
 
-![Mis iniciativas](/images/MisIniciativas.PNG)
+![Mis iniciativas](/images/MisIniciativas.png)
 
 También en la parte inferior está la opción de "editar", para modificar una iniciativa. Esta opción sólo se podrá realizar si la iniciativa está en espera de revisión:
 
-![Editando Iniciativa](/images/OpcionEditarIniciativa.PNG)
+![Editando Iniciativa](/images/OpcionEditarIniciativa.png)
 
 **Opciones de las iniciativas:**
 El usuario puede crear una iniciativa, consultar las demás iniciativas y ver estadísticas acerca de las iniciativas:
@@ -82,40 +82,40 @@ El usuario puede crear una iniciativa, consultar las demás iniciativas y ver es
 
 Si seleccionamos la opción de crear se abre la siguiente ventana:
 
-![Registro de iniciativa](/images/RegistroDeIniciativa.PNG)
+![Registro de iniciativa](/images/RegistroDeIniciativa.png)
 
 Se llenan los campos requeridos. Se hace una breve descripción de la iniciativa y luego se explica a detalle en que consiste la propuesta. Finalmente se asocian palabras clave para facilitar la consulta de la iniciativa. Cundo se tenga todo lo requerido se selecciona la opción de registrar iniciativa.
 
 **Consulta de Iniciativas:**
 Al seleccionar la opción de consultar se nos muestra la siguiente página:
 
-![Consulta De Iniciativas](/images/OpcionConsultarIniciativas.PNG)
+![Consulta De Iniciativas](/images/OpcionConsultarIniciativas.png)
 
 En esta opción se puede buscar la iniciativa que el usuario desee. La búsqueda se puede filtrar por proponente, por fecha, por dependencia, por estado de la iniciativa y por las palabras claves asociadas. Al consultar, se muestran diferentes datos de la iniciativa (id, descripción, detalle, fecha de creación, fecha de modificación, proponente, estado actual de la iniciativa, palabras claves asociadas, comentarios y votos). Para consultar quien es el proponente de la iniciativa se debe dar click sobre la casilla proponente de la inciativa:
 
-![Proponente de la iniciativa](/images/ProponenteIniciativa.PNG)
+![Proponente de la iniciativa](/images/ProponenteIniciativa.png)
 
 También podemos agregar comentarios a una iniciativa. En la casilla de comentarios de la iniciativa seleccionamos la opción con un "+". Esto nos abrirá la siguiente ventana:
 
-![Adición del comentario](/images/AgregarComentario.PNG)
+![Adición del comentario](/images/AgregarComentario.png)
 
 Si presionamos la opción al lado izquierdo del botón "+", se podrán consultar lo comentarios:
 
-![Adición del comentario](/images/Comentario.PNG)
+![Adición del comentario](/images/Comentario.png)
 
 **Estadísticas:**
 Al seleccionar la opción de estadísticas, podremos ver las estadísticas de iniciativas por dependencia, fechas y estados de la iniciativas.
 Las estadísticas por dependencia:
 
-![Estadisticas por dependencias](/images/EstadisticasPorArea.PNG)
+![Estadisticas por dependencias](/images/EstadisticasPorArea.png)
 
 Las estadísticas por la fecha:
 
-![Estadisticas por fecha](/images/EstadisticasPorFecha.PNG)
+![Estadisticas por fecha](/images/EstadisticasPorFecha.png)
 
 Las estadísticas por estados de iniciativas:
 
-![Estadisticas por estado](/images/EstadisticasEstado.PNG)
+![Estadisticas por estado](/images/EstadisticasEstado.png)
 
 Para cada una de las estadísticas se puede importar un archivo excel.
 
