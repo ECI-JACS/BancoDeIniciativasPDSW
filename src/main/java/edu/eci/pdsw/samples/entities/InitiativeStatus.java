@@ -41,6 +41,11 @@ public class InitiativeStatus {
         this.description = description;
     }
     
+    public boolean equals(InitiativeStatus iniStat){
+    	return this.id == iniStat.id &&
+    			this.description.equals(iniStat.description);
+    }
+    
     @Override
     public String toString() {
         return "IniciativeStatus{" + "id=" + id + ", description=" + description + "}";
