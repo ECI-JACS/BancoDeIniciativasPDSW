@@ -121,7 +121,11 @@ Para cada una de las estadísticas se puede importar un archivo excel.
 
 ## Arquitectura y diseño detallado:
 >  -  **Modelo E-R:**
+>  ![Modelo de datos](/images/ModeloEntidadRelacion.PNG)
+>  Modelo da base de datos.
 >  - **Diagrama de clases:**
+>  ![Modelo](/images/DiagramaDeClases.PNG)
+>  Diagrama de clases de las entidades.
 >  -  **Descripción de la arquitectura (capas) y del Stack de tecnologías utilizado:**
 	>  **_PrimeFaces:_**
 	> **_Postgres SQL:_**
