@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f = "http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"> 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"> 
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -67,9 +69,32 @@
                                 <p:tabView id="tablaLogin" class="panel_perfil ui-tabs ui-widget ui-widget-content ui-tabs-nav ui-corner-all ui-tabs-panels" dynamic="true" effect="clip" >
                                     <p:tab id="dependencias" title="Dependencias" >
                                         <div id="div_grafica" style="padding: 0; max-width: 100%;">
-                                            <h:panelGrid columns="" columnClasses="left,right" style="width:100%">
-                                                <p:chart type="pie" model="#{iniciativasBean.pieModelDep}" style="width:100%; height:available; padding: 0"  >
-                                                </p:chart>
+                                            <h:panelGrid columns="" columnClasses="left,right" style="width:100%">                                              
+                                                <canvas id="pie-chart" width="100%" height="60%"></canvas>
+                                                <script>
+                                                    new Chart(document.getElementById("pie-chart"), {
+                                                        type: 'pie',
+                                                        data: {
+                                                            labels: #{iniciativasBean.dependenciasGraficaLabels()},
+                                                            datasets: [{
+                                                                    backgroundColor: ["#9254cc8a","#56ebcb7d", "#fc657b87", "#3e95cdba", "#ffb65f7d"],
+                                                                    data: #{iniciativasBean.dependenciasGraficaDatos()}
+                                                                }]
+                                                        },
+                                                        options: {
+                                                            title: {
+                                                                display: true,
+                                                                text: 'Estadísticas por Dependencias'
+                                                            }
+                                                        }
+                                                    });
+                                                </script>
+                                                <p:commandButton type="button" value="Export" icon="pi pi-home" onclick="exportChart()"/>
+
+                                                <p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
+                                                    <p:outputPanel id="output" layout="block" style="width:500px;height:300px"/>
+                                                </p:dialog>
+
                                             </h:panelGrid>                                    
                                         </div>                                
                                         <div id="div_grafica" style="padding: 0; max-width: 100%; ">
@@ -90,29 +115,76 @@
                                         </div>
                                     </p:tab>
                                     <p:tab id="tab_fecha" title="Fecha" rendered="true">
-                                        <p:commandButton id="b2" value="#{iniciativasBean.valueButtonEstadistica}" action="#{iniciativasBean.estadisticas()}" ajax="false" update="tab_fecha"/>                                                
-                                        <p:chart id="grafica" type="pie" model="#{iniciativasBean.pieModelFecha}" style="width:100%; height:available; padding: 0"  >
-                                        </p:chart>                                      
-                                        <p:dataTable id="estadisticasFecha_t" var="fecha" value="#{iniciativasBean.calcularEstadisticasFecha()}" style="font-size: 15px; margin-bottom:15px; padding: 0; margin-top: 15px;" >>
-                                            <f:facet name="header">                                                    
-                                                <h:commandLink id="excel">
-                                                    <p:graphicImage url="resources/img/excel.png" style="width: 45px; height: 45px; border-color: #c4e3f3 "/>
-                                                    <p:dataExporter type="xls" target="estadisticasFecha_t" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
-                                                </h:commandLink>
-                                            </f:facet>
-                                            <p:column headerText="#{iniciativasBean.valueColumnaTabla}" >
-                                                <h:outputText value="#{fecha.key}" />
-                                            </p:column>
-                                            <p:column headerText="Cantidad">
-                                                <h:outputText value="#{fecha.value}" />
-                                            </p:column>                                             
-                                        </p:dataTable>                               
+                                        <div id="div_grafica" style="padding: 0; max-width: 100%;">
+                                            <p:commandButton id="b2" value="#{iniciativasBean.valueButtonEstadistica}" action="#{iniciativasBean.estadisticas()}" ajax="false" update="tab_fecha"/>
+                                            <h:panelGrid columns="" columnClasses="left,right" style="width:100%">                                             
+                                                <canvas id="doughnut-chart" width="100%" height="60%"></canvas>
+                                                <script>
+                                                    new Chart(document.getElementById("doughnut-chart"), {
+                                                        type: 'doughnut',
+                                                        data: {
+                                                            labels: #{iniciativasBean.fechaGraficaLabels()},
+                                                            datasets: [
+                                                                {
+                                                                    label: "Population (millions)",
+                                                                    backgroundColor: ["#9254cc8a","#56ebcb7d", "#fc657b87", "#3e95cdba", "#ffb65f7d"],
+                                                                    data: #{iniciativasBean.fechaGraficaDatos()}
+                                                                }
+                                                            ]
+                                                        },
+                                                        options: {
+                                                            title: {
+                                                                display: true,
+                                                                text: 'Estadísticas por Fechas'
+                                                            }
+                                                        }
+                                                    });
+                                                </script>                                                
+                                            </h:panelGrid>                                    
+                                        </div>                                
+                                        <div id="div_grafica" style="padding: 0; max-width: 100%; ">
+                                            <p:dataTable id="estadisticasFecha_t" var="fecha" value="#{iniciativasBean.calcularEstadisticasFecha()}" style="font-size: 15px; margin-bottom:15px; padding: 0; margin-top: 15px;" >>
+                                                <f:facet name="header">                                                    
+                                                    <h:commandLink id="excel">
+                                                        <p:graphicImage url="resources/img/excel.png" style="width: 45px; height: 45px; border-color: #c4e3f3 "/>
+                                                        <p:dataExporter type="xls" target="estadisticasFecha_t" fileName="estadisticas" postProcessor="#{iniciativasBean.postProcessXLS}" />
+                                                    </h:commandLink>
+                                                </f:facet>
+                                                <p:column headerText="#{iniciativasBean.valueColumnaTabla}" >
+                                                    <h:outputText value="#{fecha.key}" />
+                                                </p:column>
+                                                <p:column headerText="Cantidad">
+                                                    <h:outputText value="#{fecha.value}" />
+                                                </p:column>                                             
+                                            </p:dataTable>                                      
+                                        </div>
                                     </p:tab>
                                     <p:tab id="estados" title="Estados" >
                                         <div id="div_grafica" style="padding: 0; max-width: 100%;">
                                             <h:panelGrid columns="" columnClasses="left,right" style="width:100%">
-                                                <p:chart type="pie" model="#{iniciativasBean.pieModelEstado}" style="width:100%; height:available; padding: 0"  >
-                                                </p:chart>
+                                                <canvas id="bar-chart" width="20%" height="15%"></canvas>
+                                                <script>
+                                                    new Chart(document.getElementById("bar-chart"), {
+                                                        type: 'bar',
+                                                        data: {
+                                                            labels: #{iniciativasBean.estadosGraficaLabels()},
+                                                            datasets: [
+                                                                {
+                                                                    label: "Population (millions)",
+                                                                    backgroundColor: ["#9254cc8a","#56ebcb7d", "#fc657b87", "#3e95cdba", "#ffb65f7d"],
+                                                                    data: #{iniciativasBean.estadosGraficaDatos()}
+                                                                }
+                                                            ]
+                                                        },
+                                                        options: {
+                                                            legend: {display: false},
+                                                            title: {
+                                                                display: true,
+                                                                text: 'Estadísticas por Estados'
+                                                            }
+                                                        }
+                                                    });
+                                                </script> 
                                             </h:panelGrid>                                    
                                         </div>                                
                                         <div id="div_grafica" style="padding: 0; max-width: 100%; ">

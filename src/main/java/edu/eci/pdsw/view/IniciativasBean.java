@@ -338,8 +338,7 @@ public class IniciativasBean extends BasePageBean {
     private void createPieModelDependencias() {
         pieModelDep = new PieChartModel();
         HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();
-        for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {
-            //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
+        for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {            
             pieModelDep.set(dependenciaArea.getKey(), dependenciaArea.getValue());
         }
         pieModelDep.setLegendPosition("w");
@@ -384,7 +383,7 @@ public class IniciativasBean extends BasePageBean {
             pieModelFecha.setLegendPosition("w");
             pieModelFecha.setShadow(false);
         }
-    }
+    }    
 
     public HashMap calcularEstadisticasFecha() {
         if (buttonEstdisticaFecha.equals("Mes")) {
@@ -433,8 +432,7 @@ public class IniciativasBean extends BasePageBean {
     private void createPieModelEstado() {
         pieModelEstado = new PieChartModel();
         HashMap<String, Integer> estadisticaXEstado = calcularEstadisticasEstado();
-        for (Map.Entry<String, Integer> estado : estadisticaXEstado.entrySet()) {
-            //System.out.println("##################################: "+calcularPorcentaje(dependenciaArea.getKey()));
+        for (Map.Entry<String, Integer> estado : estadisticaXEstado.entrySet()) {            
             pieModelEstado.set(estado.getKey(), estado.getValue());
         }
         pieModelEstado.setLegendPosition("w");
@@ -460,14 +458,79 @@ public class IniciativasBean extends BasePageBean {
     }    
     
 
-    public List<String> dependenciasGrafica() {
+    public List<String> dependenciasGraficaLabels() {
         List<String> dependencias = new ArrayList<>();
-        HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();
+        HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();        
         for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {
-            dependencias.add(dependenciaArea.getKey());
+            dependencias.add("\""+dependenciaArea.getKey()+"\"");
         }
+        /* prueba
+        List<String> s = new ArrayList<>(); 
+        s = Arrays.asList("\"Amalia\"","\"Carlos\"","\"Charly\"");      
+        */
         return dependencias;
     }
+    
+    public List<Integer> dependenciasGraficaDatos() {
+        List<Integer> depNum = new ArrayList<>();
+        HashMap<String, Integer> estadisticaXDependencias = calcularEstadisticasDependencias();        
+        for (Map.Entry<String, Integer> dependenciaArea : estadisticaXDependencias.entrySet()) {
+            depNum.add(dependenciaArea.getValue());
+        }               
+        return depNum;
+    }
+    
+    public List<String> fechaGraficaLabels() {
+        List<String> fechaG = new ArrayList<>();
+        if (buttonEstdisticaFecha.equals("Mes")) {
+            HashMap<Integer, Integer> estadisticaXFecha = calcularEstadisticasAño();
+            for (Map.Entry<Integer, Integer> año : estadisticaXFecha.entrySet()) {
+                fechaG.add("\""+año.getKey().toString()+"\"");
+            }
+        } else {
+            HashMap<String, Integer> estadisticaXFecha = calcularEstadisticasMes();
+            for (Map.Entry<String, Integer> mes : estadisticaXFecha.entrySet()) {
+                fechaG.add("\""+mes.getKey()+"\"");
+            }            
+        }
+        return fechaG;
+    }
+    
+    public List<Integer> fechaGraficaDatos() {
+       List<Integer> fechaNum = new ArrayList<>();
+        if (buttonEstdisticaFecha.equals("Mes")) {
+            HashMap<Integer, Integer> estadisticaXFecha = calcularEstadisticasAño();
+            for (Map.Entry<Integer, Integer> año : estadisticaXFecha.entrySet()) {
+                fechaNum.add(año.getValue());
+            }
+        } else {
+            HashMap<String, Integer> estadisticaXFecha = calcularEstadisticasMes();
+            for (Map.Entry<String, Integer> mes : estadisticaXFecha.entrySet()) {
+                fechaNum.add(mes.getValue());
+            }            
+        }
+        return fechaNum;
+    }
+    
+    public List<String> estadosGraficaLabels() {
+        List<String> estados = new ArrayList<>();
+        HashMap<String, Integer> estadisticaXEstados = calcularEstadisticasEstado();        
+        for (Map.Entry<String, Integer> estado : estadisticaXEstados.entrySet()) {
+            estados.add("\""+estado.getKey()+"\"");
+        }        
+        return estados;
+    }
+    
+    public List<Integer> estadosGraficaDatos() {
+        List<Integer> estadosNum = new ArrayList<>();
+        HashMap<String, Integer> estadisticaXEstados = calcularEstadisticasEstado();        
+        for (Map.Entry<String, Integer> estado : estadisticaXEstados.entrySet()) {
+            estadosNum.add(estado.getValue());
+        }      
+        return estadosNum;
+    }
+    
+    
 
     /**
      * Permite calcular el porcentaje para hacer las gráficas
